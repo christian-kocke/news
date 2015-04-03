@@ -2,4 +2,23 @@
   .navbar {
     border-radius: 0;
   }
+  .container .jumbotron {
+    padding: 0 3em 2em 3em;
+  }
+}
+
+.welcome {
+  font-size: 400%;
+}
+
+.rowForm {
+  margin-bottom: 1em;
+}
+
+.formContainer {
+  width: 60%;
+}
+
+h2.lead {
+  font-size: 250%;
 }
