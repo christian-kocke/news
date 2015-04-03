@@ -4,7 +4,8 @@
 
 var newsApp = angular.module('newsApp', [
   'ngRoute',
-  'newsControllers'
+  'newsControllers',
+  'newsServices'
 ]);
 
 newsApp.config(['$routeProvider',

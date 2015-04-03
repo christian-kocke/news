@@ -2,11 +2,11 @@
 
 /* Services */
 
-var phonecatServices = angular.module('phonecatServices', ['ngResource']);
+var newsServices = angular.module('newsServices', ['ngResource']);
 
-phonecatServices.factory('Phone', ['$resource',
+newsServices.factory('User', ['$resource',
   function($resource){
-    return $resource('phones/:phoneId.json', {}, {
-      query: {method:'GET', params:{phoneId:'phones'}, isArray:true}
+    return $resource('/project/RESTapi/public/user', {}, {
+      login: {method:'GET', params:{id: 2}, isArray:true}
     });
   }]);

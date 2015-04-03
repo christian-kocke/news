@@ -30,7 +30,7 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		echo json_encode("ok");
+		echo json_encode(array("this", "is", "a", "test"));
 	}
 
 }

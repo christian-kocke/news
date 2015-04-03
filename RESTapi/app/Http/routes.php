@@ -11,7 +11,7 @@
 |
 */
 
-Route::post('/', 'WelcomeController@index');
+Route::any('/user', 'WelcomeController@index');
 
 //Route::get('home', 'HomeController@index');
 
