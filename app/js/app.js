@@ -14,6 +14,10 @@ newsApp.config(['$routeProvider',
         templateUrl: 'partials/login.html',
         controller: 'AuthCtrl'
       }).
+      when('/', {
+        templateUrl: 'partials/registration.html',
+        controller: 'SignUpCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });

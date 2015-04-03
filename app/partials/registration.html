@@ -1,0 +1,25 @@
+<div class="container">
+	<h1> Welcome </h1>
+	<p class="lead"> Please create an account or log in to enjoy our news feeds. </p>
+	<form name="postsForm" ng-submit="submit(currentArticle.id)">	
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="control-label sr-only" for="Email"> Email </label>
+					<div class="input-group">
+						<span class="input-group-addon glyphicon glyphicon-envelope"></span>
+						<input type="email" class="form-control" ng-model="email" name="email" id="Email" placeholder="Email...">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<label class="control-label sr-only" for="Prénom"> Prénom </label>
+				<input type="text" class="form-control" ng-model="firstname" name="firstname" id="Prénom" placeholder="Prénom...">
+			</div>
+		</div>
+		<div class="row">
+			<textarea class="form-control" ng-model="message" name="message" rows="3" cols="10" maxlength="200" placeholder="Commentaire..."></textarea>
+		</div><!-- class row -->
+		<button type="submit" id="submit" class="btn btn-default"> Submit </button>
+	</form>
+</div><!-- class container -->
