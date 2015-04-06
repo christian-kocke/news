@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-controller="NewsCtrl as news">
 
 	<div class="row">
 		
@@ -26,24 +26,39 @@
 
 		</div><!-- class col-md-3 -->
 
-		<div class="col-md-9 text-center" ng-controller="NewsCtrl as news">
+		<div class="col-md-9 text-center">
 			<h1><span class="glyphicon glyphicon-book"></span> Latest News</h1>
-			<div class="newsContent">
+			
+			<!-- All News -->
+			<div class="newsContent" ng-hide="showArticle" ng-animate="{show: 'example-show', hide: 'example-hide'}">
 				<div id="{{article.id}}" class="media well" ng-repeat="article in articles">
 					<div class="pull-left media-middle">
-						<a href="">
+						<a>
 							<img class="media-object" ng-src="{{article.images[0].url}}" alt="{{article.images[0].alt}}" width="300" height="200">
 						</a>
 					</div>
 					<div class="media-body">
 						<h4 class="text-left lead media-heading">{{article.title}}<em>—{{article.publish_date}}</em></h4>
 						<h5 class="text-left"><small><em>by {{article.author}}</em></small></h5>
-						<p class="text-justify">{{article.content}}</p>
-						<a class="btn btn-primary" role="submit"> Read More </a>
+						<p class="text-justify preview">{{article.content}}</p>
+						<a data-toggle="modal" data-target="#myModal" ng-click="doClick(article.id)"  class="btn btn-primary">Read More </a>
 					</div>
 				</div><!-- class media well -->
-			</div><!-- class container -->
+			</div><!-- class newsContent -->
+
+			<!-- One News -->
+			<div  class="newsContent" ng-show="showArticle" ng-animate="{show: 'example-show', hide: 'example-hide'}">
+				<div class="container-fluid jumbotron">
+					<a class="btn-lg pull-right" ng-click="doClose()" role="button"><span class="glyphicon glyphicon-remove"></span></a>
+					<img class="center-block img-circle" ng-src="{{currentArticle.images[0].url}}" alt="{{currentArticle.images[0].alt}}" width="150" height="150">
+					<h2 class="lead">{{currentArticle.title}}<em>—{{currentArticle.publish_date}}</em></h2>
+					<p class="text-justify">{{currentArticle.content}}</p>
+					<cite><em>by {{currentArticle.author}}</em></cite>
+				</div>
+			</div><!-- class newsContent -->
+
 		</div><!-- class col-md-9 -->
 
 	</div><!-- class row -->
+
 </div><!-- class container -->

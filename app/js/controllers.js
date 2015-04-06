@@ -16,8 +16,16 @@ newsControllers.controller('AuthCtrl',  ['$scope', '$route', '$routeParams', '$l
   }]);
 
 newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($scope,$http,$log) {
-	$http.post('/News/app/js/posts.json').success(function(response) {
+	$scope.showArticle = false;
+  $http.post('/News/app/js/posts.json').success(function(response) {
 		$log.log(response);
 		$scope.articles = response;
 	});
+  $scope.doClick = function(id) {
+    $scope.currentArticle = $scope.articles[id-1];
+    $scope.showArticle = true;
+  };
+  $scope.doClose = function() {
+    $scope.showArticle = false;
+  };
 }]);
