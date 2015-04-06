@@ -7,6 +7,9 @@
   }
 }
 
+.container {
+  margin-top: 60px;
+}
 .welcome {
   font-size: 400%;
 }
@@ -20,5 +23,14 @@
 }
 
 .side-bar {
-	margin-top: 20vh;
+	margin-top: 10vh;
+}
+
+.srcInput {
+  margin-bottom: 10vh;
+}
+
+.newsContent {
+  max-height: 80vh;
+  overflow: scroll;
 }

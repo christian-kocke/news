@@ -1,30 +1,49 @@
 <div class="container">
 
 	<div class="row">
-		<div class="col-md-3">
-			<div class="form-group">
-				<label class="control-label sr-only" for="Search"> Looking for a news ? </label>
-				<div class="input-group">
-					<span class="input-group-addon glyphicon glyphicon-search"></span>
-					<input type="search" class="form-control" ng-model="search" name="search" id="search" placeholder="Looking for a news ?">
-				</div><!-- class input-group -->
-			</div><!-- class form-group -->
-		</div><!-- class col-md-6 -->
-	</div><!-- class row -->
-
-	<div class="col-md-3 side-bar thumbnail">
-		<ul class="nav nav-pills nav-stacked" role="navigation">
-			<li class="active" role="presentation"><a> Politics </a></li>
-			<li role="presentation"><a> Finance </a></li>
-			<li role="presentation"><a> Sports </a></li>
-			<li role="presentation"><a> International </a></li>
-		</ul><!-- class nav nav-pills nav-stacked -->
-	</div><!--class col-md-3 -->
-
-	<div class="col-md-9 text-center">
-		<h2><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Latest News </h2>
 		
+		<div class="col-md-3 side-bar">
+			
+			<div class="col-md-12 srcInput">
+				<div class="input-group">
+					<input type="search" class="form-control" placeholder="Looking for a news ?">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+			</div><!-- class col-md-12 -->
+			
+			<div class="col-md-12">
+				<ul class="nav nav-pills well nav-stacked" role="navigation">
+					<li class="active" role="presentation"><a> Politics </a></li>
+					<li role="presentation"><a> Finance </a></li>
+					<li role="presentation"><a> Sports </a></li>
+					<li role="presentation"><a> International </a></li>
+				</ul><!-- class nav nav-pills nav-stacked -->
+			</div><!--class col-md-12 -->
 
-	</div><!-- class col-md-9 -->
+		</div><!-- class col-md-3 -->
 
+		<div class="col-md-9 text-center" ng-controller="NewsCtrl as news">
+			<h1><span class="glyphicon glyphicon-book"></span> Latest News</h1>
+			<div class="newsContent">
+				<div id="{{article.id}}" class="media well" ng-repeat="article in articles">
+					<div class="pull-left media-middle">
+						<a href="">
+							<img class="media-object" ng-src="{{article.images[0].url}}" alt="{{article.images[0].alt}}" width="300" height="200">
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="text-left lead media-heading">{{article.title}}<em>—{{article.publish_date}}</em></h4>
+						<h5 class="text-left"><small><em>by {{article.author}}</em></small></h5>
+						<p class="text-justify">{{article.content}}</p>
+						<a class="btn btn-primary" role="submit"> Read More </a>
+					</div>
+				</div><!-- class media well -->
+			</div><!-- class container -->
+		</div><!-- class col-md-9 -->
+
+	</div><!-- class row -->
 </div><!-- class container -->

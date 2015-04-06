@@ -14,3 +14,10 @@ newsControllers.controller('AuthCtrl',  ['$scope', '$route', '$routeParams', '$l
     	$scope.words = User.login();
     };
   }]);
+
+newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($scope,$http,$log) {
+	$http.post('/News/app/js/posts.json').success(function(response) {
+		$log.log(response);
+		$scope.articles = response;
+	});
+}]);
