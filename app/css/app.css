@@ -2,7 +2,7 @@
   .navbar {
     border-radius: 0;
   }
-  .container .jumbotron {
+  .container.jumbotron {
     padding: 0 3em 2em 3em;
   }
 }
@@ -19,6 +19,6 @@
   width: 60%;
 }
 
-h2.lead {
-  font-size: 250%;
+.side-bar {
+	margin-top: 20vh;
 }
