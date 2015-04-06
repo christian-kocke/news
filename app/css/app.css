@@ -2,9 +2,6 @@
   .navbar {
     border-radius: 0;
   }
-  .container.jumbotron {
-    padding: 0 3em 2em 3em;
-  }
 }
 
 .container {
@@ -38,4 +35,18 @@
 .preview {
   max-height: 10vh;
   overflow: hidden;
+}
+
+.jumbotron.dnd {
+  width: 230px;
+  height: 200px;
+  border: 0.1em dashed grey;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 2vh;
+}
+
+#contentArticleArea {
+  max-height: 340px;
+  max-width: 260px;
 }

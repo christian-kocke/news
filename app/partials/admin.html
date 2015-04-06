@@ -1,0 +1,71 @@
+<div class="container text-center">
+	<h1 class="welcome"> Add a News ! </h1>
+	
+	<div class="container jumbotron formContainer">
+		<form name="addNewsForm">	
+			
+			<!-- First & Last Names -->
+			<div class="row">
+				<div class="col-md-6">
+					
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Title"> Title </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-text-width"></span></span>
+								<input type="text" class="form-control" ng-model="title" name="title" id="title" placeholder="Title...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
+					
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Author"> Author </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+								<input type="text" class="form-control" ng-model="author" name="author" id="author" placeholder="Author...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
+
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Categories"> Categories </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span></span>
+								<select class="form-control" ng-model="categories" name="categories" id="categories">
+									<option>Politics</option>
+									<option>Finance</option>
+									<option>Sports</option>
+									<option>International</option>
+								</select>
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
+
+					<div class="col-md-12 jumbotron dnd">
+						<h4 class="lead">  Drag & Drop </h4>
+						<h5>  (or Click) </h5>
+						<h2><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></h2>
+					</div><!-- class col-md-12 -->
+
+				</div><!-- class col-md-6 -->
+				
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="control-label sr-only" for="Content"> Content </label>
+						<textarea class="form-control" id="contentArticleArea" ng-model="content" name="content" rows="17" cols="10" maxlength="200" placeholder="Content..."></textarea>
+					</div><!-- class form-group -->
+				</div><!-- class col-md-6 -->
+
+			</div><!-- class row -->
+
+			<!-- Submit -->
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<a draggable="true" class="btn btn-primary btn-md" role="submit"> Post </a>
+				</div><!-- class col-md-6 -->
+			</div><!-- class row -->
+
+		</form><!-- named signUpForm -->
+	</div><!-- class container jumbotron -->
