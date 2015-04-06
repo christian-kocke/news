@@ -23,9 +23,6 @@ newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($sco
 	});
   $scope.doClick = function(id) {
     $scope.currentArticle = $scope.articles[id-1];
-    $scope.showArticle = true;
-  };
-  $scope.doClose = function() {
-    $scope.showArticle = false;
+    $scope.showArticle = !$scope.showArticle;
   };
 }]);

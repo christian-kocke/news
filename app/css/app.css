@@ -39,26 +39,3 @@
   max-height: 10vh;
   overflow: hidden;
 }
-
-
-.example-show, .example-hide {
-  -webkit-transition:all linear 1s;
-  -moz-transition:all linear 1s;
-  -ms-transition:all linear 1s;
-  -o-transition:all linear 1s;
-  transition:all linear 1s;
-}
- 
-.example-show {
-  opacity: 0;
-}
-.example-show-active.example-show-active {
-  opacity: 1;
-}
- 
-.example-hide {
-  opacity: 1;
-}
-.example-hide-active.example-hide-active {
-  opacity: 0;
-}
