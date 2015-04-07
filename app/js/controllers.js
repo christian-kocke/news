@@ -39,7 +39,7 @@ newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($sco
 newsControllers.controller('AuthCtrl', function($scope, $rootScope, AUTH_EVENTS, AuthService) {
 
 	$scope.credentials = {
-		username: '',
+		email: '',
 		password: ''
 	};
 

@@ -32,6 +32,15 @@ newsServices.factory('AuthService', function ($http, Session) {
 			authorizedRoles.indexOf(Session.userRole) !== -1);
 	};
 
+	authService.retrieveUser = function () {
+
+		return $http
+		.get('/project/RESTapi/public/user/login')
+		.then(function (res) {
+			Session.create(res.data.id, res.data.user.id, res.data.user.name, "admin");
+		});
+	}
+
 	return authService;
 });
 

@@ -20,9 +20,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
     }).
     when('/', {
       templateUrl: 'partials/registration.html',
-      data: {
-        authorizedRoles: [USER_ROLES.client]
-      }
     }).
     when('/profil', {
       templateUrl: 'partials/userProfil.html',
@@ -49,6 +46,8 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
   }
   ]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log) {
     
+
+
     $rootScope.$on('$routeChangeStart', function (event, next) {
 
       var authorizedRoles = next.data.authorizedRoles;
