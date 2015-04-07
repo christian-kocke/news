@@ -38,12 +38,12 @@
       </div><!-- class navbar-header -->
 
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <form class="navbar-form navbar-right" role="login">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="AuthCtrl">
+        <form class="navbar-form navbar-right" name="loginForm" role="login" ng-submit="login(user)" novalidate>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Login">
-            <input type="password" class="form-control" placeholder="Password">
-            <a class="btn btn-success" href="#/login" role="submit"> Sign In </a>
+            <input type="text" class="form-control" placeholder="Login" ng-model="user.email">
+            <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+            <button class="btn btn-success" type="submit"> Sign In </button>
           </div><!-- class form-group -->
         </form><!-- class navbar-form navbar-right -->
       </div><!-- class collapse navbar-collapse -->

@@ -11,10 +11,6 @@ var newsApp = angular.module('newsApp', [
 newsApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-    when('/login', {
-      templateUrl: 'partials/login.html',
-      controller: 'AuthCtrl'
-    }).
     when('/admin', {
       templateUrl: 'partials/admin.html'
     }).
