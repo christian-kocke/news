@@ -18,7 +18,8 @@ newsApp.config(['$routeProvider',
       templateUrl: 'partials/registration.html'
     }).
     when('/profil', {
-      templateUrl: 'partials/userProfil.html'
+      templateUrl: 'partials/userProfil.html',
+      controller: 'ProfilCtrl'
     }).
     when('/client', {
       templateUrl: 'partials/client-news-feed.html',

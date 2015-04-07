@@ -4,6 +4,9 @@
 
 var newsControllers = angular.module('newsControllers', []);
 
+newsControllers.controller('ProfilCtrl', ['$http', '$log', '$scope', function($http,$log,$scope) {
+
+}]);
 
 newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($scope,$http,$log) {
 	$scope.showArticle = false;

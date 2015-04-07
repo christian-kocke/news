@@ -37,16 +37,19 @@
   overflow: hidden;
 }
 
-.jumbotron.dnd {
-  width: 230px;
-  height: 200px;
+.dnd {
+  width: 150px;
+  height: 150px;
   border: 0.1em dashed grey;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 2vh;
+  opacity: 1;
 }
 
-#contentArticleArea {
-  max-height: 340px;
-  max-width: 260px;
+.jumbotron.editPict {
+  background-image: url('/News/app/img/plus.jpg');
+  padding: 0px;
+  margin-left: 4em;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border: 0.1em dashed grey;
 }
