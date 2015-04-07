@@ -26,7 +26,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
     }).
     when('/profil', {
       templateUrl: 'partials/userProfil.html',
-      controller: 'ProfilCtrl'
+      controller: 'ProfilCtrl',
       data: {
         authorizedRoles: [USER_ROLES.admin, USER_ROLES.client]
       },
