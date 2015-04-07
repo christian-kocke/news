@@ -37,7 +37,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
       templateUrl: 'partials/client-news-feed.html',
       controller: 'NewsCtrl',
       data: {
-        authorizedRoles: [USER_ROLES.client]
+        authorizedRoles: [USER_ROLES.client, USER_ROLES.admin]
       }
     }).
     otherwise({
@@ -46,7 +46,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
   }
   ]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log) {
     
-
+    AuthService.retrieveUser().then()
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
 
