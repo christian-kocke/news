@@ -1,6 +1,8 @@
 <?php namespace Api\Http\Middleware;
 
 use Closure;
+use Response;
+use Request;
 use Illuminate\Contracts\Auth\Guard;
 
 class Authenticate {
@@ -32,6 +34,7 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
+		if (Request::ajax()) Response::json("success");
 		if ($this->auth->guest())
 		{
 			if ($request->ajax())
@@ -40,7 +43,7 @@ class Authenticate {
 			}
 			else
 			{
-				return redirect()->guest('auth/login');
+				return response('0');
 			}
 		}
 

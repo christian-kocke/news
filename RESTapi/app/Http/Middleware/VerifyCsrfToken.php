@@ -2,6 +2,7 @@
 
 use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+use Symfony\Component\Security\Core\Util\StringUtils; 
 
 class VerifyCsrfToken extends BaseVerifier {
 
@@ -14,7 +15,7 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
+		error_log("ok");
 		return parent::handle($request, $next);
 	}
-
 }
