@@ -26,7 +26,7 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($scope,$http,$log) {
 	
 	$scope.showArticle = false;
-	$http.post('/News/app/js/posts.json').success(function(response) {
+	$http.post('/project/app/js/posts.json').success(function(response) {
 		$log.log(response);
 		$scope.articles = response;
 	});

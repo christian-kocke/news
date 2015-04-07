@@ -6,7 +6,7 @@
 		"publish_date": "12/12/1212",
 		"images": [ 
 			{
-				"url": "/News/app/img/article1.jpg",
+				"url": "/project/app/img/article1.jpg",
 				"alt": "Premier Post"
 			}],
 		"author": "Noé VIRICEL"
@@ -18,7 +18,7 @@
 		"publish_date": "12/12/1212",
 		"images": [
 			{
-				"url": "/News/app/img/article2.jpg",
+				"url": "/project/app/img/article2.jpg",
 				"alt": "Second Post"
 			}],
 		"author": "Noé VIRICEL"
@@ -30,7 +30,7 @@
 		"publish_date": "12/12/1212",
 		"images": [
 			{
-				"url": "/News/app/img/article3.jpg",
+				"url": "/project/app/img/article3.jpg",
 				"alt": "Troisième Post"
 			}],
 		"author": "Noé VIRICEL"
@@ -42,7 +42,7 @@
 		"publish_date": "12/12/1212",
 		"images": [ 
 			{
-				"url": "/News/app/img/article1.jpg",
+				"url": "/project/app/img/article1.jpg",
 				"alt": "Premier Post"
 			}],
 		"author": "Noé VIRICEL"
@@ -54,7 +54,7 @@
 		"publish_date": "12/12/1212",
 		"images": [
 			{
-				"url": "/News/app/img/article2.jpg",
+				"url": "/project/app/img/article2.jpg",
 				"alt": "Second Post"
 			}],
 		"author": "Noé VIRICEL"
@@ -66,7 +66,7 @@
 		"publish_date": "12/12/1212",
 		"images": [
 			{
-				"url": "/News/app/img/article3.jpg",
+				"url": "/project/app/img/article3.jpg",
 				"alt": "Troisième Post"
 			}],
 		"author": "Noé VIRICEL"
@@ -78,7 +78,7 @@
 		"publish_date": "12/12/1212",
 		"images": [ 
 			{
-				"url": "/News/app/img/article1.jpg",
+				"url": "/project/app/img/article1.jpg",
 				"alt": "Premier Post"
 			}],
 		"author": "Noé VIRICEL"
@@ -90,7 +90,7 @@
 		"publish_date": "12/12/1212",
 		"images": [
 			{
-				"url": "/News/app/img/article2.jpg",
+				"url": "/project/app/img/article2.jpg",
 				"alt": "Second Post"
 			}],
 		"author": "Noé VIRICEL"
@@ -102,7 +102,7 @@
 		"publish_date": "12/12/1212",
 		"images": [
 			{
-				"url": "/News/app/img/article3.jpg",
+				"url": "/project/app/img/article3.jpg",
 				"alt": "Troisième Post"
 			}],
 		"author": "Noé VIRICEL"
