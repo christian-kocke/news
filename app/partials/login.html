@@ -1,10 +1,10 @@
 <div ng-controller="AuthCtrl">
 	<form action=""  ng-submit="login(user)" novalidate>
-		<input type="text" ng-model="user.email">
+		<input type="text" ng-model="user.username">
 		<input type="password" ng-model="user.password">
 		<input type="submit">
 	</form>
-	<a href="#/user/profile">go</a>
+	<ul ng-show="words">
+		<li ng-repeat="word in words">{{word}}</li>
+	</ul>
 </div>
-
-

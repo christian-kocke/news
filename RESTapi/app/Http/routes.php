@@ -11,29 +11,11 @@
 |
 */
 
-
-
-Route::post('/user/login', 'AuthController@authenticate');
-
-Route::group(['middleware' => 'auth'], function(){
-	
-	Route::get('/user/token', function() {
-		csrf_token();
-		echo true;	
-	});
-
-});
-
-Route::group(['middleware' => 'csrf|auth'], function(){
-
-	Route::resource('api/article','ArticleController');	
-
-});
+Route::any('/user', 'WelcomeController@index');
 
 //Route::get('home', 'HomeController@index');
 
-/*Route::controllers([
+Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-	]);*/
-
+]);

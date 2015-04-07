@@ -4,6 +4,16 @@
 
 var newsControllers = angular.module('newsControllers', []);
 
+newsControllers.controller('AuthCtrl',  ['$scope', '$route', '$routeParams', '$location', '$log', 'User',
+  function($scope, $route, $routeParams, $location, $log, User) {
+    $scope.$route = $route;
+    $scope.$location = $location;
+    $scope.$routeParams = $routeParams;
+
+    $scope.login = function(user) {
+    	$scope.words = User.login();
+    };
+  }]);
 
 newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($scope,$http,$log) {
 	$scope.showArticle = false;
@@ -16,30 +26,3 @@ newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($sco
     $scope.showArticle = !$scope.showArticle;
   };
 }]);
-
-newsControllers.controller('AuthCtrl',  ['$scope', '$route', '$routeParams', '$location', '$log', 'User', '$http',
-	function($scope, $route, $routeParams, $location, $log, User, $http) {
-
-		$scope.$route = $route;
-		$scope.$location = $location;
-		$scope.$routeParams = $routeParams;
-
-		$scope.login = function(user) {
-
-			var authentication = User.login({action: "login"}, {email: user.email, password: user.password}).$promise;
-
-			authentication.then(function(response) {
-
-				$scope.loggedIn = (response[0] === "1");
-
-				if($scope.loggedIn) {
-					User.get({action: "token"}).$promise.then(function(response) {
-						$scope.loggedIn = (response[0] === "1");	
-					});
-				}
-
-			});
-		};
-	}
-]);
-
