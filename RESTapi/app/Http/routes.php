@@ -13,7 +13,7 @@
 
 
 
-Route::post('/user/login', 'AuthController@authenticate');
+Route::post('/user/login', 'UserController@authenticate');
 
 Route::group(['middleware' => 'auth'], function(){
 	
@@ -26,7 +26,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::group(['middleware' => 'csrf|auth'], function(){
 
-	Route::resource('api/article','ArticleController');	
+	Route::resource('api/article','ArticleController');
+	Route::resource('api/user','UserController');		
 
 });
 

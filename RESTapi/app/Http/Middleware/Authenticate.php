@@ -34,17 +34,10 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if (Request::ajax()) Response::json("success");
+
 		if ($this->auth->guest())
 		{
-			if ($request->ajax())
-			{
-				return response('Unauthorized.', 401);
-			}
-			else
-			{
-				return response('0');
-			}
+			return response('Unauthorized.', 401);
 		}
 
 		return $next($request);

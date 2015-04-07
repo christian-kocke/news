@@ -15,7 +15,7 @@ class AuthController extends Controller {
     {
         if (Auth::attempt(['email' => Request::input('email'), 'password' => Request::input('password')]))
         {
-        	return response("1");
+        	return response()->json(["id" => csrf_token(), "user" => ["id" => Auth::user()->id, "name" => Auth::user()->name]]);
         }
     }
 

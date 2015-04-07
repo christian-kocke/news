@@ -5,41 +5,48 @@
 var newsControllers = angular.module('newsControllers', []);
 
 
+
+newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService) {
+
+	$scope.currentUser = null;
+	$scope.userRoles = USER_ROLES;
+	$scope.isAuthorized = AuthService.isAuthorized;
+
+	$scope.setCurrentUser = function (user) {
+		$scope.currentUser = user;
+	};
+})
+
+
+
+
 newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($scope,$http,$log) {
+	
 	$scope.showArticle = false;
-  $http.post('/News/app/js/posts.json').success(function(response) {
+	$http.post('/News/app/js/posts.json').success(function(response) {
 		$log.log(response);
 		$scope.articles = response;
 	});
-  $scope.doClick = function(id) {
-    $scope.currentArticle = $scope.articles[id-1];
-    $scope.showArticle = !$scope.showArticle;
-  };
+	$scope.doClick = function(id) {
+		$scope.currentArticle = $scope.articles[id-1];
+		$scope.showArticle = !$scope.showArticle;
+	};
 }]);
 
-newsControllers.controller('AuthCtrl',  ['$scope', '$route', '$routeParams', '$location', '$log', 'User', '$http',
-	function($scope, $route, $routeParams, $location, $log, User, $http) {
+newsControllers.controller('AuthCtrl', function($scope, $rootScope, AUTH_EVENTS, AuthService) {
 
-		$scope.loggedIn = false;
+	$scope.credentials = {
+		username: '',
+		password: ''
+	};
 
-		$scope.login = function(user) {
-
-			var authentication = User.login({action: "login"}, {email: user.email, password: user.password}).$promise;
-
-			authentication.then(function(response) {
-
-				$scope.loggedIn = (response[0] === "1");
-
-				if($scope.loggedIn) {
-					User.get({action: "token"}).$promise.then(function(response) {
-						$scope.loggedIn = (response[0] === "1");	
-					});
-				}
-
-			});
-		};
-
-		$log.log($scope.loggedIn);
-	}
-]);
+	$scope.login = function (credentials) {
+		AuthService.login(credentials).then(function (user) {
+			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			$scope.setCurrentUser(user);
+		}, function () {
+			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+		});
+	};
+});
 
