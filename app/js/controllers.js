@@ -35,9 +35,6 @@ newsControllers.controller('AuthCtrl',  ['$scope', '$route', '$routeParams', '$l
 				if($scope.loggedIn) {
 					User.get({action: "token"}).$promise.then(function(response) {
 						$scope.loggedIn = (response[0] === "1");	
-					})
-					.then(function() {
-						
 					});
 				}
 
