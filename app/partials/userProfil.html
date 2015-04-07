@@ -1,0 +1,98 @@
+<div class="container text-center">
+	<h1 class="welcome"> Edit your profil ! </h1>
+	
+	<div class="container jumbotron formContainer">
+		<form name="addNewsForm">	
+			
+			<!-- First & Last Names -->
+			<div class="row">
+				<div class="col-md-6">
+					
+					<h3 class="lead"> Login </h3>
+
+					<div class="col-md-12 jumbotron dnd" id="drop_zone">
+						<h4 class="lead">  Drag & Drop </h4>
+						<h5>  (or Click) </h5>
+						<h2><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></h2>
+					</div><!-- class col-md-12 -->
+
+					<output id="list"></output>
+
+				</div><!-- class col-md-6 -->
+				
+				<div class="col-md-6 text-center">
+					<h2 class="lead"> Change your password : </h2>
+
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Current"> Current </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+								<input type="password" class="form-control" ng-model="current" name="current" id="current" placeholder="Current...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
+					
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Author"> New </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+								<input type="password" class="form-control" ng-model="new" name="new" id="new" placeholder="New...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
+
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Author"> Confirm </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
+								<input type="password" class="form-control" ng-model="new" name="new" id="new" placeholder="New...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
+
+				</div><!-- class col-md-6 -->
+
+			</div><!-- class row -->
+
+			<!-- Submit -->
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<a draggable="true" class="btn btn-primary btn-md" role="submit"> Post </a>
+				</div><!-- class col-md-6 -->
+			</div><!-- class row -->
+
+		</form><!-- named signUpForm -->
+	</div><!-- class container jumbotron -->
+
+	<script>
+  function handleFileSelect(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    var files = evt.dataTransfer.files; // FileList object.
+
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                  '</li>');
+    }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+  }
+
+  function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+  }
+
+  // Setup the dnd listeners.
+  var dropZone = document.getElementById('drop_zone');
+  dropZone.addEventListener('dragover', handleDragOver, false);
+  dropZone.addEventListener('drop', handleFileSelect, false);
+</script>
