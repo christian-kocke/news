@@ -5,27 +5,86 @@
 var newsApp = angular.module('newsApp', [
   'ngRoute',
   'newsControllers',
-  'newsServices'
+  'newsServices',
   ]);
 
-newsApp.config(['$routeProvider',
-  function($routeProvider) {
+newsApp.config(['$routeProvider', 'USER_ROLES',
+  function($routeProvider, USER_ROLES) {
+
     $routeProvider.
     when('/admin', {
-      templateUrl: 'partials/admin.html'
+      templateUrl: 'partials/admin.html',
+      data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
     }).
     when('/', {
-      templateUrl: 'partials/registration.html'
+      templateUrl: 'partials/registration.html',
+      data: {
+        authorizedRoles: [USER_ROLES.client]
+      }
     }).
     when('/profil', {
       templateUrl: 'partials/userProfil.html',
       controller: 'ProfilCtrl'
+      data: {
+        authorizedRoles: [USER_ROLES.admin, USER_ROLES.client]
+      },
+      resolve: {
+        auth: function resolveAuthentication(AuthResolver) { 
+          return AuthResolver.resolve();
+        }
+      }
     }).
     when('/client', {
       templateUrl: 'partials/client-news-feed.html',
-      controller: 'NewsCtrl'
+      controller: 'NewsCtrl',
+      data: {
+        authorizedRoles: [USER_ROLES.client]
+      }
     }).
     otherwise({
-      redirectTo: '/'
+      redirectTo: '/',
     });
-  }]);
+  }
+  ]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log) {
+    
+    $rootScope.$on('$routeChangeStart', function (event, next) {
+
+      var authorizedRoles = next.data.authorizedRoles;
+      if (!AuthService.isAuthorized(authorizedRoles)) {
+        event.preventDefault();
+        if (AuthService.isAuthenticated()) {
+        // user is not allowed
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+      } else {
+        // user is not logged in
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+      }
+    }
+  });
+});
+
+
+newsApp.config(function ($httpProvider) {
+  $httpProvider.interceptors.push([
+    '$injector',
+    function ($injector) {
+      return $injector.get('AuthInterceptor');
+    }
+    ]);
+});
+
+
+newsApp.constant('AUTH_EVENTS', {
+  loginSuccess: 'auth-login-success',
+  loginFailed: 'auth-login-failed',
+  logoutSuccess: 'auth-logout-success',
+  sessionTimeout: 'auth-session-timeout',
+  notAuthenticated: 'auth-not-authenticated',
+  notAuthorized: 'auth-not-authorized'
+}).constant('USER_ROLES', {
+  all: '*',
+  admin: 'admin',
+  client: 'client'
+});
