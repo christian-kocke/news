@@ -44,6 +44,10 @@
   opacity: 1;
 }
 
+.navbar-text {
+  font-size: 100%;
+}
+
 .jumbotron.editPict {
   background-image: url('/project/app/img/plus.jpg');
   padding: 0px;

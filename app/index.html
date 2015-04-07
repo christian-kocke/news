@@ -21,7 +21,7 @@
   <script src="js/services.js"></script>
 </head>
 <body ng-controller="ApplicationController">
-  
+
  <header>
   <nav class="navbar navbar-fixed-top navbar-inverse">
     <div class="container-fluid">
@@ -46,16 +46,18 @@
             <button class="btn btn-success" type="submit"> Sign In </button>
           </div><!-- class form-group -->
         </form><!-- class navbar-form navbar-right -->
-        <ul class="nav navbar-nav navbar-right" ng-switch-when="true">
-          <div class="form-group">
-            <p class="lead">Hi {{currentUser.name}}</p>
-            <a class="btn btn-danger" href="#/logout">Log out</a>
-          </div>
-        </ul>
-      </div><!-- class collapse navbar-collapse -->
+        <ul class="nav navbar-right" ng-switch-when="true">
+        
+            <h1 class="navbar-text lead">Hello {{currentUser.name}} !</h1>
+       
+      
+           <a class="btn btn-danger navbar-btn" href="#/logout">Log out</a>
 
-    </div><!-- container-fluid -->
-  </nav><!-- class navbar navbar-inverse -->
+       </ul>
+     </div><!-- class collapse navbar-collapse -->
+
+   </div><!-- container-fluid -->
+ </nav><!-- class navbar navbar-inverse -->
 </header>
 
 <div class="view-container">
