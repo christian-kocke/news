@@ -20,9 +20,7 @@ newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($sco
 newsControllers.controller('AuthCtrl',  ['$scope', '$route', '$routeParams', '$location', '$log', 'User', '$http',
 	function($scope, $route, $routeParams, $location, $log, User, $http) {
 
-		$scope.$route = $route;
-		$scope.$location = $location;
-		$scope.$routeParams = $routeParams;
+		$scope.loggedIn = false;
 
 		$scope.login = function(user) {
 
@@ -40,6 +38,8 @@ newsControllers.controller('AuthCtrl',  ['$scope', '$route', '$routeParams', '$l
 
 			});
 		};
+
+		$log.log($scope.loggedIn);
 	}
 ]);
 
