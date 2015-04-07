@@ -4,9 +4,12 @@
 
 var newsServices = angular.module('newsServices', ['ngResource']);
 
-newsServices.factory('User', ['$resource',
-  function($resource){
-    return $resource('/project/RESTapi/public/user', {}, {
-      login: {method:'GET', params:{id: 2}, isArray:true}
+newsServices.factory('User', ['$resource', '$log', '$http', '$q',
+  function($resource, $log, $http, $q){
+
+    return $resource('/project/RESTapi/public/user/:action', {}, {
+      login: {method:'POST', isArray: false}
     });
-  }]);
+
+  }
+]);
