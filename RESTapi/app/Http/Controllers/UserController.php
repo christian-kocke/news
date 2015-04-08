@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller {
 
-	private $_user = null;
+	private $_user;
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -41,7 +41,6 @@ class UserController extends Controller {
 	public function index()
 	{
 		if(Auth::check()){
-			error_log(Auth::user());
 			return response()->json(["id" => csrf_token(), "user" => ["id" => $this->_user->id, "name" => $this->_user->name]]);
 		}
 	}

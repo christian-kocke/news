@@ -9,9 +9,10 @@ newsControllers.controller('ProfilCtrl', ['$http', '$log', '$scope', function($h
 }]);
 
 
-newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, Session) {
+newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, Session, $log) {
 
-	$scope.currentUser = null;
+	$scope.currentUser = (Session.id) ? null : [Session.userId, Session.userName, Session.userRole];
+	$log.log($scope.currentUser);
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
 
