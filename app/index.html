@@ -19,6 +19,7 @@
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/services.js"></script>
+  <script src="js/dropfile.js"></script>
 </head>
 <body ng-controller="ApplicationController">
 
@@ -51,7 +52,7 @@
             <h1 class="navbar-text lead"><a href="#/profil">Hello {{currentUser.name}} !</a></h1>
        
       
-           <a class="btn btn-danger navbar-btn" href="#/logout">Log out</a>
+           <a class="btn btn-danger navbar-btn" href="#/logout">Sign out</a>
 
        </ul>
      </div><!-- class collapse navbar-collapse -->
@@ -66,4 +67,8 @@
 
 <div login-dialog></div>
 </body>
-</html>
+</html><script type="text/javascript">
+  jQuery(function($) {
+    $('.dropfile').dropfile();
+  });
+</script>

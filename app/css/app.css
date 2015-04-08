@@ -40,3 +40,20 @@
 .navbar-text {
   font-size: 100%;
 }
+
+.dropfile {
+  position: relative !important;
+  border: 0.1em dashed grey;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+
+.dropfileHover {
+  border: 0.1em solid grey;
+  opacity: 0.5;
+}
+
+.progress {
+  height: 0;
+}
