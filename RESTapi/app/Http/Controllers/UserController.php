@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller {
 
-	private $_user = null;
+	private $_user;
 	/**
 	 * Show the form for creating a new resource.
 	 *
