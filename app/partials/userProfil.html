@@ -10,7 +10,8 @@
 					<h3 class="lead"> Login </h3>
 					<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true"
 					accept="image/*,application/pdf">
-					<span> Drop your picture ! </span>
+					<h3 class="lead dropText"> Drop your picture ! <span class="glyphicon glyphicon-cloud-download"></span></h3>
+					<img ng-hide="imgIsEnable" ng-src="{{imgSrc}}"/>
 				</div>
 			</div><!-- class col-md-6 -->
 
@@ -42,7 +43,7 @@
 						<label class="control-label sr-only" for="Author"> Confirm </label>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
-							<input type="password" class="form-control" ng-model="new" name="new" id="new" placeholder="New...">
+							<input type="password" class="form-control" ng-model="confirm" name="confirm" id="confirm" placeholder="Confirm...">
 						</div><!-- class input-group -->
 					</div><!-- class form-group -->
 				</div><!-- class col-md-12 -->

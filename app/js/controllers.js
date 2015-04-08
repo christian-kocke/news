@@ -5,6 +5,7 @@
 var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
 
 newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function($scope,$upload,$http) {
+	$scope.imgIsEnable = false;
 	$scope.$watch('files', function () {
 		$scope.upload($scope.files);
 	});
@@ -14,7 +15,7 @@ newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function
 				var file = files[i];
 				console.log(file);
 				$upload.upload({
-					url: 'js/upload.php',
+					url: '/project/RESTapi/public/user/profil/picture',
 					headers: {
 						nom: file.name
 					},
@@ -24,8 +25,8 @@ newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function
 					console.log('progress: ' + progressPercentage + '% ' +
 						evt.config.file.name);
 				}).success(function (data, status, headers, config) {
-					console.log('file ' + config.file.name + 'uploaded. Response: ' +
-						JSON.stringify(data));
+					console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+					$scope.imgSrc = data;
 				});
 			}
 		}

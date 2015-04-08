@@ -25,7 +25,8 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 Route::group(['middleware' => 'auth'], function(){
-
+	
+	Route::post('user/profil/picture', 'UserController@profilPicture');
 	Route::get('/user/logout', 'UserController@logout');
 	Route::resource('api/article','ArticleController');
 	Route::resource('api/user','UserController');		

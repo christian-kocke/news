@@ -50,6 +50,14 @@ class UserController extends Controller {
 		}
 	}
 
+	public function profilPicture(Request $request){
+		if($request->file('file')->isValid()){
+			error_log("test");
+			error_log($request->file('file')->isValid());
+			return $request->file()->move('/project/app/imgDrop', 'user_'.Auth::user()->id);
+		}
+		return response("upload failure", 460);
+	}
 	/**
 	 * Show the form for editing the specified resource.
 	 *
