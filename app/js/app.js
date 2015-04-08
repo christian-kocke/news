@@ -15,7 +15,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     when('/admin', {
       templateUrl: '/project/app/partials/admin.html',
       data: {
-        authorizedRoles: [USER_ROLES.admin]
+        authorizedRoles: [USER_ROLES.admin]aa
       },
       resolve: {
         auth: function resolveAuthentication(AuthResolver) { 

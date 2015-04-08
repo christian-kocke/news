@@ -45,16 +45,14 @@ class UserController extends Controller {
 	public function index()
 	{
 		if(Auth::check()){
-			error_log(Auth::user());
 			return response()->json(["id" => csrf_token(), "user" => ["id" => Auth::user()->id, "name" => Auth::user()->name]]);
 		}
 	}
 
 	public function profilPicture(Request $request){
 		if($request->file('file')->isValid()){
-			error_log("test");
-			error_log($request->file('file')->isValid());
-			return $request->file()->move('/project/app/imgDrop', 'user_'.Auth::user()->id);
+			$request->file('file')->move('../../app/imgDrop/', 'user_'.Auth::user()->id.".".$request->file('file')->guessExtension());
+			return response("1");
 		}
 		return response("upload failure", 460);
 	}
