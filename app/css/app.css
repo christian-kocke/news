@@ -41,19 +41,17 @@
   font-size: 100%;
 }
 
-.dropfile {
-  position: relative !important;
+.drop-box {
+  background: #F8F8F8;
   border: 0.1em dashed grey;
-  width: 250px;
-  height: 250px;
   border-radius: 50%;
+  width: 170px;
+  height: 170px;
+  text-align: center;
+  padding-top: 25px;
+  margin: 10px;
 }
 
-.dropfileHover {
-  border: 0.1em solid grey;
-  opacity: 0.5;
-}
-
-.progress {
-  height: 0;
+.dragover {
+    border: 5px dashed blue;
 }

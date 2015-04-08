@@ -1,17 +1,9 @@
 <?php
+error_log(print_r($_FILES, true));
 header('content-type: application/json');
 $h = getallheaders();
-$o = new stdClass();
+error_log(print_r($h, true));
 $source = file_get_contents('php://input');
-$types = array('image/png', 'image/jpg', 'image/jpeg', 'image/gif');
-
-if(!in_array($h['x-file-type'], $types)) {
-	$o->error = 'Wrong Format (only: .png / .jpg / .jpeg / .gif'; 
-} else {
-	file_put_contents('/project/app/imgDrop'.$h['x-file-name'], $source);
-	$o->name = $h['x-file-name'];
-	$o->content = '<img src="/project/app/imgDrop/'.$h['x-file-name'].'"/>';
-}
-
-echo json_encode($o);
+$filename = $_FILES['file']['name'];
+echo json_encode(move_uploaded_file( $_FILES['file']['tmp_name'] , '../imgDrop/'.$filename ));
 ?>

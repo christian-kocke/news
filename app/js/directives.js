@@ -5,8 +5,13 @@
 
 var newsDirectives = angular.module('newsDirectives', []);
 
-.directive('loginDialog', function (AUTH_EVENTS) {
+<<<<<<< HEAD
+newsDirectives.directive('loginDialog', function (AUTH_EVENTS) {
 	
+=======
+.directive('loginDialog', function (AUTH_EVENTS) {
+
+>>>>>>> origin/master
 	return {
 		restrict: 'A',
 		template: '<div ng-if="visible"
@@ -21,4 +26,4 @@ var newsDirectives = angular.module('newsDirectives', []);
 			scope.$on(AUTH_EVENTS.sessionTimeout, showDialog)
 		}
 	};
-})
+});

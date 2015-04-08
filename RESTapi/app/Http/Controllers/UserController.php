@@ -35,7 +35,7 @@ class UserController extends Controller {
 
     public function logout()
     {
-    	Auth::logout();
+    	return response(Auth::logout());
     }
 	/**
 	 * Display the specified resource.
