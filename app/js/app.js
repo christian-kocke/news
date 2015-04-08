@@ -8,28 +8,39 @@ var newsApp = angular.module('newsApp', [
   'newsServices',
   ]);
 
-newsApp.config(['$routeProvider', 'USER_ROLES',
-  function($routeProvider, USER_ROLES) {
+newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
+  function($routeProvider, USER_ROLES, $locationProvider) {
 
     $routeProvider.
     when('/admin', {
-      templateUrl: 'partials/admin.html',
+      templateUrl: '/project/app/partials/admin.html',
       data: {
         authorizedRoles: [USER_ROLES.admin]
+      },
+      resolve: {
+        auth: function resolveAuthentication(AuthResolver) { 
+          return AuthResolver.resolve();
+        }
       }
     }).
     when('/', {
-      templateUrl: 'partials/registration.html',
+      templateUrl: '/project/app/partials/registration.html',
+      url: '/protected',
     }).
     when('/profil', {
       templateUrl: 'partials/userProfil.html',
       controller: 'ProfilCtrl',
       data: {
         authorizedRoles: [USER_ROLES.admin, USER_ROLES.client]
-      }
+      },
+      resolve: {
+        auth: function resolveAuthentication(AuthResolver) { 
+          return AuthResolver.resolve();
+        }
+      },
     }).
     when('/client', {
-      templateUrl: 'partials/client-news-feed.html',
+      templateUrl: '/project/app/partials/client-news-feed.html',
       controller: 'NewsCtrl',
       data: {
         authorizedRoles: [USER_ROLES.client, USER_ROLES.admin]
@@ -38,10 +49,16 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
     otherwise({
       redirectTo: '/',
     });
+
+    $locationProvider.html5Mode(false);
   }
-  ]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log) {
+  
+
+]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log, Session) {
     
-    AuthService.retrieveUser();
+    AuthService.retrieveUser().then(function (user) {
+      $rootScope.currentUser = user;
+    });
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
 

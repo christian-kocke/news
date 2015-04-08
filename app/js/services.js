@@ -19,7 +19,6 @@ newsServices.factory('AuthService', function ($http, Session) {
 	};
 
 	authService.isAuthenticated = function () {
-
 		return !!Session.userId;
 	};
 
@@ -39,6 +38,9 @@ newsServices.factory('AuthService', function ($http, Session) {
 		.then(function (res) {
 			Session.create(res.data.id, res.data.user.id, res.data.user.name, "admin");
 			return res.data.user;
+		},
+		function () {
+			return null;
 		});
 	}
 
@@ -57,6 +59,7 @@ newsServices.service('Session', function () {
   this.destroy = function () {
     this.id = null;
     this.userId = null;
+    this.userName = null;
     this.userRole = null;
   };
 });
@@ -78,7 +81,7 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
   };
 });
 
-newsServices.factory('AuthResolver', function ($q, $rootScope, $route) {
+newsServices.factory('AuthResolver', function ($q, $rootScope, $location) {
   return {
     resolve: function () {
       var deferred = $q.defer();
@@ -88,7 +91,7 @@ newsServices.factory('AuthResolver', function ($q, $rootScope, $route) {
             deferred.resolve(currentUser);
           } else {
             deferred.reject();
-            $route.updateParams('/');
+            $location.path('/');
           }
           unwatch();
         }

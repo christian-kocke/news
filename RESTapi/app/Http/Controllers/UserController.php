@@ -33,6 +33,10 @@ class UserController extends Controller {
         }
     }
 
+    public function logout()
+    {
+    	Auth::logout();
+    }
 	/**
 	 * Display the specified resource.
 	 *
@@ -42,7 +46,7 @@ class UserController extends Controller {
 	{
 		if(Auth::check()){
 			error_log(Auth::user());
-			return response()->json(["id" => csrf_token(), "user" => ["id" => $this->_user->id, "name" => $this->_user->name]]);
+			return response()->json(["id" => csrf_token(), "user" => ["id" => Auth::user()->id, "name" => Auth::user()->name]]);
 		}
 	}
 
