@@ -8,7 +8,7 @@ newsControllers.controller('ProfilCtrl', ['$http', '$log', '$scope', function($h
 
 }]);
 
-newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, Session, $log) {
+newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, $location, $log, Session) {
 
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -17,9 +17,6 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 		$scope.currentUser = user;
 	};
 
-	$scope.show = function(){
-		$log.log($scope.currentUser);
-	};
 })
 
 
@@ -29,7 +26,6 @@ newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($sco
 	
 	$scope.showArticle = false;
 	$http.post('/project/app/js/posts.json').success(function(response) {
-		$log.log(response);
 		$scope.articles = response;
 	});
 	$scope.doClick = function(id) {
@@ -53,5 +49,13 @@ newsControllers.controller('AuthCtrl', function($scope, $rootScope, AUTH_EVENTS,
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
 	};
+
+	$scope.logout = function () {
+		AuthService.logout().then(function (res) {
+			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+			$scope.setCurrentUser(null);
+		});
+	};
 });
+
 

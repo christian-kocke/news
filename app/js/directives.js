@@ -6,7 +6,7 @@
 var newsDirectives = angular.module('newsDirectives', []);
 
 .directive('loginDialog', function (AUTH_EVENTS) {
-	
+
 	return {
 		restrict: 'A',
 		template: '<div ng-if="visible"
