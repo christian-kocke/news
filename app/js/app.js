@@ -46,7 +46,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
   }
   ]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log) {
     
-    AuthService.retrieveUser().then()
+    AuthService.retrieveUser();
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
 

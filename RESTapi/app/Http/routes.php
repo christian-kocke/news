@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
-Route::group(['middleware' => 'csrf|auth'], function(){
+Route::group(['middleware' => 'auth'], function(){
 
 	Route::resource('api/article','ArticleController');
 	Route::resource('api/user','UserController');		

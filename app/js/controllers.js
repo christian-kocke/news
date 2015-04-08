@@ -9,7 +9,7 @@ newsControllers.controller('ProfilCtrl', ['$http', '$log', '$scope', function($h
 }]);
 
 
-newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService) {
+newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, Session) {
 
 	$scope.currentUser = null;
 	$scope.userRoles = USER_ROLES;
