@@ -79,7 +79,7 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
 });
 
 
-newsServices.factory('AuthResolver', function ($q, $rootScope, $state) {
+newsServices.factory('AuthResolver', function ($q, $rootScope, $route) {
   return {
     resolve: function () {
       var deferred = $q.defer();
@@ -89,7 +89,7 @@ newsServices.factory('AuthResolver', function ($q, $rootScope, $state) {
             deferred.resolve(currentUser);
           } else {
             deferred.reject();
-            $state.go('user-login');
+            $route.updateParams('/');
           }
           unwatch();
         }
