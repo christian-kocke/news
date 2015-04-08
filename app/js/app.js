@@ -28,13 +28,8 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
       url: '/protected',
     }).
     when('/profil', {
-<<<<<<< HEAD
       templateUrl: 'partials/userProfil.html',
       controller: "ProfilCtrl",
-=======
-      templateUrl: '/project/app/partials/userProfil.html',
-      controller: 'ProfilCtrl',
->>>>>>> origin/master
       data: {
         authorizedRoles: [USER_ROLES.admin, USER_ROLES.client]
       },
