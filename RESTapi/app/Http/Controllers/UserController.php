@@ -41,6 +41,7 @@ class UserController extends Controller {
 	public function index()
 	{
 		if(Auth::check()){
+			error_log(Auth::user());
 			return response()->json(["id" => csrf_token(), "user" => ["id" => $this->_user->id, "name" => $this->_user->name]]);
 		}
 	}

@@ -37,23 +37,6 @@
   overflow: hidden;
 }
 
-.dnd {
-  width: 150px;
-  height: 150px;
-  border: 0.1em dashed grey;
-  opacity: 1;
-}
-
 .navbar-text {
   font-size: 100%;
-}
-
-.jumbotron.editPict {
-  background-image: url('/project/app/img/plus.jpg');
-  padding: 0px;
-  margin-left: 4em;
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  border: 0.1em dashed grey;
 }

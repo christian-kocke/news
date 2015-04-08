@@ -7,11 +7,10 @@
 			<!-- First & Last Names -->
 			<div class="row">
 				<div class="col-md-6">
-					
 					<h3 class="lead"> Login </h3>
-					<div class="col-md-12 jumbotron editPict">
-						<img class="center-block dnd img-circle" id="drop_zone">
-					</div><!-- class col-md-12 -->
+
+					<div class="well">
+					</div>
 
 				</div><!-- class col-md-6 -->
 				
@@ -61,44 +60,3 @@
 
 		</form><!-- named signUpForm -->
 	</div><!-- class container jumbotron -->
-
-	<!--<script>
-	function handleFileSelect(evt) {
-		evt.stopPropagation();
-		evt.preventDefault();
-
-    	var files = evt.dataTransfer.files; // FileList object.
-
-    	// files is a FileList of File objects. List some properties.
-    	var output = [];
-    	for (var i = 0, f; f = files[i]; i++) {
-    		// Only process image files.
-    		if (!f.type.match('image/*')) {
-    			continue;
-    		}
-
-    		var reader = new FileReader();
-    		reader.onload = (function(theFile) {
-    			return function(e) {
-	          		// Render thumbnail.
-	          		var imgBlock = document.getElementById('drop_zone');
-	          		imgBlock.setAttribute('src', e.target.result);
-	          		imgBlock.setAttribute('alt', escape(theFile.name));
-	          	};
-	          })(f);
-	    	// Read in the image file as a data URL.
-	    	reader.readAsDataURL(f);
-	    }
-	}
-
-	function handleDragOver(evt) {
-		evt.stopPropagation();
-		evt.preventDefault();
-    	evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-    }
-
-  	// Setup the dnd listeners.
-  	var dropZone = document.getElementById('drop_zone');
-  	dropZone.addEventListener('dragover', handleDragOver, false);
-  	dropZone.addEventListener('drop', handleFileSelect, false);
-  	</script>-->

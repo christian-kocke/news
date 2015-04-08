@@ -26,11 +26,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
       controller: 'ProfilCtrl',
       data: {
         authorizedRoles: [USER_ROLES.admin, USER_ROLES.client]
-      },
-      resolve: {
-        auth: function resolveAuthentication(AuthResolver) { 
-          return AuthResolver.resolve();
-        }
       }
     }).
     when('/client', {
@@ -46,7 +41,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES',
   }
   ]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log) {
     
-    AuthService.retrieveUser().then()
+    AuthService.retrieveUser();
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
 

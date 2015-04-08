@@ -35,9 +35,10 @@ newsServices.factory('AuthService', function ($http, Session) {
 	authService.retrieveUser = function () {
 
 		return $http
-		.get('/project/RESTapi/public/user/login')
+		.get('/project/RESTapi/public/api/user')
 		.then(function (res) {
 			Session.create(res.data.id, res.data.user.id, res.data.user.name, "admin");
+			return res.data.user;
 		});
 	}
 
@@ -77,8 +78,7 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
   };
 });
 
-
-newsServices.factory('AuthResolver', function ($q, $rootScope, $state) {
+newsServices.factory('AuthResolver', function ($q, $rootScope, $route) {
   return {
     resolve: function () {
       var deferred = $q.defer();
@@ -88,7 +88,7 @@ newsServices.factory('AuthResolver', function ($q, $rootScope, $state) {
             deferred.resolve(currentUser);
           } else {
             deferred.reject();
-            $state.go('user-login');
+            $route.updateParams('/');
           }
           unwatch();
         }
