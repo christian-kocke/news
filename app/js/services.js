@@ -103,10 +103,9 @@ newsServices.factory('AuthResolver', function ($q, $rootScope, $location, $log) 
 			var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
 				if (angular.isDefined(currentUser)) {
 					if (currentUser) {
-						$log.log("ok");
 						deferred.resolve(currentUser);
 					} else {
-						$log.log("not ok");
+						$log.log("currentUser null");
 						deferred.reject();
 						$location.path('/');
 					}
@@ -122,7 +121,6 @@ newsServices.factory('SessionResolver', function ($q, $rootScope, $location, $lo
 	return {
 		resolve: function () {
 			var def = $q.defer();
-			$log.log("coucou");
 			return $rootScope.deferred.promise.then(function () {
 				$log.log(Session);
 				def.resolve();

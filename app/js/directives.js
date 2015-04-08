@@ -5,12 +5,12 @@
 
 var newsDirectives = angular.module('newsDirectives', []);
 
-.directive('loginDialog', function (AUTH_EVENTS) {
+newsDirectives.directive('loginDialog', function (AUTH_EVENTS) {
 
 	return {
 		restrict: 'A',
 		template: '<div ng-if="visible"
-		ng-include="\'login-form.html\'">',
+		ng-include="\'login.html\'">',
 		link: function (scope) {
 			var showDialog = function () {
 				scope.visible = true;
@@ -18,7 +18,7 @@ var newsDirectives = angular.module('newsDirectives', []);
 
 			scope.visible = false;
 			scope.$on(AUTH_EVENTS.notAuthenticated, showDialog);
-			scope.$on(AUTH_EVENTS.sessionTimeout, showDialog)
+			scope.$on(AUTH_EVENTS.sessionTimeout, showDialog);
 		}
 	};
 })

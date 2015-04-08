@@ -4,7 +4,7 @@
 
 var newsControllers = angular.module('newsControllers', []);
 
-newsControllers.controller('ProfilCtrl', ['$http', '$log', '$scope', function($http,$log,$scope) {
+newsControllers.controller('ProfilCtrl', ['$http', '$log', '$scope', function ($http,$log,$scope) {
 
 }]);
 
@@ -13,16 +13,12 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
 
-	$scope.setCurrentUser = function (user) {
-		$scope.currentUser = user;
-	};
-
 })
 
 
 
 
-newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($scope,$http,$log) {
+newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function ($scope,$http,$log) {
 	
 	$scope.showArticle = false;
 	$http.post('/project/app/js/posts.json').success(function(response) {
@@ -34,7 +30,7 @@ newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($sco
 	};
 }]);
 
-newsControllers.controller('AuthCtrl', function($scope, $rootScope, AUTH_EVENTS, AuthService) {
+newsControllers.controller('AuthCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
 
 	$scope.credentials = {
 		email: '',
@@ -44,7 +40,7 @@ newsControllers.controller('AuthCtrl', function($scope, $rootScope, AUTH_EVENTS,
 	$scope.login = function (credentials) {
 		AuthService.login(credentials).then(function (user) {
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-			$scope.setCurrentUser(user);
+			$rootScope.currentUser = user;
 		}, function () {
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
@@ -53,7 +49,7 @@ newsControllers.controller('AuthCtrl', function($scope, $rootScope, AUTH_EVENTS,
 	$scope.logout = function () {
 		AuthService.logout().then(function (res) {
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-			$scope.setCurrentUser(null);
+			$rootScope.currentUser = null;
 		});
 	};
 });

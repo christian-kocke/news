@@ -58,6 +58,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
   
 
   ]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log, Session, $q) {
+    
     $rootScope.deferred = $q.defer();
     AuthService.retrieveUser().then(function (user) {
       $rootScope.currentUser = user;
