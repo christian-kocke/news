@@ -1,6 +1,7 @@
 <?php namespace Api\Http\Controllers;
 
 use Auth;
+use DB;
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
 
@@ -62,7 +63,8 @@ class UserController extends Controller {
 
 	public function getPicture(){
 		if(Auth::check()){
-			return response(DB::select("select img from users where id = ?", [Auth::user()->id]));
+			$path = '/project/app/imgDrop/'.DB::select('select img from users where id = ?', [Auth::user()->id])[0]->img;
+			return response($path);
 		}
 	}
 	/**

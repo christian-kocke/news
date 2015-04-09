@@ -7,6 +7,7 @@ var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
 newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function ($scope, $upload, $http) {
 
 	$scope.imgIsEnable = false;
+	$scope.imgSrc = null;
 
 	$scope.$watch('files', function () {
 		$scope.upload($scope.files);
@@ -29,6 +30,7 @@ newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function
 						evt.config.file.name);
 				}).success(function (data, status, headers, config) {
 					console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+					$scope.getPicture();
 				});
 			}
 		}
@@ -40,7 +42,6 @@ newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function
 			$scope.imgIsEnable = !!res.data;
 			$scope.imgSrc = res.data;
 		});
-		return $scope.imgSrc;
 	}
 }]);
 
