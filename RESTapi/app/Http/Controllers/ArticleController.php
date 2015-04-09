@@ -20,8 +20,7 @@ class ArticleController extends Controller {
 		if($result) 
 		{
 			foreach ($result as $article) {
-				$date = new DateTime($article->timestamp);
-				$article->timestamp = format($date, 'd-m-Y');
+				$article->timestamp = date('F d, Y', strtotime($article->timestamp));
 			}
 			return response()->json($result);
 		}
