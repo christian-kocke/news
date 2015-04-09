@@ -46,7 +46,7 @@
 					<div class="col-md-12 jumbotron dnd">
 						<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
 							<p ng-hide="imgIsEnable" class="lead dropText"> Drop your picture ! (or click)<span class="glyphicon glyphicon-cloud-download"></span></p>
-							<img class="img-responsive dropImg" ng-show="imgIsEnable" ng-src=""/>
+							<img class="dropImg" ng-show="imgIsEnable" ng-src="{{imgSrc}}"/>
 						</div>
 					</div><!-- class col-md-12 -->
 
