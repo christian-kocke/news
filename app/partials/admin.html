@@ -44,9 +44,10 @@
 					</div><!-- class col-md-12 -->
 
 					<div class="col-md-12 jumbotron dnd">
-						<h4 class="lead">  Drag & Drop </h4>
-						<h5>  (or Click) </h5>
-						<h2><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></h2>
+						<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
+							<p ng-hide="imgIsEnable" class="lead dropText"> Drop your picture ! (or click)<span class="glyphicon glyphicon-cloud-download"></span></p>
+							<img class="img-responsive dropImg" ng-show="imgIsEnable" ng-src=""/>
+						</div>
 					</div><!-- class col-md-12 -->
 
 				</div><!-- class col-md-6 -->

@@ -41,6 +41,9 @@
   font-size: 100%;
 }
 
+.infoUser {
+  padding-top: 5em;
+}
 .jumbotron p.dropText {
   font-size: 100%;
   padding-top: 2.6em;
