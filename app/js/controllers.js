@@ -4,18 +4,21 @@
 
 var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
 
-newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function($scope,$upload,$http) {
+newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function ($scope, $upload, $http) {
+
 	$scope.imgIsEnable = false;
+
 	$scope.$watch('files', function () {
 		$scope.upload($scope.files);
 	});
+
 	$scope.upload = function (files) {
 		if (files && files.length) {
 			for (var i = 0; i < files.length; i++) {
 				var file = files[i];
 				console.log(file);
 				$upload.upload({
-					url: '/project/RESTapi/public/user/profil/picture',
+					url: '/project/RESTapi/public/user/setPicture',
 					headers: {
 						nom: file.name
 					},
@@ -30,6 +33,15 @@ newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function
 			}
 		}
 	};
+
+	$scope.getPicture = function () {
+		$scope.imgSrc = "";
+		$http.get('/project/RESTapi/public/user/getPicture').then(function (res) {
+			$scope.imgIsEnable = !!res.data;
+			$scope.imgSrc = res.data;
+		});
+		return $scope.imgSrc;
+	}
 }]);
 
 newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, $location, $log, Session) {

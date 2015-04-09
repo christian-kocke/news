@@ -47,6 +47,14 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
       controller: 'NewsCtrl',
       data: {
         authorizedRoles: [USER_ROLES.client, USER_ROLES.admin]
+      },
+      resolve: {
+        auth: function resolveAuthentication(AuthResolver) { 
+          return AuthResolver.resolve();
+        },
+        session: function resolveSession(SessionResolver) {
+          return SessionResolver.resolve();
+        }
       }
     }).
     otherwise({
