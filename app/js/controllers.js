@@ -37,7 +37,7 @@ newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function
 	$scope.getPicture = function () {
 		$scope.imgSrc = "";
 		$http.get('/project/RESTapi/public/user/getPicture').then(function (res) {
-			$scope.imgIsEnable = !!res;
+			$scope.imgIsEnable = !!res.data;
 			$scope.imgSrc = res.data;
 		});
 		return $scope.imgSrc;
