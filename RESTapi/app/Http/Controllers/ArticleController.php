@@ -1,5 +1,6 @@
 <?php namespace Api\Http\Controllers;
 
+use DB;
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
 
@@ -32,9 +33,13 @@ class ArticleController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		if(DB::insert('insert into articles (title, content, author_id, img_path, categorie) values (?, ?, ?, ?, ?)', [$request->input('title'), $request->input('content'), $request->input('author_id'), $request->input('img_path'), $request->input('categorie')])) 
+		{
+			return response("1");
+		} 
+		return response("Insertion Failed.", 450);
 	}
 
 	/**

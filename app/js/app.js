@@ -65,7 +65,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
   }
   
 
-  ]).run(function ($rootScope, AUTH_EVENTS, AuthService, $log, Session, $q) {
+  ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, AuthService, $log, Session, $q) {
     $rootScope.deferred = $q.defer();
     AuthService.retrieveUser().then(function (user) {
       $rootScope.currentUser = user;
@@ -99,6 +99,10 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
       $log.log("not authorized");
     });
 
+    $rootScope.$on(ARTICLE_EVENTS.postSuccess, function () {
+      $log.log("post success");
+    });
+
   });
 
 
@@ -123,4 +127,14 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     all: '*',
     admin: 'admin',
     client: 'client'
+  }).constant('ARTICLE_EVENTS', {
+    postSuccess: 'post-article-success',
+    postFailed: 'post-article-failed',
+    deleteSuccess: 'delete-article-success',
+    deleteFailed: 'delete-article-failed'
+  }).constant('FILE_EVENTS', {
+    uploadSuccess: 'upload-file-success',
+    uploadFailed: 'upload-file-failed',
+    deleteSuccess: 'delete-file-success',
+    deleteFailed: 'delete-file-failed'
   });

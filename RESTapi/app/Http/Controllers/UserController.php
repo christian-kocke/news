@@ -54,10 +54,16 @@ class UserController extends Controller {
 	public function setPicture(Request $request){
 		if($request->file('file')->isValid() && Auth::check()){
 			$fileName = 'user_'.str_random(20).".".$request->file('file')->guessExtension();
-			if($request->file('file')->move('../../app/imgDrop/', $fileName)) DB::update('update users set img = ? where id = ?', [$fileName, Auth::user()->id]);
-			return response("1");
+			if($request->file('file')->move('../../app/imgDrop/', $fileName))
+			{
+				if(DB::update('update users set img = ? where id = ?', [$fileName, Auth::user()->id]))
+				{
+					return response($fileName);	
+				}
+				return response("update failure", 441);
+			}
 		}
-		return response("upload failure", 460);
+		return response("upload failure.", 441);
 	}
 
 

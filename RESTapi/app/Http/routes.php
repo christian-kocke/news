@@ -30,7 +30,7 @@ Route::group(['middleware' => ['csrf', 'auth']], function(){
 	Route::get('user/getPicture', 'UserController@getPicture');
 	Route::get('/user/logout', 'UserController@logout');
 	Route::resource('api/article','ArticleController');
-	Route::resource('api/user','UserController');		
+	Route::resource('api/user','UserController');	
 
 });
 

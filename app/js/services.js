@@ -4,6 +4,64 @@
 
 var newsServices = angular.module('newsServices', ['ngResource']);
 
+newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) {
+
+	var fileService = {};
+
+	fileService.update = function (files) {
+		var promises = [];
+		if (files && files.length) {
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				console.log(file);
+				var promise = $upload.upload({
+					url: '/project/RESTapi/public/user/setPicture',
+					headers: {
+						nom: file.name
+					},
+					file: file
+				}).progress(function (evt) {
+					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+					console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+				}).success(function (data, status, headers, config) {
+					console.log('file ' + config.file.name + ' uploaded. Response: ' + data);
+					return data;
+				});
+				promises.push(promise);
+			}
+		}
+		return promises;
+	};
+
+	fileService.filePath = function () {
+		return $http
+		.get('/project/RESTapi/public/user/getPicture').then(function (res) {
+			return res.data;
+		});
+	};
+	return fileService;
+});
+
+// Service Post/Delete Article (Admin)
+newsServices.factory('ArticleService', function ($http, $log, $rootScope) {
+
+	var articleService = {};
+
+	// Post Article
+	articleService.post = function (article) {
+		return $http
+		.post('/project/RESTapi/public/api/article', article);
+	};
+
+	// Delete Article
+	articleService.delete = function (id) {
+		return $http
+		.delete('/project/RESTapi/public/api/article/:id', {id: id});
+	};
+
+	return articleService;
+});// End Service Post/Delete Article (Admin)
+
 newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) {
 
 	var authService = {};
@@ -76,7 +134,7 @@ newsServices.factory('Session', function () {
 
 });
 
-newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
+newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, ARTICLE_EVENTS) {
 
 	return {
 		responseError: function (response) { 
@@ -85,7 +143,9 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
 				401: AUTH_EVENTS.notAuthenticated,
 				403: AUTH_EVENTS.notAuthorized,
 				419: AUTH_EVENTS.sessionTimeout,
-				440: AUTH_EVENTS.sessionTimeout
+				440: AUTH_EVENTS.sessionTimeout,
+				441: FILE_EVENTS.uploadFailed,
+				450: ARTICLE_EVENTS.postFailed
 			}[response.status], response);
 			return $q.reject(response);
 		}

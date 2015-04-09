@@ -1,29 +1,26 @@
-<div class="container text-center">
+<div class="container text-center" ng-controller="ArticleCtrl">
 	<h1 class="welcome"> Add a News ! </h1>
 	
 	<div class="container jumbotron formContainer">
-		<form name="addNewsForm">	
+		<form novalidate name="addNewsForm" ng-submit="submit()">	
 			
 			<!-- First & Last Names -->
 			<div class="row">
 				<div class="col-md-6">
+
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Author"> Author </label>
+							<p class="form-control-static" ng-model="inputs.author" name="author" id="author"><span class="glyphicon glyphicon-user"></span> {{currentUser.firstname+' '+currentUser.lastname}}</p>
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
 					
 					<div class="col-md-12">
 						<div class="form-group">
 							<label class="control-label sr-only" for="Title"> Title </label>
 							<div class="input-group">
 								<span class="input-group-addon"><span class="glyphicon glyphicon-text-width"></span></span>
-								<input type="text" class="form-control" ng-model="title" name="title" id="title" placeholder="Title...">
-							</div><!-- class input-group -->
-						</div><!-- class form-group -->
-					</div><!-- class col-md-12 -->
-					
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label sr-only" for="Author"> Author </label>
-							<div class="input-group">
-								<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-								<input type="text" class="form-control" ng-model="author" name="author" id="author" placeholder="Author...">
+								<input type="text" class="form-control" ng-model="inputs.title" name="title" id="title" placeholder="Title...">
 							</div><!-- class input-group -->
 						</div><!-- class form-group -->
 					</div><!-- class col-md-12 -->
@@ -33,7 +30,7 @@
 							<label class="control-label sr-only" for="Categories"> Categories </label>
 							<div class="input-group">
 								<span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span></span>
-								<select class="form-control" ng-model="categories" name="categories" id="categories">
+								<select class="form-control" ng-model="inputs.categories" name="categories" id="categories">
 									<option>Politics</option>
 									<option>Finance</option>
 									<option>Sports</option>
@@ -55,7 +52,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="control-label sr-only" for="Content"> Content </label>
-						<textarea class="form-control" id="contentArticleArea" ng-model="content" name="content" rows="17" cols="10" maxlength="200" placeholder="Content..."></textarea>
+						<textarea class="form-control" id="contentArticleArea" ng-model="inputs.content" name="content" rows="17" cols="10" maxlength="200" placeholder="Content..."></textarea>
 					</div><!-- class form-group -->
 				</div><!-- class col-md-6 -->
 
@@ -64,7 +61,7 @@
 			<!-- Submit -->
 			<div class="row">
 				<div class="col-md-4 col-md-offset-4">
-					<a draggable="true" class="btn btn-primary btn-md" role="submit"> Post </a>
+					<button class="btn btn-primary btn-md" type="submit"> Post It ! </button>
 				</div><!-- class col-md-6 -->
 			</div><!-- class row -->
 

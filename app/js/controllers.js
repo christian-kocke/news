@@ -4,46 +4,74 @@
 
 var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
 
-newsControllers.controller('ProfilCtrl', ["$scope", "$upload", '$http', function ($scope, $upload, $http) {
+newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, ArticleService, FileService, FILE_EVENTS, ARTICLE_EVENTS, $rootScope) {
+	$scope.article = {};
+
+	$scope.$watch('files', function () {
+		$scope.upload();
+	});
+
+	$scope.upload = function () {
+		angular.forEach(FileService.update($scope.files), function (promise) {
+			promise.then(function (res) {
+				$scope.fileName = res.data;
+				FileService.filePath().then(function (path) {
+					$scope.imgIsEnable = !!path;
+					$scope.imgSrc = path;
+				});
+			});
+		});
+	};
+
+	$scope.submit = function() {
+		console.log('here');
+		// Article Creation (JSON)
+		$scope.article = {
+			title: $scope.inputs.title,
+			content: $scope.inputs.content,
+			author_id: $rootScope.currentUser.id,
+			img_path: $scope.fileName,
+			categorie: $scope.inputs.categories
+		};
+		console.log($scope.article);
+
+		// Send Article To ArticleService
+		ArticleService.post($scope.article).then(function (res) {
+			$rootScope.$broadcast(ARTICLE_EVENTS.postSuccess);
+		}, function () {
+			$rootScope.$broadcast(ARTICLE_EVENTS.postFailed);
+		});
+		$scope.inputs = "";
+		$scope.imgIsEnable = false;
+		$scope.addNewsForm.$setPristine();
+	};
+});
+
+newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $log) {
 
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
 
 	$scope.$watch('files', function () {
-		$scope.upload($scope.files);
+		$scope.upload();
 	});
 
-	$scope.upload = function (files) {
-		if (files && files.length) {
-			for (var i = 0; i < files.length; i++) {
-				var file = files[i];
-				console.log(file);
-				$upload.upload({
-					url: '/project/RESTapi/public/user/setPicture',
-					headers: {
-						nom: file.name
-					},
-					file: file
-				}).progress(function (evt) {
-					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-					console.log('progress: ' + progressPercentage + '% ' +
-						evt.config.file.name);
-				}).success(function (data, status, headers, config) {
-					console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-					$scope.getPicture();
+	$scope.upload = function () {
+		angular.forEach(FileService.update($scope.files), function (promise) {
+			promise.then(function (res) {
+				FileService.filePath().then(function (path) {
+					$scope.imgIsEnable = !!path;
+					$scope.imgSrc = path;
 				});
-			}
-		}
+			});
+		});
 	};
 
-	$scope.getPicture = function () {
+	/*$scope.getPicture = function () {
 		$scope.imgSrc = "";
-		$http.get('/project/RESTapi/public/user/getPicture').then(function (res) {
-			$scope.imgIsEnable = !!res.data;
-			$scope.imgSrc = res.data;
-		});
-	}
-}]);
+		
+	};*/
+});
 
 newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, $location, $log, Session) {
 
