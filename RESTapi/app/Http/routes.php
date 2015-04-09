@@ -24,9 +24,10 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['csrf', 'auth']], function(){
 	
-	Route::post('user/profil/picture', 'UserController@profilPicture');
+	Route::post('user/setPicture', 'UserController@setPicture');
+	Route::get('user/getPicture', 'UserController@getPicture');
 	Route::get('/user/logout', 'UserController@logout');
 	Route::resource('api/article','ArticleController');
 	Route::resource('api/user','UserController');		

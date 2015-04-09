@@ -13,7 +13,7 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 		return $http
 		.post('/project/RESTapi/public/user/login', credentials)
 		.then(function (res) {
-			Session.create(res.data.id, res.data.user.id, res.data.user.name, "admin");
+			Session.create(res.data.id, res.data.user.id, res.data.user.role);
 			return res.data.user;
 		});
 	};
@@ -45,7 +45,7 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 		return $http
 		.get('/project/RESTapi/public/api/user')
 		.then(function (res) {
-			Session.create(res.data.id, res.data.user.id, res.data.user.name, "admin");
+			Session.create(res.data.id, res.data.user.id, res.data.user.role);
 			return res.data.user;
 		},
 		function () {
@@ -61,16 +61,14 @@ newsServices.factory('Session', function () {
 
 	var Session = {};
 
-	Session.create = function (sessionId, userId, userName, userRole) {
+	Session.create = function (sessionId, userId, userRole) {
 		Session.id = sessionId;
 		Session.userId = userId;
-		Session.userName = userName;
 		Session.userRole = userRole;
 	};
 	Session.destroy = function () {
 		Session.id = null;
 		Session.userId = null;
-		Session.userName = null;
 		Session.userRole = null;
 	};
 

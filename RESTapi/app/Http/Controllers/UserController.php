@@ -29,7 +29,7 @@ class UserController extends Controller {
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
         {
         	$this->_user = Auth::user();
-        	return response()->json(["id" => csrf_token(), "user" => ["id" => $this->_user->id, "name" => $this->_user->name]]);
+        	return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
         }
     }
 
@@ -45,16 +45,25 @@ class UserController extends Controller {
 	public function index()
 	{
 		if(Auth::check()){
-			return response()->json(["id" => csrf_token(), "user" => ["id" => Auth::user()->id, "name" => Auth::user()->name]]);
+			error_log(Auth::user());
+			return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
 		}
 	}
 
-	public function profilPicture(Request $request){
-		if($request->file('file')->isValid()){
-			$request->file('file')->move('../../app/imgDrop/', 'user_'.Auth::user()->id.".".$request->file('file')->guessExtension());
+	public function setPicture(Request $request){
+		if($request->file('file')->isValid() && Auth::check()){
+			$fileName = 'user_'.str_random(20).".".$request->file('file')->guessExtension();
+			if($request->file('file')->move('../../app/imgDrop/', $fileName)) DB::update('update users set img = ? where id = ?', [$fileName, Auth::user()->id]);
 			return response("1");
 		}
 		return response("upload failure", 460);
+	}
+
+
+	public function getPicture(){
+		if(Auth::check()){
+			return response(DB::select("select img from users where id = ?", [Auth::user()->id]));
+		}
 	}
 	/**
 	 * Show the form for editing the specified resource.
