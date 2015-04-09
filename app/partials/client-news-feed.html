@@ -1,4 +1,4 @@
-<div class="container" ng-controller="NewsCtrl as news">
+<div class="container" ng-init="display()" ng-controller="NewsCtrl as news">
 
 	<div class="row">
 		
@@ -34,14 +34,15 @@
 				<div id="{{article.id}}" class="media well" ng-repeat="article in articles">
 					<div class="pull-left media-middle">
 						<a>
-							<img class="media-object" ng-src="{{article.images[0].url}}" alt="{{article.images[0].alt}}" width="300" height="200">
+							<img class="media-object" ng-src="{{article.img_path}}" alt="" width="300" height="200">
 						</a>
 					</div>
 					<div class="media-body">
-						<h4 class="text-left lead media-heading">{{article.title}}<em>—{{article.publish_date}}</em></h4>
-						<h5 class="text-left"><small><em>by {{article.author}}</em></small></h5>
+						<button ng-show="currentUser.role === 'admin'" class="btn btn-danger pull-right" ng-click="delete(article.id)"> Delete </button>
+						<h4 class="text-left lead media-heading">{{article.title}}<em>—{{article.timestamp}}</em></h4>
+						<h5 class="text-left"><small><em>by {{article.username}}</em></small></h5>
 						<p class="text-justify preview">{{article.content}}</p>
-						<a data-toggle="modal" data-target="#myModal" ng-click="doClick(article.id)"  class="btn btn-primary">Read More </a>
+						<a data-toggle="modal" data-target="#myModal" ng-click="readMore(article.id)"  class="btn btn-primary">Read More </a>
 					</div>
 				</div><!-- class media well -->
 			</div><!-- class newsContent -->
@@ -49,7 +50,8 @@
 			<!-- One News -->
 			<div  class="newsContent" ng-show="showArticle">
 				<div class="container-fluid jumbotron">
-					<a class="btn-lg pull-right" ng-click="doClick()" role="button"><span class="glyphicon glyphicon-remove"></span></a>
+					<button ng-show="currentUser.role === 'admin'" class="btn btn-danger pull-left" ng-click="delete(article.id)"> Delete </button>
+					<a class="btn-lg pull-right" ng-click="readMore()" role="button"><span class="glyphicon glyphicon-remove"></span></a>
 					<img class="center-block img-circle" ng-src="{{currentArticle.images[0].url}}" alt="{{currentArticle.images[0].alt}}" width="150" height="150">
 					<h2 class="lead">{{currentArticle.title}}<em>—{{currentArticle.publish_date}}</em></h2>
 					<p class="text-justify">{{currentArticle.content}}</p>

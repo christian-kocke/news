@@ -5,13 +5,17 @@
 var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
 
 newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, ArticleService, FileService, FILE_EVENTS, ARTICLE_EVENTS, $rootScope) {
+	
 	$scope.article = {};
 
+	// Waiting for a Drop
 	$scope.$watch('files', function () {
 		$scope.upload();
 	});
 
+	// When Image is Dropped
 	$scope.upload = function () {
+		// Get Image Path
 		angular.forEach(FileService.update($scope.files), function (promise) {
 			promise.then(function (res) {
 				$scope.fileName = res.data;
@@ -23,8 +27,9 @@ newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, Arti
 		});
 	};
 
+	// When Form is Submitted
 	$scope.submit = function() {
-		console.log('here');
+
 		// Article Creation (JSON)
 		$scope.article = {
 			title: $scope.inputs.title,
@@ -41,6 +46,8 @@ newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, Arti
 		}, function () {
 			$rootScope.$broadcast(ARTICLE_EVENTS.postFailed);
 		});
+
+		// Reset Form After Submitting
 		$scope.inputs = "";
 		$scope.imgIsEnable = false;
 		$scope.addNewsForm.$setPristine();
@@ -66,11 +73,6 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 			});
 		});
 	};
-
-	/*$scope.getPicture = function () {
-		$scope.imgSrc = "";
-		
-	};*/
 });
 
 newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, $location, $log, Session) {
@@ -79,16 +81,30 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 	$scope.isAuthorized = AuthService.isAuthorized;
 });
 
-newsControllers.controller('NewsCtrl', ['$scope', '$http', '$log', function($scope,$http,$log) {
+newsControllers.controller('NewsCtrl', function ($scope, $http, $log, NewsfeedService, ARTICLE_EVENTS) {
+	
 	$scope.showArticle = false;
-	$http.post('/project/app/js/posts.json').success(function(response) {
-		$scope.articles = response;
-	});
-	$scope.doClick = function(id) {
+
+	$scope.display = function () {
+		NewsfeedService.loadArticles().then(function (res) {
+			for(var i = 0; i < res.length; i++){
+				res[i].img_path = "/project/app/imgDrop/"+res[i].img_path;
+			}
+			console.log(res);
+			$scope.articles = res;
+		});
+	};
+	
+	$scope.readMore = function(id) {
 		$scope.currentArticle = $scope.articles[id-1];
 		$scope.showArticle = !$scope.showArticle;
 	};
-}]);
+
+	// When Delete Button is Clicked
+	$scope.delete = function(id) {
+		console.log('delete part !');
+	};
+});
 
 newsControllers.controller('AuthCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
 

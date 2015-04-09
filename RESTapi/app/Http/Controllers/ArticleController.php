@@ -15,7 +15,17 @@ class ArticleController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		error_log("dans laravel");
+		$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id');
+		if($result) 
+		{
+			foreach ($result as $article) {
+				$date = new DateTime($article->timestamp);
+				$article->timestamp = format($date, 'd-m-Y');
+			}
+			return response()->json($result);
+		}
+		return response("Selection Failed.", 451);
 	}
 
 	/**

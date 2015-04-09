@@ -131,7 +131,9 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     postSuccess: 'post-article-success',
     postFailed: 'post-article-failed',
     deleteSuccess: 'delete-article-success',
-    deleteFailed: 'delete-article-failed'
+    deleteFailed: 'delete-article-failed',
+    selectSuccess: 'select-article-success',
+    selectFailed: 'select-article-failed'
   }).constant('FILE_EVENTS', {
     uploadSuccess: 'upload-file-success',
     uploadFailed: 'upload-file-failed',

@@ -4,6 +4,21 @@
 
 var newsServices = angular.module('newsServices', ['ngResource']);
 
+newsServices.factory('NewsfeedService', function ($http, $log, $rootScope) {
+
+	var newsfeedService = {};
+
+	newsfeedService.loadArticles = function () {
+		return $http
+		.get('/project/RESTapi/public/api/article')
+		.then(function (res) {
+			return res.data;
+		});
+	};
+
+	return newsfeedService;
+});
+
 newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) {
 
 	var fileService = {};
@@ -145,7 +160,8 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, F
 				419: AUTH_EVENTS.sessionTimeout,
 				440: AUTH_EVENTS.sessionTimeout,
 				441: FILE_EVENTS.uploadFailed,
-				450: ARTICLE_EVENTS.postFailed
+				450: ARTICLE_EVENTS.postFailed,
+				451: ARTICLE_EVENTS.selectFailed
 			}[response.status], response);
 			return $q.reject(response);
 		}
