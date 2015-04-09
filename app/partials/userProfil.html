@@ -1,54 +1,59 @@
 <div class="container text-center" ng-controller="ProfilCtrl">
 	<h1 class="welcome"> Edit your profil ! </h1>
 	
-	<div class="container jumbotron formContainer">
+	<div class="container jumbotron">
 		<form name="updateProfil">	
 			
 			<!-- First & Last Names -->
 			<div class="row">
 				<div class="col-md-6">
-					<h3 class="lead"> Login </h3>
-					<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true"
-					accept="image/*,application/pdf">
-					<h3 class="lead dropText"> Drop your picture ! <span class="glyphicon glyphicon-cloud-download"></span></h3>
-					<img ng-hide="imgIsEnable" ng-src="{{imgSrc}}"/>
+					<div class="col-md-6">
+						<h3 class="lead"> Login </h3>
+						<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
+							<h3 ng-hide="imgIsEnable" class="lead dropText"><span> Drop your picture ! (or click)</span><span class="glyphicon glyphicon-cloud-download"></span></h3>
+							<img class="img-responsive dropImg" ng-show="imgIsEnable" ng-src="{{getPicture()}}"/>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<p class="text-left">{{currentUser.firstname}}</p>
+						<p class="text-left">{{currentUser.lastname}}</p>
+						<p class="text-left">{{currentUser.email}}</p>
+					</div>
 				</div>
-			</div><!-- class col-md-6 -->
+				<div class="col-md-6 text-center">
+					<h2 class="lead"> Change your password : </h2>
 
-			<div class="col-md-6 text-center">
-				<h2 class="lead"> Change your password : </h2>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Current"> Current </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+								<input type="password" class="form-control" ng-model="current" name="current" id="current" placeholder="Current...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
 
-				<div class="col-md-12">
-					<div class="form-group">
-						<label class="control-label sr-only" for="Current"> Current </label>
-						<div class="input-group">
-							<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-							<input type="password" class="form-control" ng-model="current" name="current" id="current" placeholder="Current...">
-						</div><!-- class input-group -->
-					</div><!-- class form-group -->
-				</div><!-- class col-md-12 -->
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Author"> New </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+								<input type="password" class="form-control" ng-model="new" name="new" id="new" placeholder="New...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
 
-				<div class="col-md-12">
-					<div class="form-group">
-						<label class="control-label sr-only" for="Author"> New </label>
-						<div class="input-group">
-							<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-							<input type="password" class="form-control" ng-model="new" name="new" id="new" placeholder="New...">
-						</div><!-- class input-group -->
-					</div><!-- class form-group -->
-				</div><!-- class col-md-12 -->
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Author"> Confirm </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
+								<input type="password" class="form-control" ng-model="confirm" name="confirm" id="confirm" placeholder="Confirm...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-12 -->
 
-				<div class="col-md-12">
-					<div class="form-group">
-						<label class="control-label sr-only" for="Author"> Confirm </label>
-						<div class="input-group">
-							<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
-							<input type="password" class="form-control" ng-model="confirm" name="confirm" id="confirm" placeholder="Confirm...">
-						</div><!-- class input-group -->
-					</div><!-- class form-group -->
-				</div><!-- class col-md-12 -->
-
-			</div><!-- class col-md-6 -->
+				</div><!-- class col-md-6 -->
 
 		</div><!-- class row -->
 

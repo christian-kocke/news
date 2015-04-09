@@ -43,16 +43,23 @@
 
 .dropText {
   font-size: 100%;
-}
-
-.drop-box {
-  background: #F8F8F8;
   border: 0.1em dashed grey;
   border-radius: 50%;
   width: 124px;
   height: 124px;
+  margin: auto;
+}
+
+.dropImg {
+  border: 0.1em dashed grey;
+  border-radius: 50%;
+}
+
+.drop-box {
+  background: #F8F8F8;
+  border: 2px solid grey;
+  border-radius: 5%;
   text-align: center;
-  padding-top: 2em;
 }
 
 .dragover {
