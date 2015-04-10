@@ -4,6 +4,9 @@
   }
 }
 
+.cat {
+  cursor: pointer;
+}
 .container {
   margin-top: 60px;
 }

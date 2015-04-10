@@ -17,7 +17,6 @@ class UserController extends Controller {
 	 */
 	public function create(Registrar $registrar, Request $request)
 	{
-		error_log((array) $request);
 		if($registrar->validator((array) $request)->passes())
 		{
 			$registrar->create((array) $request);
@@ -51,7 +50,6 @@ class UserController extends Controller {
 	{
 		if(Auth::check())
 		{
-			error_log(Auth::user());
 			return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
 		}
 	}

@@ -42,7 +42,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
         }
       }
     }).
-    when('/client', {
+    when('/client/:categorie', {
       templateUrl: '/project/app/partials/client-news-feed.html',
       controller: 'NewsCtrl',
       data: {

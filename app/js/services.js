@@ -13,7 +13,6 @@ newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) 
 		if (files && files.length) {
 			for (var i = 0; i < files.length; i++) {
 				var file = files[i];
-				console.log(file);
 				var promise = $upload.upload({
 					url: '/project/RESTapi/public/user/setPicture',
 					headers: {
@@ -48,9 +47,9 @@ newsServices.factory('ArticleService', function ($http, $log, $rootScope) {
 	var articleService = {};
 
 	// Display All Articles
-	articleService.get = function () {
+	articleService.get = function (categorie) {
 		return $http
-		.get('/project/RESTapi/public/api/article')
+		.post('/project/RESTapi/public/api/article/display', categorie)
 		.then(function (res) {
 			return res.data;
 		});
@@ -191,7 +190,6 @@ newsServices.factory('SessionResolver', function ($q, $rootScope, $location, $lo
 		resolve: function () {
 			var def = $q.defer();
 			return $rootScope.deferred.promise.then(function () {
-				$log.log(Session);
 				def.resolve();
 				$rootScope.$broadcast('$routeChangeStart');
 				return def.promise;

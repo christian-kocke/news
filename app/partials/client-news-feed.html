@@ -17,10 +17,11 @@
 			
 			<div class="col-md-12">
 				<ul class="nav nav-pills well nav-stacked" role="navigation">
-					<li class="active" role="presentation"><a> Politics </a></li>
-					<li role="presentation"><a> Finance </a></li>
-					<li role="presentation"><a> Sports </a></li>
-					<li role="presentation"><a> International </a></li>
+					<li role="presentation" ng-class="{active: categorie === '0'}"><a class="cat" href="#/client/0"> All </a></li>
+					<li role="presentation" ng-class="{active: categorie === '1'}"><a class="cat" href="#/client/1"> Politics </a></li>
+					<li role="presentation" ng-class="{active: categorie === '2'}"><a class="cat" href="#/client/2"> Finance </a></li>
+					<li role="presentation" ng-class="{active: categorie === '3'}"><a class="cat" href="#/client/3"> Sports </a></li>
+					<li role="presentation" ng-class="{active: categorie === '4'}"><a class="cat" href="#/client/4"> International </a></li>
 				</ul><!-- class nav nav-pills nav-stacked -->
 			</div><!--class col-md-12 -->
 

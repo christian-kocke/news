@@ -32,7 +32,6 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		error_log(Request::input('id'));
 		echo json_encode(array("this", "is", "a", "test"));
 	}
 

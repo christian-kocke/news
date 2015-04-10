@@ -13,9 +13,16 @@ class ArticleController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id order by a.id desc');
+		error_log($request->input('categorie'));
+		if($request->input('categorie') === "0") 
+		{
+			$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id order by a.id desc');
+		} else {
+			$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id where a.categorie = ? order by a.id desc', [$request->input('categorie')]);
+		}
+		
 		if($result) 
 		{
 			foreach ($result as $article) {

@@ -81,21 +81,25 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 	$scope.isAuthorized = AuthService.isAuthorized;
 });
 
-newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $rootScope, $timeout) {
+newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $rootScope, $timeout, $routeParams) {
 	
 	$scope.showArticle = false;
 
+	// Display All the Articles
 	$scope.display = function () {
-		ArticleService.get().then(function (res) {
+		$scope.categorie = $routeParams.categorie;
+		$log.log($scope.categorie);
+		ArticleService.get($routeParams).then(function (res) {
 			for(var i = 0; i < res.length; i++){
 				res[i].img_path = "/project/app/imgDrop/"+res[i].img_path;
 			}
 			$scope.articles = res;
-			$log.log("polling");
-			$timeout($scope.display, 3600);
+			/*$log.log("polling");
+			$timeout($scope.display, 3600);*/
 		});
 	};
 	
+	// Display the Clicked Article in Full Screen
 	$scope.readMore = function(id) {
 		angular.forEach($scope.articles, function(article) {
 			if(article.id === id) {
@@ -105,11 +109,12 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 		});
 	};
 
+	// Close Full Screen Article
 	$scope.closeArticle = function() {
 		$scope.showArticle = false;
 	};
 
-	// When Delete Button is Clicked
+	// Delete Article when Button is Clicked
 	$scope.delete = function(id) {
 		$scope.showArticle = false;
 		ArticleService.delete(id).then(function () {

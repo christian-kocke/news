@@ -15,7 +15,6 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
-		error_log("ok");
 		return parent::handle($request, $next);
 	}
 }
