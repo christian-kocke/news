@@ -111,6 +111,8 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 
 			$scope.articles = res;
 
+			$log.log("polling");
+			$timeout($scope.display, 36000);
 		});
 
 	};// End Display()

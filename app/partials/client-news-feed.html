@@ -6,7 +6,7 @@
 			
 			<div class="col-md-12 srcInput">
 				<div class="input-group">
-					<input type="search" class="form-control" placeholder="Looking for a news ?">
+					<input type="search" class="form-control" placeholder="Looking for a news ?" ng-model="search">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -32,7 +32,7 @@
 			
 			<!-- All News -->
 			<div class="newsContent" ng-hide="showArticle">
-				<div id="{{article.id}}" class="media well" ng-repeat="article in articles track by article.id">
+				<div id="{{article.id}}" class="media well" ng-repeat="article in articles | filter:{title: search} track by article.id" bn-log-dom-creation="With">
 					<div class="pull-left media-middle">
 						<a>
 							<img class="media-object" ng-src="{{article.img_path}}" alt="" width="300" height="200">
