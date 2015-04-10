@@ -81,11 +81,7 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 	$scope.isAuthorized = AuthService.isAuthorized;
 });
 
-<<<<<<< HEAD
-newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $timeout) {
-=======
-newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $rootScope) {
->>>>>>> origin/master
+newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $rootScope, $timeout) {
 	
 	$scope.showArticle = false;
 
