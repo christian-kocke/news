@@ -19,7 +19,7 @@ newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, Arti
 	$scope.upload = function () {
 		
 		// Get Image Path
-		angular.forEach(FileService.update($scope.files, '/projet/RESTapi/app/public/api/article/setPicture'), function (promise) {	
+		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (promise) {	
 			promise.then(function (res) {		
 				$scope.fileName = res.data;
 				FileService.filePath().then(function (path) {
