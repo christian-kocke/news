@@ -1,69 +1,76 @@
 <div class="container text-center" ng-controller="ArticleCtrl">
-	<h1 class="welcome"> Add a News ! </h1>
 	
-	<div class="container jumbotron formContainer">
-		<form novalidate name="addNewsForm" ng-submit="submit()">	
-			
-			<!-- First & Last Names -->
-			<div class="row">
-				<div class="col-md-6">
+	<div class="panel panel-info">
 
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label sr-only" for="Author"> Author </label>
-							<p class="form-control-static" ng-model="inputs.author" name="author" id="author"><span class="glyphicon glyphicon-user"></span> {{currentUser.firstname+' '+currentUser.lastname}}</p>
-						</div><!-- class form-group -->
-					</div><!-- class col-md-12 -->
-					
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label sr-only" for="Title"> Title </label>
-							<div class="input-group">
-								<span class="input-group-addon"><span class="glyphicon glyphicon-text-width"></span></span>
-								<input type="text" class="form-control" ng-model="inputs.title" name="title" id="title" placeholder="Title...">
-							</div><!-- class input-group -->
-						</div><!-- class form-group -->
-					</div><!-- class col-md-12 -->
+		<div class="panel-heading">
+			<h1> Add a News ! </h1>
+		</div><!-- class panel-heading -->
 
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label sr-only" for="Categories"> Categories </label>
-							<div class="input-group">
-								<span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span></span>
-								<select class="form-control" ng-model="inputs.categories" name="categories" id="categories">
-									<option value="1"> Politics </option>
-									<option value="2"> Finance </option>
-									<option value="3"> Sports </option>
-									<option value="4"> International </option>
-								</select>
-							</div><!-- class input-group -->
-						</div><!-- class form-group -->
-					</div><!-- class col-md-12 -->
-
-					<div class="col-md-12 jumbotron dnd">
-						<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
-							<p ng-hide="imgIsEnable" class="lead dropText"> Drop your picture ! (or click) <span class="glyphicon glyphicon-cloud-download"></span></p>
-							<img class="dropImg" ng-show="imgIsEnable" ng-src="{{imgSrc}}"/>
-						</div>
-					</div><!-- class col-md-12 -->
-
-				</div><!-- class col-md-6 -->
+		<div class="panel-body">
+			<form novalidate name="addNewsForm" ng-submit="submit()">	
 				
-				<div class="col-md-6">
-					<div class="form-group">
-						<label class="control-label sr-only" for="Content"> Content </label>
-						<textarea class="form-control" id="contentArticleArea" ng-model="inputs.content" name="content" rows="17" cols="10" placeholder="Content..."></textarea>
-					</div><!-- class form-group -->
-				</div><!-- class col-md-6 -->
+				<!-- First & Last Names -->
+				<div class="row">
+					<div class="col-md-6">
 
-			</div><!-- class row -->
+						<div class="col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="control-label sr-only" for="Author"> Author </label>
+								<p class="form-control-static lead" ng-model="inputs.author" name="author" id="author"><span class="glyphicon glyphicon-user"></span> {{currentUser.firstname+' '+currentUser.lastname}}</p>
+							</div><!-- class form-group -->
+						</div><!-- class col-md-8 col-md-offset-2 -->
+						
+						<div class="col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="control-label sr-only" for="Title"> Title </label>
+								<div class="input-group">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-text-width"></span></span>
+									<input type="text" class="form-control" ng-model="inputs.title" name="title" id="title" placeholder="Title...">
+								</div><!-- class input-group -->
+							</div><!-- class form-group -->
+						</div><!-- class col-md-8 col-md-offset-2 -->
 
-			<!-- Submit -->
-			<div class="row">
-				<div class="col-md-4 col-md-offset-4">
-					<button class="btn btn-primary btn-md" type="submit"> Post It ! </button>
-				</div><!-- class col-md-6 -->
-			</div><!-- class row -->
+						<div class="col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="control-label sr-only" for="Categories"> Categories </label>
+								<div class="input-group">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span></span>
+									<select class="form-control" ng-model="inputs.categories" name="categories" id="categories">
+										<option value="1"> Politics </option>
+										<option value="2"> Finance </option>
+										<option value="3"> Sports </option>
+										<option value="4"> International </option>
+									</select>
+								</div><!-- class input-group -->
+							</div><!-- class form-group -->
+						</div><!-- class col-md-8 col-md-offset-2 -->
 
-		</form><!-- named signUpForm -->
-	</div><!-- class container jumbotron -->
+						<div class="col-md-8 col-md-offset-2">
+							<div class="drop-box" ng-file-drop ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
+								<div class="dropText" ng-hide="imgIsEnable"><p class="lead imgArticle"> Drop your picture ! (or click) <span class="glyphicon glyphicon-cloud-download"></span></p></div>
+								<img class="dropImg" ng-show="imgIsEnable" ng-src="{{imgSrc}}"/>
+							</div>
+						</div><!-- class col-md-8 col-md-offset-2 -->
+
+					</div><!-- class col-md-6 -->
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Content"> Content </label>
+							<textarea class="form-control" id="contentArticleArea" ng-model="inputs.content" name="content" rows="17" cols="10" placeholder="Content..."></textarea>
+						</div><!-- class form-group -->
+					</div><!-- class col-md-6 -->
+
+				</div><!-- class row -->
+
+				<!-- Submit -->
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4">
+						<button class="btn btn-primary btn-md" type="submit"> Post It ! </button>
+					</div><!-- class col-md-6 -->
+				</div><!-- class row -->
+
+			</form><!-- named signUpForm -->
+		</div><!-- class panel-body -->
+
+	</div><!-- class panel panel-info -->

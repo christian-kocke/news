@@ -1,78 +1,85 @@
 <div class="container text-center" ng-controller="ProfilCtrl">
 	
-	<h1 class="welcome"> Edit your profil ! </h1>
-	
-	<div class="container jumbotron">
-		<form name="updateProfil">	
+	<div class="panel panel-info">
+
+		<div class="panel-heading">
+			<h1> Edit your profil ! </h1>
+		</div><!-- class panel-heading -->
+
+		<div class="panel-body">
 			
-			<div class="row">
+			<form name="updateProfil">	
 				
-				<!-- Drag and Drop / Infos User -->
-				<div class="col-md-6">
+				<div class="row">
 					
+					<!-- Drag and Drop / Infos User -->
 					<div class="col-md-6">
-						<h3 class="lead">{{currentUser.username}}</h3>	
-						<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
-							<p ng-hide="currentUser.img || imgIsEnable" class="lead dropText"> Drop your picture ! (or click)<span class="glyphicon glyphicon-cloud-download"></span></p>
-							<img class="dropImg" ng-show="currentUser.img || imgIsEnable" ng-src="{{currentUser.img || imgSrc}}"/>
-						</div><!-- class drop-box -->
+						
+						<div class="col-md-6">
+							<h3 class="lead"> {{currentUser.username}} </h3>
+							<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
+								<div class="dropText" ng-hide="currentUser.img || imgIsEnable"><p class="lead"> Drop your picture ! (or click) <span class="glyphicon glyphicon-cloud-download"></span></p></div>
+								<img class="dropImg" ng-show="currentUser.img || imgIsEnable" ng-src="{{currentUser.img || imgSrc}}"/>
+							</div><!-- class drop-box -->
+								<h6 class="text-info" ng-show="currentUser.img || imgIsEnable"><em>* Click on your picture to Edit it! </em></h6>
+								<h6 class="text-danger"><em>* Account created {{currentUser.created_at}} </em></h6>
+						</div><!-- class col-md-6 -->
+
+						<div class="col-md-6 infoUser">
+							<p class="text-left well well-sm"> {{currentUser.firstname}} </p>
+							<p class="text-left well well-sm"> {{currentUser.lastname}} </p>
+							<p class="text-left well well-sm"> {{currentUser.email}} </p>
+						</div><!-- class col-md-6 infoUser -->
+
 					</div><!-- class col-md-6 -->
 
-					<div class="col-md-6 infoUser">
-						<p class="text-left">{{currentUser.firstname}}</p>
-						<p class="text-left">{{currentUser.lastname}}</p>
-						<p class="text-left">{{currentUser.email}}</p>
-					</div><!-- class col-md-6 infoUser -->
+					<!-- Change password part -->
+					<div class="col-md-6">
+						
+						<h2 class="lead"> Change your password : </h2>
 
-				</div><!-- class col-md-6 -->
+						<div  class="col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="control-label sr-only" for="Current"> Current </label>
+								<div class="input-group">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+									<input type="password" class="form-control" ng-model="current" name="current" id="current" placeholder="Current...">
+								</div><!-- class input-group -->
+							</div><!-- class form-group -->
+						</div><!--  class col-md-8 col-md-offset-2 -->
 
-				<!-- Change password part -->
-				<div class="col-md-6">
-					
-					<h2 class="lead"> Change your password : </h2>
+						<div  class="col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="control-label sr-only" for="Author"> New </label>
+								<div class="input-group">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+									<input type="password" class="form-control" ng-model="new" name="new" id="new" placeholder="New...">
+								</div><!-- class input-group -->
+							</div><!-- class form-group -->
+						</div><!-- class col-md-8 col-md-offset-2 -->
 
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label sr-only" for="Current"> Current </label>
-							<div class="input-group">
-								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-								<input type="password" class="form-control" ng-model="current" name="current" id="current" placeholder="Current...">
-							</div><!-- class input-group -->
-						</div><!-- class form-group -->
-					</div><!-- class col-md-12 -->
+						<div class="col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="control-label sr-only" for="Author"> Confirm </label>
+								<div class="input-group">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
+									<input type="password" class="form-control" ng-model="confirm" name="confirm" id="confirm" placeholder="Confirm...">
+								</div><!-- class input-group -->
+							</div><!-- class form-group -->
+						</div><!--  class col-md-8 col-md-offset-2 -->
+						
+						<!-- Submit -->
+						<div class="col-md-12">
+							<a draggable="true" class="btn btn-success btn-md" role="submit"> Change </a>
+						</div><!-- class col-md-4 col-md-offset-7 -->
 
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label sr-only" for="Author"> New </label>
-							<div class="input-group">
-								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-								<input type="password" class="form-control" ng-model="new" name="new" id="new" placeholder="New...">
-							</div><!-- class input-group -->
-						</div><!-- class form-group -->
-					</div><!-- class col-md-12 -->
+					</div><!-- class col-md-6 -->
 
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label sr-only" for="Author"> Confirm </label>
-							<div class="input-group">
-								<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
-								<input type="password" class="form-control" ng-model="confirm" name="confirm" id="confirm" placeholder="Confirm...">
-							</div><!-- class input-group -->
-						</div><!-- class form-group -->
-					</div><!-- class col-md-12 -->
+				</div><!-- class row -->
 
-				</div><!-- class col-md-6 -->
-			
-			</div><!-- class row -->
+			</form><!-- updateProfil -->
 
-			<!-- Submit -->
-			<div class="row">
-				<div class="col-md-4 col-md-offset-7">
-					<a draggable="true" class="btn btn-success btn-md" role="submit"> Change </a>
-				</div><!-- class col-md-4 col-md-offset-7 -->
-			</div><!-- class row -->
-
-		</form><!-- named signUpForm -->
+		</div><!-- class panel-body -->
 	</div><!-- class container jumbotron -->
 
 </div><!-- class container text-center -->
