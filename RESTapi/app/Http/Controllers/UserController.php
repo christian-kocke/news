@@ -58,12 +58,12 @@ class UserController extends Controller {
 	{
 		if($request->file('file')->isValid() && Auth::check())
 		{
-			$fileName = 'user_'.str_random(20).".".$request->file('file')->guessExtension();
-			if($request->file('file')->move('../../app/imgDrop/', $fileName))
+			$filePath = '/project/app/imgDrop/user_'.Auth::user()->id.".".$request->file('file')->guessExtension();
+			if($request->file('file')->move('../../app/imgDrop/', $filePath))
 			{
-				if(DB::update('update users set img = ? where id = ?', [$fileName, Auth::user()->id]))
+				if(DB::update('update users set img = ? where id = ?', [$filePath, Auth::user()->id]))
 				{
-					return response($fileName);	
+					return response($filePath);	
 				}
 				return response("update failure", 441);
 			}
@@ -76,7 +76,7 @@ class UserController extends Controller {
 	{
 		if(Auth::check())
 		{
-			$path = '/project/app/imgDrop/'.DB::select('select img from users where id = ?', [Auth::user()->id])[0]->img;
+			$path = DB::select('select img from users where id = ?', [Auth::user()->id])[0]->img;
 			return response($path);
 		}
 	}

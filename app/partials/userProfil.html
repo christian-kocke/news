@@ -1,26 +1,34 @@
 <div class="container text-center" ng-controller="ProfilCtrl">
+	
 	<h1 class="welcome"> Edit your profil ! </h1>
 	
 	<div class="container jumbotron">
 		<form name="updateProfil">	
 			
-			<!-- First & Last Names -->
 			<div class="row">
+				
+				<!-- Drag and Drop / Infos User -->
 				<div class="col-md-6">
+					
 					<div class="col-md-6">
-						<h3 class="lead"> Login </h3>
+						<h3 class="lead">{{currentUser.username}}</h3>	
 						<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
-							<p ng-hide="imgIsEnable" class="lead dropText"> Drop your picture ! (or click)<span class="glyphicon glyphicon-cloud-download"></span></p>
-							<img class="dropImg" ng-show="imgIsEnable" ng-src="{{imgSrc}}"/>
-						</div>
-					</div>
+							<p ng-hide="currentUser.img || imgIsEnable" class="lead dropText"> Drop your picture ! (or click)<span class="glyphicon glyphicon-cloud-download"></span></p>
+							<img class="dropImg" ng-show="currentUser.img || imgIsEnable" ng-src="{{currentUser.img || imgSrc}}"/>
+						</div><!-- class drop-box -->
+					</div><!-- class col-md-6 -->
+
 					<div class="col-md-6 infoUser">
 						<p class="text-left">{{currentUser.firstname}}</p>
 						<p class="text-left">{{currentUser.lastname}}</p>
 						<p class="text-left">{{currentUser.email}}</p>
-					</div>
-				</div>
-				<div class="col-md-6 text-center">
+					</div><!-- class col-md-6 infoUser -->
+
+				</div><!-- class col-md-6 -->
+
+				<!-- Change password part -->
+				<div class="col-md-6">
+					
 					<h2 class="lead"> Change your password : </h2>
 
 					<div class="col-md-12">
@@ -54,18 +62,21 @@
 					</div><!-- class col-md-12 -->
 
 				</div><!-- class col-md-6 -->
+			
+			</div><!-- class row -->
 
-		</div><!-- class row -->
+			<!-- Submit -->
+			<div class="row">
+				<div class="col-md-4 col-md-offset-7">
+					<a draggable="true" class="btn btn-success btn-md" role="submit"> Change </a>
+				</div><!-- class col-md-4 col-md-offset-7 -->
+			</div><!-- class row -->
 
-		<!-- Submit -->
-		<div class="row">
-			<div class="col-md-4 col-md-offset-7">
-				<a draggable="true" class="btn btn-success btn-md" role="submit"> Change </a>
-			</div><!-- class col-md-6 -->
-		</div><!-- class row -->
+		</form><!-- named signUpForm -->
+	</div><!-- class container jumbotron -->
 
-	</form><!-- named signUpForm -->
-</div><!-- class container jumbotron -->
+</div><!-- class container text-center -->
+
 <script type="text/javascript">
 jQuery(function($) {
 	jQuery.event.props.push('dataTransfer');

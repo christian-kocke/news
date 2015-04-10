@@ -15,7 +15,6 @@ class ArticleController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-		error_log($request->input('categorie'));
 		if($request->input('categorie') === "0") 
 		{
 			$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id order by a.id desc');
@@ -42,6 +41,29 @@ class ArticleController extends Controller {
 	{
 		//
 	}
+
+	/**
+	 * Set Article Image.
+	 *
+	 * @return Response
+	 */
+	public function setPicture(Request $request)
+	{
+		if($request->file('file')->isValid() && Auth::check())
+		{
+			$filePath = '/project/app/imgDrop/article_'.str_random(20).".".$request->file('file')->guessExtension();
+			if($request->file('file')->move('../../app/imgDrop/', $filePath))
+			{
+				if(DB::update('update users set img = ? where id = ?', [$filePath, Auth::user()->id]))
+				{
+					return response($filePath);	
+				}
+				return response("update failure", 441);
+			}
+		}
+		return response("upload failure.", 441);
+	}
+
 
 	/**
 	 * Store a newly created resource in storage.
