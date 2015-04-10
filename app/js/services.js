@@ -4,21 +4,6 @@
 
 var newsServices = angular.module('newsServices', ['ngResource']);
 
-newsServices.factory('NewsfeedService', function ($http, $log, $rootScope) {
-
-	var newsfeedService = {};
-
-	newsfeedService.loadArticles = function () {
-		return $http
-		.get('/project/RESTapi/public/api/article')
-		.then(function (res) {
-			return res.data;
-		});
-	};
-
-	return newsfeedService;
-});
-
 newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) {
 
 	var fileService = {};
@@ -27,7 +12,7 @@ newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) 
 		var promises = [];
 		if (files && files.length) {
 			for (var i = 0; i < files.length; i++) {
-				var file = files[i];
+				var file = files[i];b
 				console.log(file);
 				var promise = $upload.upload({
 					url: '/project/RESTapi/public/user/setPicture',
@@ -61,6 +46,15 @@ newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) 
 newsServices.factory('ArticleService', function ($http, $log, $rootScope) {
 
 	var articleService = {};
+
+	// Display All Articles
+	articleService.get = function () {
+		return $http
+		.get('/project/RESTapi/public/api/article')
+		.then(function (res) {
+			return res.data;
+		});
+	};
 
 	// Post Article
 	articleService.post = function (article) {
