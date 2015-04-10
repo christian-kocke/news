@@ -40,10 +40,10 @@
 					</div>
 					<div class="media-body">
 						<button ng-show="currentUser.role === 'admin'" class="btn btn-danger pull-right" ng-click="delete(article.id)"> Delete </button>
-						<h4 class="text-left lead media-heading">{{article.title}}<small><em>—{{article.timestamp}}</em></small></h4>
-						<h5 class="text-left"><small><em>by {{article.username}}</em></small></h5>
-						<p class="text-justify preview">{{article.content}}</p>
-						<a data-toggle="modal" data-target="#myModal" ng-click="readMore(article.id)"  class="btn btn-primary">Read More </a>
+						<h4 class="text-left lead media-heading"> {{article.title}} <small><em> —{{article.timestamp}} </em></small></h4>
+						<h5 class="text-left"><small><em> by {{article.username}} </em></small></h5>
+						<p class="text-justify preview"> {{article.content}} </p>
+						<a data-toggle="modal" data-target="#myModal" ng-click="readMore(article.id)"  class="btn btn-primary"> Read More </a>
 					</div>
 				</div><!-- class media well -->
 			</div><!-- class newsContent -->
@@ -54,9 +54,9 @@
 					<button ng-show="currentUser.role === 'admin'" class="btn btn-danger pull-left" ng-click="delete(currentArticle.id)"> Delete </button>
 					<button type="button" class="close pull-right" ng-click="closeArticle()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<img class="center-block img-circle" ng-src="{{currentArticle.img_path}}" alt="" width="150" height="150">
-					<h2 class="lead">{{currentArticle.title}}<em>—{{currentArticle.timestamp}}</em></h2>
-					<p class="text-justify">{{currentArticle.content}}</p>
-					<cite><em>by {{currentArticle.username}}</em></cite>
+					<h2 class="lead"> {{currentArticle.title}} <em> —{{currentArticle.timestamp}} </em></h2>
+					<p class="text-justify"> {{currentArticle.content}} </p>
+					<cite><em> by {{currentArticle.username}} </em></cite>
 				</div>
 			</div><!-- class newsContent -->
 

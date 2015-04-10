@@ -74,7 +74,7 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	// When an element is dropped
 	$scope.upload = function () {
 		
-		angular.forEach(FileService.update($scope.files), function (promise) {
+		angular.forEach(FileService.update($scope.files, "/project/RESTapi/public/user/setPicture"), function (promise) {
 			promise.then(function (res) {
 				FileService.filePath().then(function (path) {
 					$scope.imgIsEnable = !!path;

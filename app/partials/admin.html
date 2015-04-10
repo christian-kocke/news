@@ -31,10 +31,10 @@
 							<div class="input-group">
 								<span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span></span>
 								<select class="form-control" ng-model="inputs.categories" name="categories" id="categories">
-									<option value="1">Politics</option>
-									<option value="2">Finance</option>
-									<option value="3">Sports</option>
-									<option value="4">International</option>
+									<option value="1"> Politics </option>
+									<option value="2"> Finance </option>
+									<option value="3"> Sports </option>
+									<option value="4"> International </option>
 								</select>
 							</div><!-- class input-group -->
 						</div><!-- class form-group -->
@@ -42,7 +42,7 @@
 
 					<div class="col-md-12 jumbotron dnd">
 						<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
-							<p ng-hide="imgIsEnable" class="lead dropText"> Drop your picture ! (or click)<span class="glyphicon glyphicon-cloud-download"></span></p>
+							<p ng-hide="imgIsEnable" class="lead dropText"> Drop your picture ! (or click) <span class="glyphicon glyphicon-cloud-download"></span></p>
 							<img class="dropImg" ng-show="imgIsEnable" ng-src="{{imgSrc}}"/>
 						</div>
 					</div><!-- class col-md-12 -->
