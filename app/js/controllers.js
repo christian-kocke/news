@@ -19,7 +19,7 @@ newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, Arti
 	$scope.upload = function () {
 		
 		// Get Image Path
-		angular.forEach(FileService.update($scope.files), function (promise) {	
+		angular.forEach(FileService.update($scope.files, '/projet/RESTapi/app/public/api/article/setPicture'), function (promise) {	
 			promise.then(function (res) {		
 				$scope.fileName = res.data;
 				FileService.filePath().then(function (path) {
@@ -152,7 +152,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 
 });// End NewsCtrl
 
-newsControllers.controller('AuthCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUTH_EVENTS, AuthService) {
 
 	$scope.credentials = {
 		email: '',
@@ -165,6 +165,7 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, AUTH_EVENTS
 		AuthService.login(credentials).then(function (user) {
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			$rootScope.currentUser = user;
+			$route.reload();
 		}, function () {
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
@@ -173,10 +174,9 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, AUTH_EVENTS
 
 	// When user try to log out
 	$scope.logout = function () {
-		
 		AuthService.logout().then(function (res) {
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-			$rootScope.currentUser = null;
+			$route.reload();
 		});
 
 	};// End logout()

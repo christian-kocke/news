@@ -26,12 +26,16 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     when('/', {
       templateUrl: '/project/app/partials/registration.html',
       url: '/protected',
-      redirection: function (AuthService) {
-
-          if(AuthService.isAuthenticated())
+      resolve: {
+        session: function resolveSession(SessionResolver) {
+          return SessionResolver.resolve();
+        }
+      },
+      redirection: ['AuthService', '$log', function (AuthService, $log) {
+          if(AuthService.isAuthenticated()){
             return '/client/0';
-
-      }
+          }
+      }],
     }).
     when('/profil', {
       templateUrl: 'partials/userProfil.html',
@@ -71,13 +75,14 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
   }
   
 
-  ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, AuthService, $log, Session, $q) {
+  ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, AuthService, $log, Session, $q, $location, $injector) {
     $rootScope.deferred = $q.defer();
+
     AuthService.retrieveUser().then(function (user) {
       $rootScope.currentUser = user;
       $rootScope.deferred.resolve();
 
-      $rootScope.$on('$routeChangeStart', function (event, next) {
+      $rootScope.$on('$routeChangeStart', function (event, next, current) {
         if(next && next.data){
           var authorizedRoles = next.data.authorizedRoles;
           if (!AuthService.isAuthorized(authorizedRoles)) {
@@ -96,12 +101,18 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     });
 
     $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-        $log.log(next);
-        redirectionFunction = next.$$route?.redirection;
-        return if not redirectionFunction?
-        route = $injector.invoke(redirectionFunction)
-        $location.path(route) if route?
-    }
+      if(next && next.$$route){
+        var redirectionFunction = next.$$route.redirection;
+        if(redirectionFunction){
+          var route = $injector.invoke(redirectionFunction);
+          $log.log("route : "+route);
+          if(route){
+            $log.log("redirecting ...");
+            $location.path(route);
+          }
+        }
+      }
+    });
 
     $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
       $log.log("not authenticated");

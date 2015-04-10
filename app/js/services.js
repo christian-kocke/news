@@ -113,6 +113,7 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 		return $http
 		.get('/project/RESTapi/public/user/logout')
 		.then(function (res) {
+			$rootScope.currentUser = null;
 			Session.destroy();
 		});
 
