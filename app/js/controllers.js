@@ -90,7 +90,6 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, NewsfeedSe
 			for(var i = 0; i < res.length; i++){
 				res[i].img_path = "/project/app/imgDrop/"+res[i].img_path;
 			}
-			console.log(res);
 			$scope.articles = res;
 		});
 	};

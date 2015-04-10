@@ -15,9 +15,13 @@ class UserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Registrar $registrar, Request $request)
 	{
-		//
+		error_log((array) $request);
+		if($registrar->validator((array) $request)->passes())
+		{
+			$registrar->create((array) $request);
+		}
 	}
 
 	/**
@@ -27,7 +31,7 @@ class UserController extends Controller {
 	 */
 	public function authenticate(Request $request)
     {
-        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
+        if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
         {
         	$this->_user = Auth::user();
         	return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
@@ -45,14 +49,17 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		if(Auth::check()){
+		if(Auth::check())
+		{
 			error_log(Auth::user());
 			return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
 		}
 	}
 
-	public function setPicture(Request $request){
-		if($request->file('file')->isValid() && Auth::check()){
+	public function setPicture(Request $request)
+	{
+		if($request->file('file')->isValid() && Auth::check())
+		{
 			$fileName = 'user_'.str_random(20).".".$request->file('file')->guessExtension();
 			if($request->file('file')->move('../../app/imgDrop/', $fileName))
 			{
@@ -67,8 +74,10 @@ class UserController extends Controller {
 	}
 
 
-	public function getPicture(){
-		if(Auth::check()){
+	public function getPicture()
+	{
+		if(Auth::check())
+		{
 			$path = '/project/app/imgDrop/'.DB::select('select img from users where id = ?', [Auth::user()->id])[0]->img;
 			return response($path);
 		}
