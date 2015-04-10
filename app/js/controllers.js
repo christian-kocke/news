@@ -81,7 +81,7 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 	$scope.isAuthorized = AuthService.isAuthorized;
 });
 
-newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS) {
+newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $timeout) {
 	
 	$scope.showArticle = false;
 
@@ -91,6 +91,8 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 				res[i].img_path = "/project/app/imgDrop/"+res[i].img_path;
 			}
 			$scope.articles = res;
+			$log.log("polling");
+			$timeout($scope.display, 3600);
 		});
 	};
 	

@@ -12,7 +12,7 @@ newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) 
 		var promises = [];
 		if (files && files.length) {
 			for (var i = 0; i < files.length; i++) {
-				var file = files[i];b
+				var file = files[i];
 				console.log(file);
 				var promise = $upload.upload({
 					url: '/project/RESTapi/public/user/setPicture',
