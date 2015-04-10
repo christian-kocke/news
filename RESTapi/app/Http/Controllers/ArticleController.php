@@ -54,11 +54,7 @@ class ArticleController extends Controller {
 			$filePath = '/project/app/imgDrop/article_'.str_random(20).".".$request->file('file')->guessExtension();
 			if($request->file('file')->move('../../app/imgDrop/', $filePath))
 			{
-				if(DB::update('update users set img = ? where id = ?', [$filePath, Auth::user()->id]))
-				{
-					return response($filePath);	
-				}
-				return response("update failure", 441);
+				return response($filePath);	
 			}
 		}
 		return response("upload failure.", 441);
