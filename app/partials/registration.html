@@ -1,67 +1,62 @@
 <div class="container text-center">
 	
-	<h1 class="welcome"> Welcome </h1>
-	<p class="lead"> Please create an account or log in to enjoy our news feeds. </p>
-	
-	<div class="container jumbotron formContainer">
-		<form name="signUpForm">	
-			
-			<!-- First & Last Names -->
-			<div class="row">
+	<div class="panel panel-primary">
+		
+		<div class="panel-heading">
+			<h1> Welcome </h1>
+			<p class="lead"> Please create an account or log in to enjoy our news feeds. </p>
+		</div><!-- class panel-heading -->
 
-				<div class="col-md-6">
-					<div class="form-group">
-						<label class="control-label sr-only" for="Firstname"> Firstname </label>
-						<div class="input-group">
-							<span class="input-group-addon"><span class="glyphicon glyphicon-hand-right"></span></span>
-							<input type="text" class="form-control" ng-model="firstname" name="firstname" id="firstname" placeholder="Firstname...">
-						</div><!-- class input-group -->
-					</div><!-- class form-group -->
-				</div><!-- class col-md-6 -->
-
-				<div class="col-md-6">
-					<div class="form-group">
-						<label class="control-label sr-only" for="Lastname"> Lastname </label>
-						<div class="input-group">
-							<span class="input-group-addon"><span class="glyphicon glyphicon-hand-right"></span></span>
-							<input type="text" class="form-control" ng-model="lastname" name="lastname" id="lastname" placeholder="Lastname...">
-						</div><!-- class input-group -->
-					</div><!-- class form-group -->
-				</div><!-- class col-md-6 -->
-
-			</div><!-- class row -->
-
-			<!-- Email & Login -->
-			<div class="row">
-
-				<div class="col-md-6">
-					<div class="form-group">
-						<label class="control-label sr-only" for="Email"> Email </label>
-						<div class="input-group">
-							<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-							<input type="email" class="form-control" ng-model="email" name="email" id="email" placeholder="Email...">
-						</div><!-- class input-group -->
-					</div><!-- class form-group -->
-				</div><!-- class col-md-6 -->
-
-				<div class="col-md-6">
-					<div class="form-group">
-						<label class="control-label sr-only" for="Login"> Login </label>
-						<div class="input-group">
-							<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-							<input type="text" class="form-control" ng-model="login" name="login" id="login" placeholder="Login...">
-						</div><!-- class input-group -->
-					</div><!-- class col-md-6 -->
-				</div><!-- class col-md-6 -->
-
-			</div><!-- class row -->
-
-
-			<!-- Password & Confirmation -->
-			<div class="row">
-				<div clas="form-group">
+		<div class="panel-body">
+			<form name="signUpForm">
+				<div class="row">
 					
-					<div class="col-md-6">
+					<!-- Firstname -->
+					<div class="col-md-5 col-md-offset-1">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Firstname"> Firstname </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-hand-right"></span></span>
+								<input type="text" class="form-control" ng-model="firstname" name="firstname" id="firstname" placeholder="Firstname...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-5 col-md-offset-1 -->
+
+					<!-- Lastname -->
+					<div class="col-md-5">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Lastname"> Lastname </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-hand-right"></span></span>
+								<input type="text" class="form-control" ng-model="lastname" name="lastname" id="lastname" placeholder="Lastname...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-5 -->
+
+					<!-- Email -->
+					<div class="col-md-5 col-md-offset-1">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Email"> Email </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+								<input type="email" class="form-control" ng-model="email" name="email" id="email" placeholder="Email...">
+							</div><!-- class input-group -->
+						</div><!-- class form-group -->
+					</div><!-- class col-md-5 col-md-offset-1 -->
+
+					<!-- Login -->
+					<div class="col-md-5">
+						<div class="form-group">
+							<label class="control-label sr-only" for="Login"> Login </label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+								<input type="text" class="form-control" ng-model="login" name="login" id="login" placeholder="Login...">
+							</div><!-- class input-group -->
+						</div><!-- class form-groupe -->
+					</div><!-- class col-md-5 -->
+
+					<!-- Password -->						
+					<div class="col-md-5 col-md-offset-1">
 						<div class="form-group">
 							<label class="control-label sr-only" for="Password"> Password </label>
 							<div class="input-group">
@@ -69,31 +64,28 @@
 								<input type="password" class="form-control" ng-model="password" name="password" id="password" placeholder="Password...">
 							</div><!-- class input-group -->
 						</div><!-- class form-group -->
-					</div><!-- class col-md-6 -->
+					</div><!-- class col-md-5 col-md-offset-1 -->
 
-					<div class="col-md-6">
+					<!-- Confirmation -->
+					<div class="col-md-5">
 						<div class="form-group">
 							<label class="control-label sr-only" for="Confirm"> Confirm </label>
 							<div class="input-group">
 								<span class="input-group-addon"><span class="glyphicon glyphicon-repeat"></span></span>
 								<input type="password" class="form-control" ng-model="confirm" name="confirm" id="confirm" placeholder="Confirm...">
 							</div><!-- class input-group -->
-						</div><!-- class col-md-6 -->
+						</div><!-- form-groupe -->
+					</div><!-- class col-md-5 -->
+
+					<!-- Submit -->
+					<div class="col-md-4 col-md-offset-4">
+						<a class="btn btn-primary" href="#/client" role="submit"> Sign Up </a>
 					</div><!-- class col-md-6 -->
 
-				</div><!-- class form-group -->
-			</div><!-- class row -->
+				</div><!-- class row -->
+			</form><!-- named signUpForm -->
+		</div><!-- class panel-body -->
 
-			<!-- Submit -->
-			<div class="row">
-
-				<div class="col-md-4 col-md-offset-4">
-					<a class="btn btn-primary" href="#/client" role="submit"> Sign Up </a>
-				</div><!-- class col-md-6 -->
-
-			</div><!-- class row -->
-
-		</form><!-- named signUpForm -->
-	</div><!-- class container jumbotron -->
+	</div><!-- class panel panel-primary -->
 
 </div><!-- class container text-center -->

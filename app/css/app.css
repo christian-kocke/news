@@ -7,7 +7,7 @@
 .cat {
   cursor: pointer;
 }
-.panel.panel-info {
+.panel {
   margin-top: 10em;
 }
 
@@ -44,7 +44,9 @@
 .dropText {
   height: 200px;
 }
-
+.panel.panel-default {
+  margin-top: 5em;
+}
 .dropText p.lead.imgArticle {
   border: 0.1em dashed grey;
   border-radius: 20%;
