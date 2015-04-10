@@ -26,12 +26,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     when('/', {
       templateUrl: '/project/app/partials/registration.html',
       url: '/protected',
-      redirection: function (AuthService) {
-
-          if(AuthService.isAuthenticated())
-            return '/client/0';
-
-      }
     }).
     when('/profil', {
       templateUrl: 'partials/userProfil.html',
@@ -95,13 +89,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
       });
     });
 
-    $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-        $log.log(next);
-        redirectionFunction = next.$$route?.redirection;
-        return if not redirectionFunction?
-        route = $injector.invoke(redirectionFunction)
-        $location.path(route) if route?
-    }
+  
 
     $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
       $log.log("not authenticated");
