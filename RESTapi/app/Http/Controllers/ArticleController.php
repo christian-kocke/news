@@ -15,7 +15,6 @@ class ArticleController extends Controller {
 	 */
 	public function index()
 	{
-		error_log("dans laravel");
 		$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id');
 		if($result) 
 		{
@@ -92,7 +91,11 @@ class ArticleController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		if(DB::delete('delete from articles where id = ?', [$id]) == 1)
+		{
+			return response("1");
+		}
+		return response("Delete Failed.", 452);
 	}
 
 }

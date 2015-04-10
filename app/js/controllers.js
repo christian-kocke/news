@@ -81,7 +81,11 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 	$scope.isAuthorized = AuthService.isAuthorized;
 });
 
+<<<<<<< HEAD
 newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $timeout) {
+=======
+newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $rootScope) {
+>>>>>>> origin/master
 	
 	$scope.showArticle = false;
 
@@ -111,9 +115,9 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 
 	// When Delete Button is Clicked
 	$scope.delete = function(id) {
-		$log.log(id);
-		ArticleService.delete(id).then(function (res) {
+		ArticleService.delete(id).then(function () {
 			$rootScope.$broadcast(ARTICLE_EVENTS.deleteSuccess);
+			$rootScope.$on(ARTICLE_EVENTS.deleteSuccess, $scope.display());
 		}, function () {
 			$rootScope.$broadcast(ARTICLE_EVENTS.deleteFailed);
 		});
