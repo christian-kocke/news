@@ -109,6 +109,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 
 	// When Delete Button is Clicked
 	$scope.delete = function(id) {
+		$scope.showArticle = false;
 		ArticleService.delete(id).then(function () {
 			$rootScope.$broadcast(ARTICLE_EVENTS.deleteSuccess);
 			$rootScope.$on(ARTICLE_EVENTS.deleteSuccess, $scope.display());

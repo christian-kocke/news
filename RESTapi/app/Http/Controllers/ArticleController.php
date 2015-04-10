@@ -15,7 +15,7 @@ class ArticleController extends Controller {
 	 */
 	public function index()
 	{
-		$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id');
+		$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id order by a.id desc');
 		if($result) 
 		{
 			foreach ($result as $article) {
