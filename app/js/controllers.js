@@ -81,28 +81,40 @@ newsControllers.controller('ApplicationController', function ($scope, USER_ROLES
 	$scope.isAuthorized = AuthService.isAuthorized;
 });
 
-newsControllers.controller('NewsCtrl', function ($scope, $http, $log, NewsfeedService, ARTICLE_EVENTS) {
+newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS) {
 	
 	$scope.showArticle = false;
 
 	$scope.display = function () {
-		NewsfeedService.loadArticles().then(function (res) {
+		ArticleService.get().then(function (res) {
 			for(var i = 0; i < res.length; i++){
 				res[i].img_path = "/project/app/imgDrop/"+res[i].img_path;
 			}
-			console.log(res);
 			$scope.articles = res;
 		});
 	};
 	
 	$scope.readMore = function(id) {
-		$scope.currentArticle = $scope.articles[id-1];
-		$scope.showArticle = !$scope.showArticle;
+		angular.forEach($scope.articles, function(article) {
+			if(article.id === id) {
+				$scope.currentArticle = article;
+				$scope.showArticle = true;
+			}
+		});
+	};
+
+	$scope.closeArticle = function() {
+		$scope.showArticle = false;
 	};
 
 	// When Delete Button is Clicked
 	$scope.delete = function(id) {
-		console.log('delete part !');
+		$log.log(id);
+		ArticleService.delete(id).then(function (res) {
+			$rootScope.$broadcast(ARTICLE_EVENTS.deleteSuccess);
+		}, function () {
+			$rootScope.$broadcast(ARTICLE_EVENTS.deleteFailed);
+		});
 	};
 });
 

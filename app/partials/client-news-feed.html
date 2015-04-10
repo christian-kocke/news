@@ -31,7 +31,7 @@
 			
 			<!-- All News -->
 			<div class="newsContent" ng-hide="showArticle">
-				<div id="{{article.id}}" class="media well" ng-repeat="article in articles">
+				<div id="{{article.id}}" class="media well" ng-repeat="article in articles track by article.id">
 					<div class="pull-left media-middle">
 						<a>
 							<img class="media-object" ng-src="{{article.img_path}}" alt="" width="300" height="200">
@@ -50,12 +50,12 @@
 			<!-- One News -->
 			<div  class="newsContent" ng-show="showArticle">
 				<div class="container-fluid jumbotron">
-					<button ng-show="currentUser.role === 'admin'" class="btn btn-danger pull-left" ng-click="delete(article.id)"> Delete </button>
-					<a class="btn-lg pull-right" ng-click="readMore()" role="button"><span class="glyphicon glyphicon-remove"></span></a>
-					<img class="center-block img-circle" ng-src="{{currentArticle.images[0].url}}" alt="{{currentArticle.images[0].alt}}" width="150" height="150">
-					<h2 class="lead">{{currentArticle.title}}<em>—{{currentArticle.publish_date}}</em></h2>
+					<button ng-show="currentUser.role === 'admin'" class="btn btn-danger pull-left" ng-click="delete(currentArticle.id)"> Delete </button>
+					<a class="btn-lg pull-right" ng-click="closeArticle()" role="button"><span class="glyphicon glyphicon-remove"></span></a>
+					<img class="center-block img-circle" ng-src="{{currentArticle.img_path}}" alt="" width="150" height="150">
+					<h2 class="lead">{{currentArticle.title}}<em>—{{currentArticle.timestamp}}</em></h2>
 					<p class="text-justify">{{currentArticle.content}}</p>
-					<cite><em>by {{currentArticle.author}}</em></cite>
+					<cite><em>by {{currentArticle.username}}</em></cite>
 				</div>
 			</div><!-- class newsContent -->
 
