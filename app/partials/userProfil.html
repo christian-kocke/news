@@ -15,12 +15,12 @@
 					<div class="col-md-6">
 						
 						<div class="col-md-6">
-							<h3 class="lead"> {{currentUser.username}} </h3>
+							<h3 class="lead" ng-click="updateUsername()"> {{currentUser.username}} </h3>
 							<div ng-file-drop class="drop-box" ng-file-select ng-model="files" drag-over-class="dragover" allow-dir="true" accept="image/*,application/pdf">
-								<div class="dropText" ng-hide="currentUser.img || imgIsEnable"><p class="lead"> Drop your picture ! (or click) <span class="glyphicon glyphicon-cloud-download"></span></p></div>
-								<img class="dropImg" ng-show="currentUser.img || imgIsEnable" ng-src="{{currentUser.img || imgSrc}}"/>
+								<div class="dropText" ng-hide="currentUser.img"><p class="lead"> Drop your picture ! (or click) <span class="glyphicon glyphicon-cloud-download"></span></p></div>
+								<img class="dropImg" ng-show="currentUser.img" ng-src="{{currentUser.img}}"/>
 							</div><!-- class drop-box -->
-								<h6 class="text-info" ng-show="currentUser.img || imgIsEnable"><em>* Click on your picture to Edit it! </em></h6>
+								<h6 class="text-info" ng-show="currentUser.img"><em>* Click on your picture to Edit it! </em></h6>
 								<h6 class="text-danger"><em>* Account created {{currentUser.created_at}} </em></h6>
 						</div><!-- class col-md-6 -->
 

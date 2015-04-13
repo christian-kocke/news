@@ -84,6 +84,14 @@
   margin: auto;
 }
 
+.dropImgAdmin {
+  border: 0.1em dashed grey;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+}
+
 .dragover {
     border: 0.1em dashed black;
     opacity: 0.4;

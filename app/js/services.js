@@ -62,7 +62,7 @@ newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) 
 				promises.push(promise);
 			}
 		}
-
+		
 		return promises;
 
 	};// End update()
@@ -220,6 +220,7 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, F
 				419: AUTH_EVENTS.sessionTimeout,
 				440: AUTH_EVENTS.sessionTimeout,
 				441: FILE_EVENTS.uploadFailed,
+				442: FILE_EVENTS.getFailed,
 				450: ARTICLE_EVENTS.postFailed,
 				451: ARTICLE_EVENTS.selectFailed,
 				452: ARTICLE_EVENTS.deleteFailed

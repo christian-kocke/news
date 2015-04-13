@@ -18,12 +18,10 @@ newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $
 	};
 });
 
-
-
-
-newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, ArticleService, FileService, FILE_EVENTS, ARTICLE_EVENTS, $rootScope) {
+newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http, ArticleService, FileService, FILE_EVENTS, ARTICLE_EVENTS, $rootScope) {
 	
 	$scope.article = {};
+	$scope.imgIsEnable = false;
 
 	// Waiting for a Drop
 	$scope.$watch('files', function () {
@@ -37,12 +35,8 @@ newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, Arti
 		
 		// Get Image Path
 		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (promise) {	
-			promise.then(function (res) {		
+				$scope.imgIsEnable = !!res;
 				$scope.fileName = res.data;
-				FileService.filePath('/project/RESTapi/public/api/article/getPicture').then(function (path) {
-					$scope.imgIsEnable = !!path;
-					$scope.imgSrc = path;
-				});
 			});
 		});
 
@@ -76,31 +70,30 @@ newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, Arti
 
 });// End ArticleCtrl
 
-newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $log) {
+newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $log, $rootScope) {
 
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
 
 	// Watch for any dropped element
 	$scope.$watch('files', function () {
-		
 		$scope.upload();
-
 	});
 
 	// When an element is dropped
 	$scope.upload = function () {
-		
 		angular.forEach(FileService.update($scope.files, "/project/RESTapi/public/user/setPicture"), function (promise) {
 			promise.then(function (res) {
-				FileService.filePath("/project/RESTapi/public/user/getPicture").then(function (path) {
-					$scope.imgIsEnable = !!path;
-					$scope.imgSrc = path;
-				});
+				$rootScope.currentUser.img = res.data + '?decache=' + Math.random();
 			});
 		});
 
 	};// End upload()
+
+	// When user click on his username 
+	$scope.updateUsername = function () {
+		
+	};
 
 });// End ProfilCtrl
 

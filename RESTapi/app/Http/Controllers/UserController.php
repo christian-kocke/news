@@ -86,6 +86,7 @@ class UserController extends Controller {
 			$path = DB::select('select img from users where id = ?', [Auth::user()->id])[0]->img;
 			return response($path);
 		}
+		return response("Get path failed.", 442);
 	}
 	/**
 	 * Show the form for editing the specified resource.
