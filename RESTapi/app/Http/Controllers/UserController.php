@@ -2,6 +2,7 @@
 
 use Auth;
 use DB;
+use Illuminate\Contracts\Auth\Registrar;
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
 
@@ -10,17 +11,26 @@ use Illuminate\Http\Request;
 class UserController extends Controller {
 
 	private $_user;
+
+	public function __construct(Request $request, Registrar $registrar)
+	{
+		$this->_request = $request;
+		$this->_registrar = $registrar;
+	}
 	/**
-	 * Show the form for creating a new resource.
+	 * Create a new user.
 	 *
 	 * @return Response
 	 */
-	public function create(Registrar $registrar, Request $request)
-	{
-		if($registrar->validator((array) $request)->passes())
+	public function store()
+	{	
+		error_log(print_r($this->_request->all(), true));
+		$validator = $this->_registrar->validator($this->_request->all());
+		if($validator->passes())
 		{
-			$registrar->create((array) $request);
+			return response($this->_registrar->create($this->_request->all()));
 		}
+		return response()->json($validator->messages());
 	}
 
 	/**

@@ -26,6 +26,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     when('/', {
       templateUrl: '/project/app/partials/registration.html',
       url: '/protected',
+      controller: 'RegistrarCtrl',
       resolve: {
         session: function resolveSession(SessionResolver) {
           return SessionResolver.resolve();
@@ -160,4 +161,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     uploadFailed: 'upload-file-failed',
     deleteSuccess: 'delete-file-success',
     deleteFailed: 'delete-file-failed'
+  }).constant('REGISTRAR_EVENTS', {
+    registrationSuccess: 'registration-user-success',
+    registrationFailed: 'registration-user-failed',
   });

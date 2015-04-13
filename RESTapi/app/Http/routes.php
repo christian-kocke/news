@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+Route::resource('api/user','UserController', ['only' => ['store']]);
+
 Route::group(['middleware' => ['csrf', 'auth']], function(){
 	
 	Route::post('user/setPicture', 'UserController@setPicture');
@@ -32,7 +34,7 @@ Route::group(['middleware' => ['csrf', 'auth']], function(){
 	Route::post('api/article/display', 'ArticleController@index');
 	Route::post('api/article/setPicture', 'ArticleController@setPicture');
 	Route::resource('api/article','ArticleController');
-	Route::resource('api/user','UserController');	
+	Route::resource('api/user','UserController', ['except' => ['store']]);	
 
 });
 

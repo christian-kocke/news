@@ -5,6 +5,33 @@
 var newsServices = angular.module('newsServices', ['ngResource']);
 
 
+newsServices.factory('UserService', function ($http, $log, $rootScope) {
+
+	var userService = {};
+
+	userService.create = function (user) {
+		return $http
+		.post('/project/RESTapi/public/api/user', user)
+		.then(function (res) {
+			$log.log(res);
+		});
+	}
+
+	userService.update = function () {
+
+	};
+
+	userService.destroy = function () {
+		return $http
+		.delete('/project/RESTapi/public/api/user/')
+		.then(function (res) {
+
+		});
+	};
+
+	return userService;
+});
+
 newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) {
 
 	var fileService = {};

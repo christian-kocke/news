@@ -19,7 +19,7 @@ class Registrar implements RegistrarContract {
 			'lastname' => 'required|max:60',
 			'username' => 'required|max:60',
 			'email' => 'required|email|max:255|unique:users',
-			'password' => 'required|confirmed|min:8',
+			'password' => 'required|confirmed|min:8|max:100',
 		]);
 	}
 
@@ -31,12 +31,14 @@ class Registrar implements RegistrarContract {
 	 */
 	public function create(array $data)
 	{
+		error_log(print_r($data, true));
 		return User::create([
 			'firstname' => $data['firstname'],
-			'lastname' => $data['lastanme'],
+			'lastname' => $data['lastname'],
 			'username' => $data['username'],
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
+			'role' => "client",
 		]);
 	}
 

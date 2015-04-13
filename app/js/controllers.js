@@ -4,6 +4,23 @@
 
 var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
 
+
+newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, REGISTRAR_EVENTS) {
+	$scope.register = function (user) {
+		$log.log(user); 
+		if(user.password === user.password_confirmation) {
+			UserService.create(user).then(function (res) {
+				$rootScope.$broadcast(REGISTRAR_EVENTS.registrationSuccess);
+			}, function () {
+				$rootScope.$broadcast(REGISTRAR_EVENTS.registrationFailed);
+			});
+		}
+	};
+});
+
+
+
+
 newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, ArticleService, FileService, FILE_EVENTS, ARTICLE_EVENTS, $rootScope) {
 	
 	$scope.article = {};
