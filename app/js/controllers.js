@@ -37,7 +37,6 @@ newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http
 		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (promise) {	
 				$scope.imgIsEnable = !!res;
 				$scope.fileName = res.data;
-			});
 		});
 
 	};
