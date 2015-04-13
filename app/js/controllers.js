@@ -22,7 +22,7 @@ newsControllers.controller('ArticleCtrl', function ($scope, $upload, $http, Arti
 		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (promise) {	
 			promise.then(function (res) {		
 				$scope.fileName = res.data;
-				FileService.filePath().then(function (path) {
+				FileService.filePath('/project/RESTapi/public/api/article/getPicture').then(function (path) {
 					$scope.imgIsEnable = !!path;
 					$scope.imgSrc = path;
 				});
@@ -76,7 +76,7 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		
 		angular.forEach(FileService.update($scope.files, "/project/RESTapi/public/user/setPicture"), function (promise) {
 			promise.then(function (res) {
-				FileService.filePath().then(function (path) {
+				FileService.filePath("/project/RESTapi/public/user/getPicture").then(function (path) {
 					$scope.imgIsEnable = !!path;
 					$scope.imgSrc = path;
 				});
@@ -106,7 +106,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 		ArticleService.get($routeParams).then(function (res) {
 			
 			for(var i = 0; i < res.length; i++){
-				res[i].img_path = "/project/app/imgDrop/"+res[i].img_path;
+				res[i].img_path = res[i].img_path;
 			}
 
 			$scope.articles = res;

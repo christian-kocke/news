@@ -62,6 +62,15 @@ class ArticleController extends Controller {
 	}
 
 
+	public function getPicture()
+	{
+		if(Auth::check())
+		{
+			$path = DB::select('select img from articles where id = ?', [Auth::user()->id])[0]->img;
+			return response($path);
+		}
+	}
+
 	/**
 	 * Store a newly created resource in storage.
 	 *

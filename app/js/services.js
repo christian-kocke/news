@@ -41,10 +41,10 @@ newsServices.factory('FileService', function ($http, $log, $rootScope, $upload) 
 	};// End update()
 
 	// Get the image path
-	fileService.filePath = function () {
+	fileService.filePath = function (url) {
 
 		return $http
-		.get('/project/RESTapi/public/user/getPicture').then(function (res) {
+		.get(url).then(function (res) {
 			return res.data;
 		});
 
