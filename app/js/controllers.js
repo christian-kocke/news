@@ -6,6 +6,9 @@ var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
 
 
 newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, REGISTRAR_EVENTS) {
+
+	$scope.confirm = false;
+
 	$scope.register = function (user) {
 		$log.log(user); 
 		if(user.password === user.password_confirmation) {
@@ -15,6 +18,11 @@ newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $
 				$rootScope.$broadcast(REGISTRAR_EVENTS.registrationFailed);
 			});
 		}
+	};
+
+	$scope.checkPassword = function (user) {
+		$scope.confirm = user.password === user.password_confirmation;
+		$log.log($scope.confirm);
 	};
 });
 
@@ -34,7 +42,7 @@ newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http
 	$scope.upload = function () {
 		
 		// Get Image Path
-		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (promise) {	
+		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (res) {	
 				$scope.imgIsEnable = !!res;
 				$scope.fileName = res.data;
 		});
