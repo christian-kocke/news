@@ -1,6 +1,7 @@
 <?php namespace Api\Http\Controllers;
 
 use Auth;
+use Hash;
 use DB;
 use Illuminate\Contracts\Auth\Registrar;
 use Api\Http\Requests;
@@ -39,18 +40,18 @@ class UserController extends Controller {
 	 * @return Response
 	 */
 	public function authenticate(Request $request)
-    {
-        if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
-        {
-        	$this->_user = Auth::user();
-        	return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
-        }
-    }
+	{
+		if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
+		{
+			$this->_user = Auth::user();
+			return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
+		}
+	}
 
-    public function logout()
-    {
-    	return response(Auth::logout());
-    }
+	public function logout()
+	{
+		return response(Auth::logout());
+	}
 	/**
 	 * Display the specified resource.
 	 *
@@ -107,7 +108,37 @@ class UserController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		if((($cpt = count($this->_request->input())) > 0 ) && Auth::check())
+		{
+			if(count(array_intersect_key($this->_request->all(), array('username' => "", 'current' => "", 'password' => "", 'confirm' => ""))) === count($this->_request->all()))
+			{
+				if($cpt == 1)
+				{
+					$username = $this->_request->input('username');
+					$arg[] = $username;
+					$query = "update users set username = ? where id = ".Auth::user()->id;
+				} else {
+					$current = $this->_request->input('current');
+					$password = $this->_request->input('password');
+					$confirm = $this->_request->input('confirm');
+					
+					if(!Hash::check($current, Auth::user()->password) || $password !== $confirm)
+					{
+						return response("Wrong password.", 460);
+					} else 
+					{
+						$arg[] = bcrypt($password);
+						$query = "update users set password = ? where id = ".Auth::user()->id;
+					}
+				}
+
+				if(DB::update($query, $arg))
+				{
+					return response("1");
+				}
+			}
+			return response("Profil Update Failed", 461);
+		}
 	}
 
 	/**
@@ -118,7 +149,13 @@ class UserController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		if(Auth::check()) 
+		{
+			if(DB::delete("delete from users where id = ?", [$id])) {
+				return response("1");
+			}
+		}
+		return response("Delete Account Failed", 462);
 	}
 
 }

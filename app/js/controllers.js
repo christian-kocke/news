@@ -5,14 +5,14 @@
 var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
 
 
-newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, REGISTRAR_EVENTS) {
+newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, USER_EVENTS) {
 	$scope.register = function (user) {
 		$log.log(user); 
 		if(user.password === user.password_confirmation) {
 			UserService.create(user).then(function (res) {
-				$rootScope.$broadcast(REGISTRAR_EVENTS.registrationSuccess);
+				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
 			}, function () {
-				$rootScope.$broadcast(REGISTRAR_EVENTS.registrationFailed);
+				$rootScope.$broadcast(USER_EVENTS.registrationFailed);
 			});
 		}
 	};
@@ -25,18 +25,18 @@ newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http
 
 	// Waiting for a Drop
 	$scope.$watch('files', function () {
-		
 		$scope.upload();
-
 	});
 
 	// When Image is Dropped
 	$scope.upload = function () {
 		
 		// Get Image Path
-		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (promise) {	
+		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (promise) {
+			promise.then(function (res) {
 				$scope.imgIsEnable = !!res;
 				$scope.fileName = res.data;
+			});	
 		});
 
 	};
@@ -69,10 +69,11 @@ newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http
 
 });// End ArticleCtrl
 
-newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $log, $rootScope) {
+newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $route, $log, $rootScope, Session, UserService, USER_EVENTS) {
 
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
+	$scope.updateLogin = false;
 
 	// Watch for any dropped element
 	$scope.$watch('files', function () {
@@ -90,8 +91,39 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	};// End upload()
 
 	// When user click on his username 
-	$scope.updateUsername = function () {
-		
+	$scope.showInput = function () {
+		$scope.updateLogin = true;
+	};
+
+	$scope.loginUpdate = function () {
+		$log.log($scope.user);
+		UserService.update($scope.user).then(function (res) {
+			$rootScope.$broadcast(USER_EVENTS.updateSuccess);
+			$scope.updateLogin = false;
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.updateFailed);
+		});		
+	};
+
+	$scope.updatePassword = function () {
+		$log.log($scope.pwd);
+		UserService.update($scope.pwd).then(function (res) {
+
+		});
+	};
+
+	$scope.deleteAccount = function () {
+		UserService.destroy($rootScope.currentUser.id).then(function (res) {
+			$log.log("Here");
+			$rootScope.$broadcast(USER_EVENTS.deleteSuccess);
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.deleteFailed);
+		});
+		$rootScope.$on(USER_EVENTS.deleteSuccess, function() {
+			$rootScope.currentUser = null;
+			Session.destroy();
+			$route.reload();
+		});
 	};
 
 });// End ProfilCtrl

@@ -76,7 +76,8 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
   }
   
 
-  ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, AuthService, $log, Session, $q, $location, $injector) {
+  ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, AuthService, $log, Session, $q, $location, $injector) {
+    
     $rootScope.deferred = $q.defer();
 
     AuthService.retrieveUser().then(function (user) {
@@ -127,6 +128,12 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
       $log.log("post success");
     });
 
+    $rootScope.$on(USER_EVENTS.updateSuccess, function () {
+      AuthService.retrieveUser().then(function (user) {
+        $rootScope.currentUser = user;
+      });
+    });
+
   });
 
   newsApp.config(function ($httpProvider) {
@@ -161,7 +168,13 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     uploadFailed: 'upload-file-failed',
     deleteSuccess: 'delete-file-success',
     deleteFailed: 'delete-file-failed'
-  }).constant('REGISTRAR_EVENTS', {
+  }).constant('USER_EVENTS', {
     registrationSuccess: 'registration-user-success',
     registrationFailed: 'registration-user-failed',
+    updateSuccess: 'update-user-success',
+    updateFailed: 'update-user-failed',
+    passwordSuccess: "password-user-success",
+    passwordFailed: "password-user-failed",
+    deleteSuccess: "delete-user-success",
+    deleteFailed: "delete-user-failed"
   });

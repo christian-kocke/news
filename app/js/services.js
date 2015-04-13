@@ -13,19 +13,21 @@ newsServices.factory('UserService', function ($http, $log, $rootScope) {
 		return $http
 		.post('/project/RESTapi/public/api/user', user)
 		.then(function (res) {
-			$log.log(res);
 		});
 	}
 
-	userService.update = function () {
-
+	userService.update = function (data) {
+		return $http
+		.put('/project/RESTapi/public/api/user/'+$rootScope.currentUser.id, data)
+		.then(function (res) {
+			return res.data;
+		});
 	};
 
-	userService.destroy = function () {
+	userService.destroy = function (id) {
 		return $http
-		.delete('/project/RESTapi/public/api/user/')
+		.delete('/project/RESTapi/public/api/user/'+id)
 		.then(function (res) {
-
 		});
 	};
 
@@ -208,7 +210,7 @@ newsServices.factory('Session', function () {
 });// End Session
 
 
-newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, ARTICLE_EVENTS) {
+newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, FILE_EVENTS, ARTICLE_EVENTS, USER_EVENTS) {
 
 	return {
 
@@ -223,7 +225,10 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, F
 				442: FILE_EVENTS.getFailed,
 				450: ARTICLE_EVENTS.postFailed,
 				451: ARTICLE_EVENTS.selectFailed,
-				452: ARTICLE_EVENTS.deleteFailed
+				452: ARTICLE_EVENTS.deleteFailed,
+				460: USER_EVENTS.passwordFailed,
+				461: USER_EVENTS.updateFailed,
+				462: USER_EVENTS.deleteFailed
 			}[response.status], response);
 
 			return $q.reject(response);
