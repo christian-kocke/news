@@ -159,5 +159,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
     uploadSuccess: 'upload-file-success',
     uploadFailed: 'upload-file-failed',
     deleteSuccess: 'delete-file-success',
-    deleteFailed: 'delete-file-failed'
+    deleteFailed: 'delete-file-failed',
+    getFailed: 'get-file-failed',
+    getSuccess: 'get-file-success'
   });
