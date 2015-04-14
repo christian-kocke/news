@@ -118,26 +118,23 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		});
 	};
 
+});// End ProfilCtrl
+
+newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, USER_EVENTS, AuthService, $location, $log, Session, UserService, $rootScope, $route) {
+
+	$scope.userRoles = USER_ROLES;
+	$scope.isAuthorized = AuthService.isAuthorized;
+
 	$scope.deleteAccount = function () {
 		UserService.destroy($rootScope.currentUser.id).then(function (res) {
-			$log.log("Here");
+			$rootScope.currentUser = null;
+			Session.destroy();
+			$route.reload();
 			$rootScope.$broadcast(USER_EVENTS.deleteSuccess);
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.deleteFailed);
 		});
-		$rootScope.$on(USER_EVENTS.deleteSuccess, function() {
-			$rootScope.currentUser = null;
-			Session.destroy();
-			$route.reload();
-		});
 	};
-
-});// End ProfilCtrl
-
-newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, $location, $log, Session) {
-
-	$scope.userRoles = USER_ROLES;
-	$scope.isAuthorized = AuthService.isAuthorized;
 
 });// End ApplicationController
 
@@ -206,7 +203,6 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUT
 
 	// When user try to log in
 	$scope.login = function (credentials) {
-		
 		AuthService.login(credentials).then(function (user) {
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			$rootScope.currentUser = user;
