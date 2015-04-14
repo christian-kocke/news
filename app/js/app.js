@@ -75,8 +75,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
 
     $locationProvider.html5Mode(false);
   }
-
-
   ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector) {
 
     $rootScope.deferred = $q.defer();
@@ -91,43 +89,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
           if (!AuthService.isAuthorized(authorizedRoles)) {
             event.preventDefault();
             if (AuthService.isAuthenticated()) {
-              // user is not allowed
-              $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-            } else {
-              // user is not logged in
-              $log.log(Session);
-              $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-            }
-          }
-        }
-      });
-    });
-
-    $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-      if(next && next.$$route){
-        var redirectionFunction = next.$$route.redirection;
-        if(redirectionFunction){
-          var route = $injector.invoke(redirectionFunction);
-          $log.log("route : "+route);
-          if(route){
-            $location.path(route);
-          }
-        }
-
-        ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector) {
-
-          $rootScope.deferred = $q.defer();
-
-          AuthService.retrieveUser().then(function (user) {
-            $rootScope.currentUser = user;
-            $rootScope.deferred.resolve();
-
-            $rootScope.$on('$routeChangeStart', function (event, next, current) {
-              if(next && next.data){
-                var authorizedRoles = next.data.authorizedRoles;
-                if (!AuthService.isAuthorized(authorizedRoles)) {
-                  event.preventDefault();
-                  if (AuthService.isAuthenticated()) {
                         // user is not allowed
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
                       } else {
@@ -138,21 +99,21 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                     }
                   }
                 });
-          });
+    });
 
-          $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-            if(next && next.$$route){
-              var redirectionFunction = next.$$route.redirection;
-              if(redirectionFunction){
-                var route = $injector.invoke(redirectionFunction);
-                $log.log("route : "+route);
-                if(route){
-                  $log.log("redirecting ...");
-                  $location.path(route);
-                }
-              }
-            }
-          });
+    $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
+      if(next && next.$$route){
+        var redirectionFunction = next.$$route.redirection;
+        if(redirectionFunction){
+          var route = $injector.invoke(redirectionFunction);
+          $log.log("route : "+route);
+          if(route){
+            $log.log("redirecting ...");
+            $location.path(route);
+          }
+        }
+      }
+    });
 
 
         // Session
