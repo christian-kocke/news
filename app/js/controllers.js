@@ -114,8 +114,10 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	$scope.updatePassword = function () {
 		$log.log($scope.pwd);
 		UserService.update($scope.pwd).then(function (res) {
-
-		});
+			$rootScope.$broadcast(USER_EVENTS.passwordSuccess);
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
+		});	
 	};
 
 });// End ProfilCtrl
@@ -124,8 +126,6 @@ newsControllers.controller('ApplicationController', function (ngToast, $scope, U
 
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
-
-	ngToast.create('a toast message...');
 
 	$scope.deleteAccount = function () {
 		UserService.destroy($rootScope.currentUser.id).then(function (res) {

@@ -24,6 +24,7 @@
   <script src="js/filters.js"></script>
   <script src="components/angular-file-upload/angular-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
   <script src="components/angular-file-upload/angular-file-upload.min.js"></script>
+  <script src="components/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="components/angular-toast/dist/ngToast.min.js"></script>
   <!--<script src="js/dropfile.js"></script>-->
 </head>
@@ -80,6 +81,7 @@
   <div ng-view class="view-frame"></div>
 </div><!-- class view-container -->
 
+<toast></toast>
 
 <!-- Delete account Modal (confirmation) -->
 <div id="myModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
