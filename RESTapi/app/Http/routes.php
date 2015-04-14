@@ -14,19 +14,22 @@
 
 
 Route::post('/user/login', 'UserController@authenticate');
+Route::post('api/user/emailCheck', 'UserController@emailCheck');
+Route::post('api/user/passwordCheck', 'UserController@passwordCheck');
 
-Route::group(['middleware' => 'auth'], function(){
-	
-	Route::get('/user/token', function() {
+Route::group(['middleware' => 'auth'], function()
+{
+	Route::get('/user/token', function() 
+	{
 		csrf_token();
 		echo true;	
 	});
-
 });
 
 Route::resource('api/user','UserController', ['only' => ['store']]);
 
-Route::group(['middleware' => ['csrf', 'auth']], function(){
+Route::group(['middleware' => ['csrf', 'auth']], function()
+{
 	
 	Route::post('user/setPicture', 'UserController@setPicture');
 	Route::get('user/getPicture', 'UserController@getPicture');

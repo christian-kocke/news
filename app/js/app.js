@@ -76,7 +76,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
         $locationProvider.html5Mode(false);
     }
 
-
     ]).run(function ($rootScope, AUTH_EVENTS, ARTICLE_EVENTS, FILE_EVENTS, USER_EVENTS, ngToast, AuthService, $log, Session, $q, $location, $injector) {
 
         $rootScope.deferred = $q.defer();
@@ -91,16 +90,16 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                     if (!AuthService.isAuthorized(authorizedRoles)) {
                         event.preventDefault();
                         if (AuthService.isAuthenticated()) {
-                        // user is not allowed
-                        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-                    } else {
-                        // user is not logged in
-                        $log.log(Session);
-                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                            // user is not allowed
+                            $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                        } else {
+                            // user is not logged in
+                            $log.log(Session);
+                            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                        }
                     }
                 }
-            }
-        });
+            });
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
@@ -191,7 +190,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
         $rootScope.$on(ARTICLE_EVENTS.selectFailed, function () {
             var aToast = ngToast.create({
                 className: 'warning',
-                content: 'Sorry there is no articles in this section, please try later !'
+                content: 'Sorry there are no articles in this section, please try later !'
             });
         });
 
@@ -272,9 +271,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             });
         });
 
-
-
-
     });
 
 newsApp.config(function ($httpProvider) {
@@ -289,10 +285,10 @@ newsApp.config(['ngToastProvider', function(ngToast) {
         verticalPosition: 'top',
         horizontalPosition: 'center',
         maxNumber: 0,
-        animation: 'fade',
+        animation: 'slide',
         dismissOnClick: true,
         dismissOnTimeout: true,
-        timeout: 4000
+        timeout: 3000,
     });
 }]);
 

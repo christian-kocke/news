@@ -18,7 +18,6 @@ newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $
 
 	$scope.checkPassword = function (user) {
 		$scope.confirm = user.password === user.password_confirmation;
-		$log.log($scope.confirm);
 	};
 });
 
@@ -81,6 +80,7 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
 	$scope.updateLogin = false;
+	$scope.confirm = false;
 
 	// Watch for any dropped element
 	$scope.$watch('files', function () {
@@ -106,7 +106,6 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	};
 
 	$scope.loginUpdate = function () {
-		$log.log($scope.user);
 		UserService.update($scope.user).then(function (res) {
 			$rootScope.$broadcast(USER_EVENTS.updateSuccess);
 			$scope.updateLogin = false;
@@ -115,13 +114,16 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		});		
 	};
 
-	$scope.updatePassword = function () {
-		$log.log($scope.pwd);
-		UserService.update($scope.pwd).then(function (res) {
+	$scope.updatePassword = function (pwd) {
+		UserService.update(pwd).then(function (res) {
 			$rootScope.$broadcast(USER_EVENTS.passwordSuccess);
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
 		});	
+	};
+
+	$scope.checkPassword = function (pwd) {
+		$scope.confirm = pwd.password === pwd.confirm;
 	};
 
 });// End ProfilCtrl
@@ -147,19 +149,16 @@ newsControllers.controller('ApplicationController', function (ngToast, $scope, U
 newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $rootScope, $timeout, $routeParams) {
 	
 	$scope.showArticle = false;
-
 	// Display All the Articles
 	$scope.display = function () {
-		
 		$scope.categorie = $routeParams.categorie;
 
 		ArticleService.get($routeParams).then(function (res) {
-			
 			for(var i = 0; i < res.length; i++){
 				res[i].img_path = res[i].img_path;
 			}
-
 			$scope.articles = res;
+			$timeout($scope.display, 36000); // data polling every 40 secondes
 		}, function () {
 			$rootScope.$broadcast(ARTICLE_EVENTS.selectFailed);
 		});
@@ -199,7 +198,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 
 });// End NewsCtrl
 
-newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUTH_EVENTS, AuthService) {
+newsControllers.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService) {
 
 	$scope.credentials = {
 		email: '',
@@ -211,8 +210,8 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUT
 		
 		AuthService.login(credentials).then(function (user) {
 			$rootScope.currentUser = user;
-			$route.reload();
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			$route.reload();
 		}, function () {
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
@@ -222,8 +221,12 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUT
 	// When user try to log out
 	$scope.logout = function () {
 		AuthService.logout().then(function (res) {
-			$route.reload();
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+<<<<<<< HEAD
+			$route.reload();
+=======
+			$location.path('/');
+>>>>>>> origin/master
 		});
 
 	};// End logout()

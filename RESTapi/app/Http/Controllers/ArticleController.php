@@ -18,12 +18,12 @@ class ArticleController extends Controller {
 	{
 		if($request->input('categorie') === "0") 
 		{
+			//$result = DB::select('select * from articles');
 			$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id order by a.id desc');
 		} else {
 			$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id where a.categorie = ? order by a.id desc', [$request->input('categorie')]);
 		}
-		error_log($result);
-		if($result) 
+		if(count($result)) 
 		{
 			foreach ($result as $article) {
 				$article->timestamp = date('F d, Y', strtotime($article->timestamp));

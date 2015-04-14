@@ -1,113 +1,122 @@
+@media (max-width: 767px) {
+    .navbar-text {
+        margin-left: 15px;
+    }
+}
+
 @media (min-width: 768px) {
-  .navbar {
-    border-radius: 0;
-  }
-}
+    .navbar {
+        border-radius: 0;
+    }
 
-.loginUpdate {
-  margin-bottom: 1.5em;
-  margin-top: 1em;
-}
+    .navbar-text {
+        font-size: 100%;
+    }
 
-.cat {
-  cursor: pointer;
-}
-.panel {
-  margin-top: 10em;
-}
+    .alert {
+        margin-bottom: 0;
+    }
 
-.rowForm {
-  margin-bottom: 1em;
-}
+    .ng-toast__message.alert.alert-dismissible {
+        padding: 0;
+    }
 
-.side-bar {
-	margin-top: 10vh;
-}
+    .loginUpdate {
+        margin-bottom: 1.5em;
+        margin-top: 1em;
+    }
 
-.srcInput {
-  margin-bottom: 10vh;
-}
+    .cat {
+        cursor: pointer;
+    }
 
-.newsContent {
-  max-height: 80vh;
-  overflow: scroll;
-}
+    .rowForm {
+        margin-bottom: 1em;
+    }
 
-.preview {
-  max-height: 10vh;
-  overflow: hidden;
-}
+    .side-bar {
+        margin-top: 10vh;
+    }
 
-.navbar-text {
-  font-size: 100%;
-}
+    .srcInput {
+        margin-bottom: 10vh;
+    }
 
-.infoUser {
-  padding-top: 4em;
-}
+    .newsContent {
+        max-height: 80vh;
+        overflow: scroll;
+    }
 
-.dropText {
-  height: 200px;
-}
-.panel.panel-default {
-  margin-top: 5em;
-}
-.dropText p.lead.imgArticle {
-  border: 0.1em dashed grey;
-  border-radius: 20%;
-  width: 200px;
-  height: 200px;
-  margin: auto;
-  font-size: 120%;
-  padding-top: 4.5em;
-}
+    .preview {
+        max-height: 10vh;
+        overflow: hidden;
+    }
 
-.dropImg.imgArticle {
-  border: 0.1em dashed grey;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  margin: auto;
-}
+    .infoUser {
+        padding-top: 4em;
+    }
+
+    .dropText {
+        height: 200px;
+    }
+
+    .dropText p.lead.imgArticle {
+        border: 0.1em dashed grey;
+        border-radius: 20%;
+        width: 200px;
+        height: 200px;
+        margin: auto;
+        font-size: 120%;
+        padding-top: 4.5em;
+    }
+
+    .dropImg.imgArticle {
+        border: 0.1em dashed grey;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        margin: auto;
+    }
 
 
-.dropText p.lead {
-  border: 0.1em dashed grey;
-  border-radius: 20%;
-  width: 140px;
-  height: 140px;
-  margin: auto;
-  font-size: 120%;
-  padding-top: 4.5em;
-}
+    .dropText p.lead {
+        border: 0.1em dashed grey;
+        border-radius: 20%;
+        width: 140px;
+        height: 140px;
+        margin: auto;
+        font-size: 120%;
+        padding-top: 4.5em;
+    }
 
-.dropImg {
-  border: 0.1em dashed grey;
-  border-radius: 50%;
-  width: 140px;
-  height: 140px;
-  margin: auto;
-}
+    .dropImg {
+        border: 0.1em dashed grey;
+        border-radius: 50%;
+        width: 140px;
+        height: 140px;
+        margin: auto;
+    }
 
-.dropImgAdmin {
-  border: 0.1em dashed grey;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  margin: auto;
-}
+    .dropImgAdmin {
+        border: 0.1em dashed grey;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        margin: auto;
+    }
 
-.dragover {
-  border: 0.1em dashed black;
-  opacity: 0.4;
-}
+    .dragover {
+        border: 0.1em dashed black;
+        opacity: 0.4;
+    }
 
-.has-feedback .form-control-feedback {
-  top:0px;
-  z-index: 2;
-}
+    .has-feedback .form-control-feedback {
+        top:0px;
+        z-index: 2;
+    }
 
-.validationError {
-  color: red;
-  display: block;
+    .validationError {
+        color: red;
+        display: block;
+    }
 }
