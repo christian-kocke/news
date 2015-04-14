@@ -106,3 +106,8 @@
   top:0px;
   z-index: 2;
 }
+
+.validationError {
+  color: red;
+  display: block;
+}

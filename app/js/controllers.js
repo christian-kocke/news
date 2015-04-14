@@ -4,18 +4,17 @@
 
 var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'ngToast']);
 
-newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, USER_EVENTS) {
+newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS) {
 
 	$scope.confirm = false;
+
 	$scope.register = function (user) {
-		$log.log(user); 
-		if(user.password === user.password_confirmation) {
-			UserService.create(user).then(function (res) {
-				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
-			}, function () {
-				$rootScope.$broadcast(USER_EVENTS.registrationFailed);
-			});
-		}
+		UserService.create(user).then(function (res) {
+			$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
+			$location.path("/activation");
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
+		});
 	};
 
 	$scope.checkPassword = function (user) {
