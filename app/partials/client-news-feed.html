@@ -30,14 +30,17 @@
 			
 			<div class="panel panel-default">
 				
-				<div class="panel-heading">
-					<h1><span class="glyphicon glyphicon-book"></span> Latest News </h1>
+				<div class="panel-heading" ng-switch="categorie">
+					<h1 ng-switch-when="0"><span class="glyphicon glyphicon-book"></span> Latest News </h1>
+					<h1 ng-switch-when="1"><span class="glyphicon glyphicon-book"></span> Politics </h1>
+					<h1 ng-switch-when="2"><span class="glyphicon glyphicon-book"></span> Finance </h1>
+					<h1 ng-switch-when="3"><span class="glyphicon glyphicon-book"></span> Sports </h1>
+					<h1 ng-switch-when="4"><span class="glyphicon glyphicon-book"></span> International </h1>
 				</div><!-- class panel-heading -->
 
 				<!-- All News -->
 				<div class="newsContent panel-body" ng-hide="showArticle">		
 					<div id="{{article.id}}" class="media well" ng-repeat="article in articles track by article.id">
-						
 						<div class="pull-left media-middle">
 							<img class="media-object" ng-src="{{article.img_path}}" alt="" width="300" height="200">
 						</div><!-- class pull-left media-middle -->

@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var newsControllers = angular.module('newsControllers', ['angularFileUpload']);
+var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'ngToast']);
 
 newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, USER_EVENTS) {
 
@@ -118,26 +118,25 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		});
 	};
 
+});// End ProfilCtrl
+
+newsControllers.controller('ApplicationController', function (ngToast, $scope, USER_ROLES, AuthService, $location, $log, Session, UserService, $rootScope, $route, USER_EVENTS) {
+
+	$scope.userRoles = USER_ROLES;
+	$scope.isAuthorized = AuthService.isAuthorized;
+
+	ngToast.create('a toast message...');
+
 	$scope.deleteAccount = function () {
 		UserService.destroy($rootScope.currentUser.id).then(function (res) {
-			$log.log("Here");
+			$rootScope.currentUser = null;
+			Session.destroy();
+			$route.reload();
 			$rootScope.$broadcast(USER_EVENTS.deleteSuccess);
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.deleteFailed);
 		});
-		$rootScope.$on(USER_EVENTS.deleteSuccess, function() {
-			$rootScope.currentUser = null;
-			Session.destroy();
-			$route.reload();
-		});
 	};
-
-});// End ProfilCtrl
-
-newsControllers.controller('ApplicationController', function ($scope, USER_ROLES, AuthService, $location, $log, Session) {
-
-	$scope.userRoles = USER_ROLES;
-	$scope.isAuthorized = AuthService.isAuthorized;
 
 });// End ApplicationController
 

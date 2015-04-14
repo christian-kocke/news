@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="components/angular-toast/dist/ngToast.min.css">
   
   <script src="components/jquery/dist/jquery.js"></script>
   <script src="components/angular/angular.js"></script>
@@ -22,7 +23,8 @@
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="components/angular-file-upload/angular-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
-  <script src="components/angular-file-upload/angular-file-upload.min.js"></script> 
+  <script src="components/angular-file-upload/angular-file-upload.min.js"></script>
+  <script src="components/angular-toast/dist/ngToast.min.js"></script>
   <!--<script src="js/dropfile.js"></script>-->
 </head>
 
@@ -77,6 +79,26 @@
 <div class="view-container">
   <div ng-view class="view-frame"></div>
 </div><!-- class view-container -->
+
+
+<!-- Delete account Modal (confirmation) -->
+<div id="myModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"> WARNING: Delete Account </h4>
+      </div>
+      <div class="modal-body">
+        <p> Are you sure about that ? </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="deleteAccount()"> Yes </button>
+        <button type="button" class="btn btn-success" data-dismiss="modal"> No </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <footer>
   
