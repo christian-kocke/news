@@ -7,11 +7,12 @@ var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'n
 newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS) {
 
 	$scope.confirm = false;
+	$scope.template.url = "";
 
 	$scope.register = function (user) {
 		UserService.create(user).then(function (res) {
 			$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
-			$location.path("/activation");
+			$scope.template.url = "/project/app/partials/test.html";
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
 		});
