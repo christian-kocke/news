@@ -278,7 +278,6 @@ newsServices.factory('SessionResolver', function ($q, $rootScope, $location, $lo
 			
 			var def = $q.defer();
 			return $rootScope.deferred.promise.then(function () {
-				
 				def.resolve();
 				$rootScope.$broadcast('$routeChangeStart');
 				return def.promise;

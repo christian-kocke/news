@@ -115,9 +115,8 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		});		
 	};
 
-	$scope.updatePassword = function () {
-		$log.log($scope.pwd);
-		UserService.update($scope.pwd).then(function (res) {
+	$scope.updatePassword = function (pwd) {
+		UserService.update(pwd).then(function (res) {
 			$rootScope.$broadcast(USER_EVENTS.passwordSuccess);
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
@@ -147,10 +146,9 @@ newsControllers.controller('ApplicationController', function (ngToast, $scope, U
 newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $rootScope, $timeout, $routeParams) {
 	
 	$scope.showArticle = false;
-
 	// Display All the Articles
 	$scope.display = function () {
-		
+		$log.log("polling");
 		$scope.categorie = $routeParams.categorie;
 
 		ArticleService.get($routeParams).then(function (res) {
@@ -158,8 +156,8 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 			for(var i = 0; i < res.length; i++){
 				res[i].img_path = res[i].img_path;
 			}
-
 			$scope.articles = res;
+			$timeout($scope.display, 36000); // data polling every 40 secondes
 		}, function () {
 			$rootScope.$broadcast(ARTICLE_EVENTS.selectFailed);
 		});

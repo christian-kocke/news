@@ -18,7 +18,7 @@
 							<h2 ng-hide="updateLogin || !currentUser.username" class="lead" ng-click="showInput()"> {{currentUser.username}} </h2>
 							
 							<div class="input-group loginUpdate" ng-show="updateLogin || !currentUser.username">
-								<input ng-model="user.username" class="form-control lead" type="text" placeholder="New Login..."/>
+								<input ng-model="user.username" value="" class="form-control lead" type="text" placeholder="New Login..."/>
 								<span class="input-group-btn">
 									<button class="btn btn-info" ng-click="loginUpdate()" type="button"><span class="glyphicon glyphicon-ok"></span></button>
 								</span><!-- class input-group-btn -->
@@ -46,41 +46,60 @@
 					<div class="col-md-6">
 						
 						<h2 class="lead"> Change your password : </h2>
-						<form novalidate name="changePasswordForm">
+						<form novalidate name="changePasswordForm" ng-submit="updatePassword(pwd)">
 							
 							<div  class="col-md-8 col-md-offset-2">
-								<div class="form-group">
+								<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.current.$valid, 'has-error': !changePasswordForm.current.$valid && changePasswordForm.current.$dirty}">
 									<label class="control-label sr-only" for="Current"> Current </label>
 									<div class="input-group">
 										<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-										<input type="password" class="form-control" ng-model="pwd.current" name="current" id="current" placeholder="Current...">
+										<input type="password" class="form-control" ng-model="pwd.current" name="current" id="current" placeholder="Current..." ng-minlength="8" ng-maxlength="100" required>
 									</div><!-- class input-group -->
+									<span id="password_confirmationStatus" class="sr-only">(success)</span>
+		      						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="(!changePasswordForm.current.$valid || !confirm) && changePasswordForm.current.$dirty" aria-hidden="true"></span>
+		  							<span id="password_confirmationStatus" class="sr-only">(warning)</span>
+		 							<span class="validationError" ng-show="changePasswordForm.current.$error.minlength">* The password has to be a least 8 characters</span>
+		 							<span class="validationError" ng-show="!confirm && changePasswordForm.current.$dirty">* The two passwords have to match</span>
+		 							<span class="validationError" ng-show="changePasswordForm.current.$error.maxlength">* The password can't be more than 100 characters</span>
 								</div><!-- class form-group -->
 							</div><!--  class col-md-8 col-md-offset-2 -->
 
 							<div  class="col-md-8 col-md-offset-2">
-								<div class="form-group">
+								<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.password.$valid, 'has-error': !changePasswordForm.password.$valid && changePasswordForm.password.$dirty}">
 									<label class="control-label sr-only" for="Author"> New </label>
 									<div class="input-group">
 										<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-										<input type="password" class="form-control" ng-model="pwd.password" name="new" id="new" placeholder="New...">
+										<input type="password" class="form-control" ng-model="pwd.password" name="password" id="password" placeholder="New..." ng-minlength="8" ng-maxlength="100" required>
 									</div><!-- class input-group -->
+									<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="changePasswordForm.password.$valid" aria-hidden="true"></span>
+		      						<span id="passwordStatus" class="sr-only">(success)</span>
+		      						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="!changePasswordForm.password.$valid && changePasswordForm.password.$dirty" aria-hidden="true"></span>
+		  							<span id="passwordStatus" class="sr-only">(warning)</span>
+		 							<span class="validationError" ng-show="changePasswordForm.password.$error.minlength">* The password has to be a least 8 characters</span>
+		 							<span class="validationError" ng-show="changePasswordForm.password.$error.maxlength">* The password can't be more than 100 characters</span>
 								</div><!-- class form-group -->
 							</div><!-- class col-md-8 col-md-offset-2 -->
 
-							<div class="col-md-8 col-md-offset-2">
-								<div class="form-group">
+							<div class="col-md-8 col-md-offset-2 has-feedback">
+								<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.password_confirmation.$valid && confirm, 'has-error': (!changePasswordForm.password_confirmation.$valid || !confirm) && changePasswordForm.password_confirmation.$dirty}">
 									<label class="control-label sr-only" for="Author"> Confirm </label>
 									<div class="input-group">
 										<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
-										<input type="password" class="form-control" ng-model="pwd.confirm" name="confirm" id="confirm" placeholder="Confirm...">
+										<input type="password" class="form-control" ng-model="pwd.confirm" name="confirm" id="confirm" placeholder="Confirm..." ng-minlength="8" ng-maxlength="100" required>
 									</div><!-- class input-group -->
+									<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="changePasswordForm.password_confirmation.$valid && confirm" aria-hidden="true"></span>
+		      						<span id="password_confirmationStatus" class="sr-only">(success)</span>
+		      						<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="(!changePasswordForm.password_confirmation.$valid || !confirm) && changePasswordForm.password_confirmation.$dirty" aria-hidden="true"></span>
+		  							<span id="password_confirmationStatus" class="sr-only">(warning)</span>
+		 							<span class="validationError" ng-show="changePasswordForm.password_confirmation.$error.minlength">* The password has to be a least 8 characters</span>
+		 							<span class="validationError" ng-show="!confirm && changePasswordForm.password_confirmation.$dirty">* The two passwords have to match</span>
+		 							<span class="validationError" ng-show="changePasswordForm.password_confirmation.$error.maxlength">* The password can't be more than 100 characters</span>
 								</div><!-- class form-group -->
 							</div><!--  class col-md-8 col-md-offset-2 -->
 							
 							<!-- Submit -->
 							<div class="col-md-12">
-								<button class="btn btn-success btn-md" type="submit" ng-click="updatePassword()"> Change </button>
+								<button class="btn btn-success btn-md" type="submit"> Change </button>
 							</div><!-- class col-md-4 col-md-offset-7 -->
 
 						</form>
