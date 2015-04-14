@@ -21,3 +21,22 @@ newsDirectives.directive('loginDialog', function (AUTH_EVENTS) {
 		}
 	};
 });
+
+newsDirectives.directive('passwordValidation', function ($log) {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function (scope, elem, attr, ngModel) {
+			$console.log("ok")
+			log.log("ok");
+			ngModel.$parsers.unshift(function(value) {
+				console.log(value);
+				ctrl.$setValidity("passwordConfirmation", true);
+			});
+
+			ngModel.$formatters.unshift(function(value) {
+				console.log(value);
+			});
+		};
+	};
+});

@@ -18,7 +18,6 @@ newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $
 
 	$scope.checkPassword = function (user) {
 		$scope.confirm = user.password === user.password_confirmation;
-		$log.log($scope.confirm);
 	};
 });
 
@@ -81,6 +80,7 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
 	$scope.updateLogin = false;
+	$scope.confirm = false;
 
 	// Watch for any dropped element
 	$scope.$watch('files', function () {
@@ -106,7 +106,6 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	};
 
 	$scope.loginUpdate = function () {
-		$log.log($scope.user);
 		UserService.update($scope.user).then(function (res) {
 			$rootScope.$broadcast(USER_EVENTS.updateSuccess);
 			$scope.updateLogin = false;
@@ -121,6 +120,10 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
 		});	
+	};
+
+	$scope.checkPassword = function (pwd) {
+		$scope.confirm = pwd.password === pwd.confirm;
 	};
 
 });// End ProfilCtrl
@@ -148,11 +151,9 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 	$scope.showArticle = false;
 	// Display All the Articles
 	$scope.display = function () {
-		$log.log("polling");
 		$scope.categorie = $routeParams.categorie;
 
 		ArticleService.get($routeParams).then(function (res) {
-			
 			for(var i = 0; i < res.length; i++){
 				res[i].img_path = res[i].img_path;
 			}
@@ -197,7 +198,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 
 });// End NewsCtrl
 
-newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUTH_EVENTS, AuthService) {
+newsControllers.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService) {
 
 	$scope.credentials = {
 		email: '',
@@ -209,8 +210,8 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUT
 		
 		AuthService.login(credentials).then(function (user) {
 			$rootScope.currentUser = user;
-			$route.reload();
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			$route.reload();
 		}, function () {
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
@@ -220,8 +221,8 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUT
 	// When user try to log out
 	$scope.logout = function () {
 		AuthService.logout().then(function (res) {
-			$route.reload();
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+			$location.path('/');
 		});
 
 	};// End logout()

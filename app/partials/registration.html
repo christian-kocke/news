@@ -106,7 +106,7 @@
 							<label class="control-label sr-only" for="Confirm"> Confirm </label>
 							<div class="input-group">
 								<span class="input-group-addon"><span class="glyphicon glyphicon-repeat"></span></span>
-								<input type="password" class="form-control" ng-model="user.password_confirmation" name="password_confirmation" id="password_confirmation" ng-change="checkPassword(user)" placeholder="Confirm..." ng-minlength="8" ng-maxlength="100" required>
+								<input type="password" class="form-control" ng-model="user.password_confirmation" name="password_confirmation" id="password_confirmation" ng-change="checkPassword(user)" placeholder="Confirm..." ng-minlength="8" ng-maxlength="100" required password-validation="test">
 							</div><!-- class input-group -->
 							<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="signUpForm.password_confirmation.$valid && confirm" aria-hidden="true"></span>
       						<span id="password_confirmationStatus" class="sr-only">(success)</span>

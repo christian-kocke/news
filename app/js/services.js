@@ -150,7 +150,6 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 
 	// Verification of authentication
 	authService.isAuthenticated = function () {
-		
 		return !!Session.userId;
 
 	};// End isAuthenticated()
@@ -250,6 +249,7 @@ newsServices.factory('AuthResolver', function ($q, $rootScope, $location, $log) 
 				if (angular.isDefined(currentUser)) {
 					
 					if (currentUser) {
+						$log.log("currentUser not null");
 						deferred.resolve(currentUser);
 					} else {
 						$log.log("currentUser null");

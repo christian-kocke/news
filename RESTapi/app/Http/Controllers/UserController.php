@@ -11,12 +11,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller {
 
-	private $_user;
 
 	public function __construct(Request $request, Registrar $registrar)
 	{
 		$this->_request = $request;
 		$this->_registrar = $registrar;
+		if(Auth::check()) $this->_user = Auth::user();
+		else $this->_user = null;
 	}
 	/**
 	 * Create a new user.
@@ -25,7 +26,6 @@ class UserController extends Controller {
 	 */
 	public function store()
 	{	
-		error_log(print_r($this->_request->all(), true));
 		$validator = $this->_registrar->validator($this->_request->all());
 		if($validator->passes())
 		{
@@ -34,6 +34,16 @@ class UserController extends Controller {
 		return response()->json($validator->messages());
 	}
 
+
+	public function passwordCheck()
+	{
+		return response(Hash::check($this->_request->input('current'), $this->_user->password));
+	}
+
+	public function emailCheck()
+	{
+		return response(count(DB::select('select id from users where email = ?', [$this->_request->input('email')])));
+	}
 	/**
 	 * Authenticate the user.
 	 *
@@ -44,7 +54,7 @@ class UserController extends Controller {
 		if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
 		{
 			$this->_user = Auth::user();
-			return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
+			return response()->json(["id" => csrf_token(), "user" => $this->_user]);
 		}
 	}
 
@@ -61,7 +71,7 @@ class UserController extends Controller {
 	{
 		if(Auth::check())
 		{
-			return response()->json(["id" => csrf_token(), "user" => Auth::user()]);
+			return response()->json(["id" => csrf_token(), "user" => $this->_user]);
 		}
 	}
 
@@ -69,10 +79,10 @@ class UserController extends Controller {
 	{
 		if($request->file('file')->isValid() && Auth::check())
 		{
-			$filePath = '/project/app/imgDrop/user_'.Auth::user()->id.".".$request->file('file')->guessExtension();
+			$filePath = '/project/app/imgDrop/user_'.$this->_user->id.".".$request->file('file')->guessExtension();
 			if($request->file('file')->move('../../app/imgDrop/', $filePath))
 			{
-				DB::update('update users set img = ? where id = ?', [$filePath, Auth::user()->id]);
+				DB::update('update users set img = ? where id = ?', [$filePath, $this->_user->id]);
 				return response($filePath);	
 			}
 		}
@@ -84,7 +94,7 @@ class UserController extends Controller {
 	{
 		if(Auth::check())
 		{
-			$path = DB::select('select img from users where id = ?', [Auth::user()->id])[0]->img;
+			$path = DB::select('select img from users where id = ?', [$this->_user->id])[0]->img;
 			return response($path);
 		}
 		return response("Get path failed.", 442);
@@ -116,19 +126,19 @@ class UserController extends Controller {
 				{
 					$username = $this->_request->input('username');
 					$arg[] = $username;
-					$query = "update users set username = ? where id = ".Auth::user()->id;
+					$query = "update users set username = ? where id = ".$this->_user->id;
 				} else {
 					$current = $this->_request->input('current');
 					$password = $this->_request->input('password');
 					$confirm = $this->_request->input('confirm');
 					
-					if(!Hash::check($current, Auth::user()->password) || $password !== $confirm)
+					if(!Hash::check($current, $this->_user->password) || $password !== $confirm)
 					{
 						return response("Wrong password.", 460);
 					} else 
 					{
 						$arg[] = bcrypt($password);
-						$query = "update users set password = ? where id = ".Auth::user()->id;
+						$query = "update users set password = ? where id = ".$this->_user->id;
 					}
 				}
 
