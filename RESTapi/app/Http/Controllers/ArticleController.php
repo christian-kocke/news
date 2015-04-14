@@ -22,7 +22,7 @@ class ArticleController extends Controller {
 		} else {
 			$result = DB::select('select a.id, a.title, a.content, a.timestamp, a.img_path, a.categorie, u.username from articles a inner join users u on u.id = a.author_id where a.categorie = ? order by a.id desc', [$request->input('categorie')]);
 		}
-		
+		error_log($result);
 		if($result) 
 		{
 			foreach ($result as $article) {

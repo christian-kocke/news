@@ -7,12 +7,10 @@ var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'n
 newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS) {
 
 	$scope.confirm = false;
-	$scope.template.url = "";
 
 	$scope.register = function (user) {
 		UserService.create(user).then(function (res) {
 			$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
-			$scope.template.url = "/project/app/partials/test.html";
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
 		});
@@ -42,6 +40,9 @@ newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http
 			promise.then(function (res) {
 				$scope.imgIsEnable = !!res;
 				$scope.fileName = res.data;
+				$rootScope.$broadcast(FILE_EVENTS.uploadSuccess);
+			}, function () {
+				$rootScope.$broadcast(FILE_EVENTS.updateFailed);
 			});	
 		});
 
@@ -75,7 +76,7 @@ newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http
 
 });// End ArticleCtrl
 
-newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $route, $log, $rootScope, Session, UserService, USER_EVENTS) {
+newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $route, $log, $rootScope, Session, UserService, USER_EVENTS, FILE_EVENTS) {
 
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
@@ -91,6 +92,9 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		angular.forEach(FileService.update($scope.files, "/project/RESTapi/public/user/setPicture"), function (promise) {
 			promise.then(function (res) {
 				$rootScope.currentUser.img = res.data + '?decache=' + Math.random();
+				$rootScope.$broadcast(FILE_EVENTS.uploadSuccess);
+			}, function () {
+				$rootScope.$broadcast(FILE_EVENTS.updateFailed);
 			});
 		});
 
@@ -156,9 +160,9 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 			}
 
 			$scope.articles = res;
-
+		}, function () {
+			$rootScope.$broadcast(ARTICLE_EVENTS.selectFailed);
 		});
-
 	};// End Display()
 	
 	// Display the Clicked Article in Full Screen
@@ -186,8 +190,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 		$scope.showArticle = false;
 
 		ArticleService.delete(id).then(function () {
-			$rootScope.$broadcast(ARTICLE_EVENTS.deleteSuccess);
-			$rootScope.$on(ARTICLE_EVENTS.deleteSuccess, $scope.display());
+			$rootScope.$broadcast(ARTICLE_EVENTS.deleteSuccess, $scope.display());
 		}, function () {
 			$rootScope.$broadcast(ARTICLE_EVENTS.deleteFailed);
 		});
@@ -207,9 +210,9 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUT
 	$scope.login = function (credentials) {
 		
 		AuthService.login(credentials).then(function (user) {
-			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			$rootScope.currentUser = user;
 			$route.reload();
+			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 		}, function () {
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
@@ -219,8 +222,8 @@ newsControllers.controller('AuthCtrl', function ($scope, $rootScope, $route, AUT
 	// When user try to log out
 	$scope.logout = function () {
 		AuthService.logout().then(function (res) {
-			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
 			$route.reload();
+			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
 		});
 
 	};// End logout()
