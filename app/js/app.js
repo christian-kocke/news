@@ -94,7 +94,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                             $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
                         } else {
                             // user is not logged in
-                            $log.log(Session);
                             $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
                         }
                     }
@@ -107,9 +106,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                 var redirectionFunction = next.$$route.redirection;
                 if(redirectionFunction){
                     var route = $injector.invoke(redirectionFunction);
-                    $log.log("route : "+route);
                     if(route){
-                        $log.log("redirecting ...");
                         $location.path(route);
                     }
                 }
@@ -143,10 +140,12 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             });
         });
         $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
-            var aToast = ngToast.create({
-                className: 'danger',
-                content: 'You should be authenticated !'
-            });
+            if($location.path() !== '/') {
+                var aToast = ngToast.create({
+                    className: 'danger',
+                    content: 'You\'re not authenticated !'
+                });
+            }
         });
         $rootScope.$on(AUTH_EVENTS.notAuthorized, function () {
             var aToast = ngToast.create({
@@ -198,7 +197,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
         $rootScope.$on(FILE_EVENTS.uploadSuccess, function () {
             var aToast = ngToast.create({
                 className: 'success',
-                content: 'Your picture as been uploaded !'
+                content: 'Your picture has been uploaded !'
             });
         });
         $rootScope.$on(FILE_EVENTS.uploadFailed, function () {
@@ -270,7 +269,6 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                 content: 'Sorry, we can\'t remove your account, please try again !'
             });
         });
-
     });
 
 newsApp.config(function ($httpProvider) {

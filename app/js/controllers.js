@@ -222,11 +222,7 @@ newsControllers.controller('AuthCtrl', function ($scope, $log, $rootScope, $rout
 	$scope.logout = function () {
 		AuthService.logout().then(function (res) {
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-<<<<<<< HEAD
-			$route.reload();
-=======
 			$location.path('/');
->>>>>>> origin/master
 		});
 
 	};// End logout()
