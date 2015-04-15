@@ -29,9 +29,12 @@ class UserController extends Controller {
 		$validator = $this->_registrar->validator($this->_request->all());
 		if($validator->passes())
 		{
-			return response($this->_registrar->create($this->_request->all()));
+			if($this->_registrar->create($this->_request->all()))
+			{
+				return response("1");
+			}
 		}
-		return response()->json($validator->messages());
+		return response("0", 463);
 	}
 
 
