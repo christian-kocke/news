@@ -6,8 +6,6 @@ var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'n
 
 newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS) {
 
-	$scope.confirm = false;
-
 	$scope.register = function (user) {
 		UserService.create(user).then(function (res) {
 			$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
@@ -16,9 +14,6 @@ newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $
 		});
 	};
 
-	$scope.checkPassword = function (user) {
-		$scope.confirm = user.password === user.password_confirmation;
-	};
 });
 
 newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http, ArticleService, FileService, FILE_EVENTS, ARTICLE_EVENTS, $rootScope) {
@@ -80,7 +75,6 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
 	$scope.updateLogin = false;
-	$scope.confirm = false;
 
 	// Watch for any dropped element
 	$scope.$watch('files', function () {
@@ -120,10 +114,6 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
 		});	
-	};
-
-	$scope.checkPassword = function (pwd) {
-		$scope.confirm = pwd.password === pwd.confirm;
 	};
 
 });// End ProfilCtrl

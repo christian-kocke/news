@@ -37,7 +37,7 @@ class UserController extends Controller {
 
 	public function passwordCheck()
 	{
-		return response(Hash::check($this->_request->input('current'), $this->_user->password));
+		return response((string) Hash::check($this->_request->input('password'), $this->_user->password));
 	}
 
 	public function emailCheck()

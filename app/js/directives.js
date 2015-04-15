@@ -2,14 +2,12 @@
 
 /* Directives */
 
-
 var newsDirectives = angular.module('newsDirectives', []);
 
 newsDirectives.directive('loginDialog', function (AUTH_EVENTS) {
 	return {
 		restrict: 'A',
-		template: '<div ng-if="visible"
-		ng-include="\'login.html\'">',
+		template: '<div ng-if="visible" ng-include="\'login.html\'">',
 		link: function (scope) {
 			var showDialog = function () {
 				scope.visible = true;
@@ -22,21 +20,77 @@ newsDirectives.directive('loginDialog', function (AUTH_EVENTS) {
 	};
 });
 
-newsDirectives.directive('passwordValidation', function ($log) {
+newsDirectives.directive('passwordMatch', function () {
 	return {
 		restrict: 'A',
 		require: 'ngModel',
-		link: function (scope, elem, attr, ngModel) {
-			$console.log("ok")
-			log.log("ok");
-			ngModel.$parsers.unshift(function(value) {
-				console.log(value);
-				ctrl.$setValidity("passwordConfirmation", true);
-			});
-
-			ngModel.$formatters.unshift(function(value) {
-				console.log(value);
-			});
-		};
+		link: function (scope, elm, attrs, ctrl) {
+      		ctrl.$validators.passwordmatch = function (modelValue, viewValue) {
+      			console.log();
+      			var password = attrs.passwordMatch;
+      			if(password) {
+      				if(password === modelValue) {
+      					return true;
+      				}
+      			}
+      			return false;
+			}
+		}
 	};
 });
+
+
+newsDirectives.directive('passwordCheck', function ($q, ValidationService) {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function (scope, elm, attrs, ctrl) {
+			ctrl.$asyncValidators.passwordcheck = function (modelValue, viewValue) {
+
+				var def = $q.defer();
+
+				if(modelValue) {
+					ValidationService.checkPassword({password : modelValue}).then(function (res) {
+						if(res) {
+							def.resolve();
+						}else{
+							def.reject();
+						}
+					});
+				}else{
+					def.reject();
+				}
+
+				return def.promise;
+			}
+		}
+	};
+});
+
+newsDirectives.directive('emailCheck', function ($q, ValidationService) {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function (scope, elm, attrs, ctrl) {
+			ctrl.$asyncValidators.emailcheck = function (modelValue, viewValue) {
+				var def = $q.defer();
+
+				if(modelValue) {
+					ValidationService.checkEmail({email : modelValue}).then(function (res) {
+						if(!parseInt(res)) {
+							def.resolve();
+						}else{
+							def.reject();
+						}
+					});
+				}else{
+					def.reject();
+				}
+
+				return def.promise;
+			}
+		}
+	};
+});
+
+
