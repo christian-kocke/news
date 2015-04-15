@@ -185,13 +185,13 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
         });
 
 
-        // Article Select
+        /* Article Select
         $rootScope.$on(ARTICLE_EVENTS.selectFailed, function () {
             var aToast = ngToast.create({
                 className: 'warning',
                 content: 'Sorry there are no articles in this section, please try later !'
             });
-        });
+        });*/
 
         // Image Upload 
         $rootScope.$on(FILE_EVENTS.uploadSuccess, function () {
@@ -282,7 +282,7 @@ newsApp.config(['ngToastProvider', function(ngToast) {
     ngToast.configure({
         verticalPosition: 'top',
         horizontalPosition: 'center',
-        maxNumber: 0,
+        maxNumber: 2,
         animation: 'slide',
         dismissOnClick: true,
         dismissOnTimeout: true,
