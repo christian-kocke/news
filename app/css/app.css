@@ -28,13 +28,14 @@
 }
 
 body {
-    /*background: url(../img/leather-black.jpg) no-repeat center center fixed;*/
+    background: url(../img/blur.jpg) center center no-repeat fixed;
     height: 100vh;
     width: 100%;
 }
 
 .navbar {
     box-shadow: 4px 4px 6px grey;
+    margin: 0;
 }
 
 .navbar-text {
