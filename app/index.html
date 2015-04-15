@@ -32,7 +32,6 @@
 </head>
 
 <body ng-controller="ApplicationController" ng-cloak>
-
     <header>
         <nav class="navbar navbar-inverse" role="navigation">
             <div class="container-fluid">
@@ -58,7 +57,8 @@
                         <div class="form-group">
                             <input type="password" class="form-control" placeholder="Password" ng-model="credentials.password" required>
                         </div><!-- class form-group -->
-                        <button class="btn btn-success" data-toggle="collapse" data-target=".navbar-collapse" type="submit"> Sign In </button>
+                        <button class="btn btn-success hidden-xs" type="submit"> Sign In </button>
+                        <button class="btn btn-success visible-xs" data-toggle="collapse" data-target=".navbar-collapse" type="submit"> Sign In </button>
                     </form><!-- class navbar-form navbar-right -->
 
                     <ul class="nav navbar-right visible-xs" ng-switch-when="true">
