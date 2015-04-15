@@ -39,6 +39,7 @@ newsServices.factory('UserService', function ($http, $log, $rootScope) {
 		return $http
 		.post('/project/RESTapi/public/api/user', user)
 		.then(function (res) {
+			return res.data;
 		});
 	}
 
@@ -54,6 +55,7 @@ newsServices.factory('UserService', function ($http, $log, $rootScope) {
 		return $http
 		.delete('/project/RESTapi/public/api/user/'+id)
 		.then(function (res) {
+			return res.data;
 		});
 	};
 
@@ -254,7 +256,8 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, F
 				452: ARTICLE_EVENTS.deleteFailed,
 				460: USER_EVENTS.passwordFailed,
 				461: USER_EVENTS.updateFailed,
-				462: USER_EVENTS.deleteFailed
+				462: USER_EVENTS.deleteFailed,
+				463: USER_EVENTS.registrationFailed
 			}[response.status], response);
 
 			return $q.reject(response);

@@ -26,7 +26,6 @@ newsDirectives.directive('passwordMatch', function () {
 		require: 'ngModel',
 		link: function (scope, elm, attrs, ctrl) {
       		ctrl.$validators.passwordmatch = function (modelValue, viewValue) {
-      			console.log();
       			var password = attrs.passwordMatch;
       			if(password) {
       				if(password === modelValue) {

@@ -6,9 +6,18 @@ var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'n
 
 newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS) {
 
+	$scope.submitted = false;
+
 	$scope.register = function (user) {
 		UserService.create(user).then(function (res) {
-			$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
+			if(parseInt(res)){
+				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
+				$scope.user = {};
+				$scope.signUpForm.$setPristine();
+				$scope.submitted = true;
+			}else{
+				$rootScope.$broadcast(USER_EVENTS.registrationFailed);
+			}
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
 		});
@@ -70,7 +79,17 @@ newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http
 
 });// End ArticleCtrl
 
-newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $route, $log, $rootScope, Session, UserService, USER_EVENTS, FILE_EVENTS) {
+newsControllers.controller('UpdatePasswordCtrl', function ($scope, $rootScope, USER_EVENTS) {
+
+	$rootScope.$on(USER_EVENTS.passwordSuccess, function () {
+		console.log($scope.changePasswordForm);
+		$scope.changePasswordForm.pwd = "";
+		$scope.changePasswordForm.$setPristine();
+	});
+
+});
+
+newsControllers.controller('ProfilCtrl', function ($scope, $http, $injector, FileService, $route, $log, $rootScope, Session, UserService, USER_EVENTS, FILE_EVENTS) {
 
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
