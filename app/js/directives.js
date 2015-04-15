@@ -26,7 +26,8 @@ newsDirectives.directive('passwordMatch', function () {
 		require: 'ngModel',
 		link: function (scope, elm, attrs, ctrl) {
       		ctrl.$validators.passwordmatch = function (modelValue, viewValue) {
-      			var password = scope.changePasswordForm.password.$modelValue;
+      			console.log();
+      			var password = attrs.passwordMatch;
       			if(password) {
       				if(password === modelValue) {
       					return true;
@@ -39,7 +40,7 @@ newsDirectives.directive('passwordMatch', function () {
 });
 
 
-newsDirectives.directive('passwordCheck', function ($q, AuthService) {
+newsDirectives.directive('passwordCheck', function ($q, ValidationService) {
 	return {
 		restrict: 'A',
 		require: 'ngModel',
@@ -49,7 +50,7 @@ newsDirectives.directive('passwordCheck', function ($q, AuthService) {
 				var def = $q.defer();
 
 				if(modelValue) {
-					AuthService.checkPassword({password : modelValue}).then(function (res) {
+					ValidationService.checkPassword({password : modelValue}).then(function (res) {
 						if(res) {
 							def.resolve();
 						}else{
@@ -66,61 +67,30 @@ newsDirectives.directive('passwordCheck', function ($q, AuthService) {
 	};
 });
 
-var app = angular.module('form-example1', []);
+newsDirectives.directive('emailCheck', function ($q, ValidationService) {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function (scope, elm, attrs, ctrl) {
+			ctrl.$asyncValidators.emailcheck = function (modelValue, viewValue) {
+				var def = $q.defer();
 
-var INTEGER_REGEXP = /^\-?\d+$/;
-newsDirectives.directive('integer', function() {
-  return {
-    require: 'ngModel',
-    link: function(scope, elm, attrs, ctrl) {
-      ctrl.$validators.integer = function(modelValue, viewValue) {
+				if(modelValue) {
+					ValidationService.checkEmail({email : modelValue}).then(function (res) {
+						if(!parseInt(res)) {
+							def.resolve();
+						}else{
+							def.reject();
+						}
+					});
+				}else{
+					def.reject();
+				}
 
-        if (ctrl.$isEmpty(modelValue)) {
-          // consider empty models to be valid
-          return true;
-        }
-
-        if (INTEGER_REGEXP.test(viewValue)) {
-          // it is valid
-          return true;
-        }
-
-        // it is invalid
-        return false;
-      };
-    }
-  };
+				return def.promise;
+			}
+		}
+	};
 });
 
-app.directive('username', function($q, $timeout) {
-  return {
-    require: 'ngModel',
-    link: function(scope, elm, attrs, ctrl) {
-    var usernames = ['Jim', 'John', 'Jill', 'Jackie'];
-
-      ctrl.$asyncValidators.username = function(modelValue, viewValue) {
-
-        if (ctrl.$isEmpty(modelValue)) {
-          // consider empty model valid
-          return $q.when();
-        }
-
-        var def = $q.defer();
-
-        $timeout(function() {
-          // Mock a delayed response
-          if (usernames.indexOf(modelValue) === -1) {
-            // The username is available
-            def.resolve();
-          } else {
-            def.reject();
-          }
-
-        }, 2000);
-
-        return def.promise;
-      };
-    }
-  };
-});
 

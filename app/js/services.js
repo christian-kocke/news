@@ -4,6 +4,32 @@
 
 var newsServices = angular.module('newsServices', ['ngResource']);
 
+newsServices.factory('ValidationService', function ($http) {
+	var validationService = {};
+
+	validationService.checkEmail = function (email) {
+		return $http
+		.post('/project/RESTapi/public/api/user/emailCheck', email)
+		.then(function (res) {
+			return res.data;
+		}, function () {
+			return false;
+		});
+	};
+
+	validationService.checkPassword = function (password) {
+		return $http
+		.post('/project/RESTapi/public/api/user/passwordCheck', password)
+		.then(function (res) {
+			return !!res.data;
+		}, function () {
+			return false;
+		});
+	};
+
+	return validationService;
+
+});
 
 newsServices.factory('UserService', function ($http, $log, $rootScope) {
 
@@ -179,16 +205,6 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 		});
 
 	}// End retrieveUser
-
-	authService.checkPassword = function (password) {
-		return $http
-		.post('/project/RESTapi/public/api/user/passwordCheck', password)
-		.then(function (res) {
-			return !!res.data;
-		}, function () {
-			return false;
-		});
-	}
 
 	return authService;
 

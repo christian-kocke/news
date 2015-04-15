@@ -42,7 +42,7 @@ class UserController extends Controller {
 
 	public function emailCheck()
 	{
-		return response((string) count(DB::select('select id from users where email = ?', [$this->_request->input('email')])));
+		return response(count(DB::select('select id from users where email = ?', [$this->_request->input('email')])));
 	}
 	/**
 	 * Authenticate the user.

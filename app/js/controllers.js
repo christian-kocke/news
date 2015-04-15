@@ -75,7 +75,6 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 	$scope.imgIsEnable = false;
 	$scope.imgSrc = null;
 	$scope.updateLogin = false;
-	$scope.confirm = false;
 
 	// Watch for any dropped element
 	$scope.$watch('files', function () {
@@ -115,10 +114,6 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, FileService, $
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.passwordFailed);
 		});	
-	};
-
-	$scope.checkPassword = function (pwd) {
-		$scope.confirm = pwd.password === pwd.confirm;
 	};
 
 });// End ProfilCtrl
