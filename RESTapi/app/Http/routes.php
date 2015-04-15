@@ -15,7 +15,6 @@
 
 Route::post('/user/login', 'UserController@authenticate');
 Route::post('api/user/emailCheck', 'UserController@emailCheck');
-Route::post('api/user/passwordCheck', 'UserController@passwordCheck');
 
 Route::group(['middleware' => 'auth'], function()
 {
@@ -30,7 +29,7 @@ Route::resource('api/user','UserController', ['only' => ['store']]);
 
 Route::group(['middleware' => ['csrf', 'auth']], function()
 {
-	
+	Route::post('api/user/passwordCheck', 'UserController@passwordCheck');
 	Route::post('user/setPicture', 'UserController@setPicture');
 	Route::get('user/getPicture', 'UserController@getPicture');
 	Route::get('user/logout', 'UserController@logout');

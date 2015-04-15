@@ -6,6 +6,7 @@ var newsApp = angular.module('newsApp', [
     'ngRoute',
     'newsControllers',
     'newsServices',
+    'newsDirectives',
     'ngToast'
     ]);
 

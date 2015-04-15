@@ -166,6 +166,7 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 
 	};// End isAuthorized ()
 
+	// retrieve the current user if he is authenticated
 	authService.retrieveUser = function () {
 		
 		return $http
@@ -178,6 +179,16 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 		});
 
 	}// End retrieveUser
+
+	authService.checkPassword = function (password) {
+		return $http
+		.post('/project/RESTapi/public/api/user/passwordCheck', password)
+		.then(function (res) {
+			return !!res.data;
+		}, function () {
+			return false;
+		});
+	}
 
 	return authService;
 

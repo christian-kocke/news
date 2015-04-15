@@ -45,27 +45,28 @@
 				<div class="col-md-6">
 
 					<h2 class="lead"> Change your password : </h2>
-					<form novalidate name="changePasswordForm" ng-submit="confirm && changePasswordForm.$valid && updatePassword(pwd)">
+					<form novalidate name="changePasswordForm" ng-submit="changePasswordForm.$valid && updatePassword(pwd)">
 
 						<div  class="col-md-8 col-md-offset-2">
-							<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.current.$valid, 'has-error': !changePasswordForm.current.$valid && changePasswordForm.current.$dirty}">
+							<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.current.$valid, 'has-error': changePasswordForm.current.$invalid && changePasswordForm.current.$dirty}">
 								<label class="control-label sr-only" for="Current"> Current </label>
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-									<input type="password" class="form-control" ng-model="pwd.current" name="current" id="current" placeholder="Current..." ng-minlength="8" ng-maxlength="100" ng-change="passwordUnique()" aria-describedby="currentStatus" required>
+									<input type="password" class="form-control" ng-model="pwd.current" name="current" id="current" placeholder="Current..." ng-minlength="8" ng-maxlength="100" aria-describedby="currentStatus" required password-check>
 								</div><!-- class input-group -->
 								<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="changePasswordForm.current.$valid" aria-hidden="true"></span>
 								<span id="currentStatus" class="sr-only">(success)</span>
-								<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="!changePasswordForm.current.$valid && changePasswordForm.current.$dirty" aria-hidden="true"></span>
+								<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="changePasswordForm.current.$invalid && changePasswordForm.current.$dirty && !changePasswordForm.current.$pending.passwordcheck" aria-hidden="true"></span>
 								<span id="currentStatus" class="sr-only">(warning)</span>
 								<span class="validationError" ng-show="changePasswordForm.current.$error.minlength">* The current has to be a least 8 characters</span>
 								<span class="validationError" ng-show="changePasswordForm.current.$error.maxlength">* The current can't be more than 100 characters</span>
 								<span class="validationError" ng-show="changePasswordForm.current.$error.required && changePasswordForm.current.$dirty">* The current is required</span>
+								<span class="form-control-feedback" ng-show="changePasswordForm.current.$pending.passwordcheck"><i class="fa fa-circle-o-notch fa-spin"></i></span>
 							</div><!-- class form-group -->
 						</div><!--  class col-md-8 col-md-offset-2 -->
 
 						<div  class="col-md-8 col-md-offset-2">
-							<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.password.$valid, 'has-error': !changePasswordForm.password.$valid && changePasswordForm.password.$dirty}">
+							<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.password.$valid, 'has-error': changePasswordForm.password.$invalid && changePasswordForm.password.$dirty}">
 								<label class="control-label sr-only" for="Author"> New </label>
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
@@ -82,18 +83,18 @@
 						</div><!-- class col-md-8 col-md-offset-2 -->
 
 						<div class="col-md-8 col-md-offset-2">
-							<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.confirm.$valid && confirm, 'has-error': (!changePasswordForm.confirm.$valid || !confirm) && changePasswordForm.confirm.$dirty}">
+							<div class="form-group has-feedback" ng-class="{'has-success': changePasswordForm.confirm.$valid, 'has-error': changePasswordForm.confirm.$invalid && changePasswordForm.confirm.$dirty}">
 								<label class="control-label sr-only" for="Author"> Confirm </label>
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
-									<input type="password" class="form-control" ng-model="pwd.confirm" name="confirm" id="confirm" placeholder="Confirm..." ng-minlength="8" ng-maxlength="100" aria-describedby="confirmStatus" ng-change="checkPassword(pwd)" required>
+									<input type="password" class="form-control" ng-model="pwd.confirm" name="confirm" id="confirm" placeholder="Confirm..." ng-minlength="8" ng-maxlength="100" aria-describedby="confirmStatus" required password-match>
 								</div><!-- class input-group -->
-								<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="changePasswordForm.confirm.$valid && confirm" aria-hidden="true"></span>
+								<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="changePasswordForm.confirm.$valid" aria-hidden="true"></span>
 								<span id="confirmStatus" class="sr-only">(success)</span>
-								<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="(!changePasswordForm.confirm.$valid || !confirm) && changePasswordForm.confirm.$dirty" aria-hidden="true"></span>
+								<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="changePasswordForm.confirm.$invalid && changePasswordForm.confirm.$dirty" aria-hidden="true"></span>
 								<span id="confirmStatus" class="sr-only">(warning)</span>
 								<span class="validationError" ng-show="changePasswordForm.confirm.$error.minlength">* The password has to be a least 8 characters</span>
-								<span class="validationError" ng-show="!confirm && changePasswordForm.confirm.$dirty">* The two passwords have to match</span>
+								<span class="validationError" ng-show="changePasswordForm.confirm.$error.passwordmatch && changePasswordForm.confirm.$dirty">* The two passwords have to match</span>
 								<span class="validationError" ng-show="changePasswordForm.confirm.$error.maxlength">* The password can't be more than 100 characters</span>
 							</div><!-- class form-group -->
 						</div><!--  class col-md-8 col-md-offset-2 -->

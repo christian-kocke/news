@@ -37,12 +37,12 @@ class UserController extends Controller {
 
 	public function passwordCheck()
 	{
-		return response(Hash::check($this->_request->input('current'), $this->_user->password));
+		return response((string) Hash::check($this->_request->input('password'), $this->_user->password));
 	}
 
 	public function emailCheck()
 	{
-		return response(count(DB::select('select id from users where email = ?', [$this->_request->input('email')])));
+		return response((string) count(DB::select('select id from users where email = ?', [$this->_request->input('email')])));
 	}
 	/**
 	 * Authenticate the user.
