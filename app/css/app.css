@@ -2,12 +2,30 @@
     .navbar-text {
         margin-left: 15px;
     }
+    .dropImg {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        box-shadow: 8px 8px 8px grey;
+    }
 }
 
 @media (min-width: 768px) {
     .navbar {
         border-radius: 0;
     }
+    .dropImg {
+        border-radius: 50%;
+        width: 140px;
+        height: 140px;
+        margin: auto;
+        box-shadow: 8px 8px 8px grey;
+    }
+}
+
+.navbar {
+    box-shadow: 4px 4px 6px grey;
 }
 
 .navbar-text {
@@ -26,13 +44,47 @@
     padding: 0;
 }
 
-.loginUpdate {
-    margin-bottom: 1.5em;
-    margin-top: 1em;
+.srchContainer {
+    margin-top: 6vh;
+    margin-bottom: 2vh;
 }
 
-.cat {
-    cursor: pointer;
+.searchInput {
+    width: 80%;
+}
+
+.newsFeedContainer {
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+.newsContent {
+    max-height: 75vh;
+    overflow: scroll;
+}
+
+.authorImg {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 4px 4px 6px grey;
+}
+
+.authorNames {
+    margin-top: 2em;
+}
+
+.authorNames p.lead {
+    margin: 0;
+}
+
+.usernameUpdate {
+    margin: 1.5em auto 1em auto;
+    width: 50%;
+}
+
+.deleteButton {
+    margin-top: 1em;
 }
 
 .rowForm {
@@ -43,46 +95,9 @@
     margin-top: 10vh;
 }
 
-.srcInput {
-    margin-bottom: 10vh;
-}
-
-.newsContent {
-    max-height: 80vh;
-    overflow: scroll;
-}
-
-.preview {
-    max-height: 10vh;
-    overflow: hidden;
-}
-
-.infoUser {
-    padding-top: 4em;
-}
-
-.dropzone.p.lead.imgArticle {
-    border: 0.1em dashed grey;
-    border-radius: 20%;
-    width: 200px;
-    height: 200px;
-    margin: auto;
-    font-size: 120%;
-    padding-top: 4.5em;
-}
-
-.dropImg.imgArticle {
-    border: 0.1em dashed grey;
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    margin: auto;
-}
-
-
 .dropzone.lead {
-    border: 1px dashed grey;
-    border-radius: 49%;
+    border: 1px solid grey;
+    border-radius: 50%;
     width: 140px;
     height: 140px;
     margin: auto;
@@ -90,29 +105,12 @@
     padding-top: 3.5em;
 }
 
-.dropImg {
-    border: 0.1em dashed grey;
-    border-radius: 50%;
-    width: 140px;
-    height: 140px;
-    margin: auto;
-}
-
-.dropImgAdmin {
-    border: 0.1em dashed grey;
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    margin: auto;
-}
-
 .dragover {
-    border: 0.1em dashed black;
     opacity: 0.4;
 }
 
 .has-feedback .form-control-feedback {
-    top:0px;
+    top: 0px;
     z-index: 2;
 }
 

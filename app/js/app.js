@@ -6,7 +6,8 @@ var newsApp = angular.module('newsApp', [
     'ngRoute',
     'newsControllers',
     'newsServices',
-    'ngToast'
+    'ngToast',
+    'newsFilters'
     ]);
 
 newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',

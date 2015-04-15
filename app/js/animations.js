@@ -1,1 +1,1 @@
-var phonecatAnimations = angular.module('phonecatAnimations', ['ngAnimate']);
+var newsAnimations = angular.module('newsAnimations', ['ngAnimate']);

@@ -160,6 +160,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 			$scope.articles = res;
 			$timeout($scope.display, 36000); // data polling every 40 secondes
 		}, function () {
+			$scope.message = "This section is empty.";
 			$rootScope.$broadcast(ARTICLE_EVENTS.selectFailed);
 		});
 	};// End Display()
@@ -195,6 +196,11 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 		});
 
 	};// End delete()
+
+	$scope.searchFunction = function () {
+		$scope.show = !$scope.show;
+		$scope.search.title = "";
+	};
 
 });// End NewsCtrl
 
