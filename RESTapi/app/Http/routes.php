@@ -43,8 +43,7 @@ Route::group(['middleware' => ['csrf', 'auth']], function()
 
 //Route::get('home', 'HomeController@index');
 
-/*Route::controllers([
-	'auth' => 'Auth\AuthController',
+Route::controllers([
 	'password' => 'Auth\PasswordController',
-	]);*/
+]);
 

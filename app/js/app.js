@@ -88,6 +88,23 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                 }],
             }
         }).
+        when('/reset-password', {
+            templateUrl: '/project/app/partials/reset-password.html',
+            controller: 'ResetPasswordCtrl',
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) { 
+                    return AuthResolver.resolve();
+                },
+                session: function resolveSession(SessionResolver) {
+                    return SessionResolver.resolve();
+                },
+                redirection: ['AuthService', '$log', function (AuthService, $log) {
+                    if(AuthService.isAuthenticated()){
+                        return '/client/0';
+                    }
+                }],
+            }
+        }).
         otherwise({
             redirectTo: '/',
         });
