@@ -3,6 +3,7 @@
 use Auth;
 use Hash;
 use DB;
+use Mail;
 use Illuminate\Contracts\Auth\Registrar;
 use Api\Http\Requests;
 use Api\Http\Controllers\Controller;
@@ -29,12 +30,18 @@ class UserController extends Controller {
 		$validator = $this->_registrar->validator($this->_request->all());
 		if($validator->passes())
 		{
-			if($this->_registrar->create($this->_request->all()))
+			$this->_user = $this->_registrar->create($this->_request->all());
+			if($this->_user->id)
 			{
-				return response("1");
+				$token = str_random(20);
+				Mail::send('emails.activation', ['token' => $token], function($message)
+				{
+				    $message->to($this->_user->email, $this->_user->firstname." ".$this->_user->lastname)->subject('Activate your account !');
+				});	
+				return response(DB::update('update users set activation_token = ? where id = ?', [$token, $this->_user->id]));
 			}
 		}
-		return response("0", 463);
+		return response(0);
 	}
 
 
@@ -47,6 +54,16 @@ class UserController extends Controller {
 	{
 		return response(count(DB::select('select id from users where email = ?', [$this->_request->input('email')])));
 	}
+
+	public function activateUser()
+	{
+		$id = DB::select('select id from users where activation_token = ?', [$this->_request->input('token')]);
+		if(count($id) === 1)
+		{
+			return response(DB::update('update users set activation_token = NULL where id = ?', [$id[0]->id]));
+		}
+		return response(0, 464);
+	}
 	/**
 	 * Authenticate the user.
 	 *
@@ -57,7 +74,11 @@ class UserController extends Controller {
 		if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
 		{
 			$this->_user = Auth::user();
-			return response()->json(["id" => csrf_token(), "user" => $this->_user]);
+			error_log($this->_user->activation_token);
+			if(!$this->_user->activation_token)
+			{
+				return response()->json(["id" => csrf_token(), "user" => $this->_user]);
+			}
 		}
 	}
 

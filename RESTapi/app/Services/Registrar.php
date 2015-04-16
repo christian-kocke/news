@@ -31,7 +31,6 @@ class Registrar implements RegistrarContract {
 	 */
 	public function create(array $data)
 	{
-		error_log(print_r($data, true));
 		return User::create([
 			'firstname' => $data['firstname'],
 			'lastname' => $data['lastname'],

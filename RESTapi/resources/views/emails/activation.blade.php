@@ -1,0 +1,1 @@
+Click here to activate your account : {{ "localhost/project/app/#/activation/".$token }}

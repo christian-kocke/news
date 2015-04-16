@@ -51,6 +51,14 @@ newsServices.factory('UserService', function ($http, $log, $rootScope) {
 		});
 	};
 
+	userService.activate = function (token) {
+		return $http
+		.post('/project/RESTapi/public/api/user/activate', token)
+		.then(function (res) {
+			return res.data;
+		});
+	}
+
 	userService.destroy = function (id) {
 		return $http
 		.delete('/project/RESTapi/public/api/user/'+id)

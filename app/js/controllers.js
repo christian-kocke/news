@@ -4,9 +4,10 @@
 
 var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'ngToast']);
 
-newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS) {
+newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS, $routeParams) {
 
 	$scope.submitted = false;
+	$scope.activated = false;
 
 	$scope.register = function (user) {
 		UserService.create(user).then(function (res) {
@@ -22,6 +23,16 @@ newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $
 			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
 		});
 	};
+
+	$scope.activate = function () {
+		if($routeParams.token.length === 20) {
+			UserService.activate($routeParams).then(function (res) {
+				if(res) {
+					$scope.activated = true;
+				}
+			});
+		}
+	}
 
 });
 

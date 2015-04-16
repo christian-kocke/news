@@ -15,6 +15,7 @@
 
 Route::post('/user/login', 'UserController@authenticate');
 Route::post('api/user/emailCheck', 'UserController@emailCheck');
+Route::post('api/user/activate', 'UserController@activateUser');
 
 Route::group(['middleware' => 'auth'], function()
 {

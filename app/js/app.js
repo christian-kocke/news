@@ -71,6 +71,23 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                 }
             }
         }).
+        when('/activation/:token', {
+            templateUrl: '/project/app/partials/client-activation.html',
+            controller: 'RegistrarCtrl',
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) { 
+                    return AuthResolver.resolve();
+                },
+                session: function resolveSession(SessionResolver) {
+                    return SessionResolver.resolve();
+                },
+                redirection: ['AuthService', '$log', function (AuthService, $log) {
+                    if(AuthService.isAuthenticated()){
+                        return '/client/0';
+                    }
+                }],
+            }
+        }).
         otherwise({
             redirectTo: '/',
         });
@@ -293,7 +310,7 @@ newsApp.constant('AUTH_EVENTS', {
 }).constant('USER_ROLES', {
     all: '*',
     admin: 'admin',
-    client: 'client'
+    client: 'client',
 }).constant('ARTICLE_EVENTS', {
     postSuccess: 'post-article-success',
     postFailed: 'post-article-failed',
