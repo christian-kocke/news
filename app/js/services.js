@@ -4,6 +4,21 @@
 
 var newsServices = angular.module('newsServices', ['ngResource']);
 
+newsServices.factory('ResetService', function ($http) {
+	var resetService = {};
+
+	resetService.request = function (email) {
+		return $http
+		.post('/project/RESTapi/public/password/email', email)
+		.then(function (res) {
+			console.log(res.data);
+			return res.data;
+		});
+	};
+
+	return resetService;
+});
+
 newsServices.factory('ValidationService', function ($http) {
 	var validationService = {};
 

@@ -4,6 +4,15 @@
 
 var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'ngToast']);
 
+
+newsControllers.controller('ResetPasswordCtrl', function ($log, $scope, ResetService) {
+	$scope.sendEmail = function (email) {
+		ResetService.request(email).then(function (res) {
+			$log.log(res);
+		});
+	}
+});
+
 newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS, $routeParams) {
 
 	$scope.submitted = false;
