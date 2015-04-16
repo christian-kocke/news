@@ -103,8 +103,8 @@ class UserController extends Controller {
 	{
 		if($request->file('file')->isValid() && Auth::check())
 		{
-			$filePath = '/project/app/imgDrop/user_'.$this->_user->id.".".$request->file('file')->guessExtension();
-			if($request->file('file')->move('../../app/imgDrop/', $filePath))
+			$filePath = '/project/app/imgDrop/Users/user_'.$this->_user->id.".".$request->file('file')->guessExtension();
+			if($request->file('file')->move('../../app/imgDrop/Users/', $filePath))
 			{
 				DB::update('update users set img = ? where id = ?', [$filePath, $this->_user->id]);
 				return response($filePath);	

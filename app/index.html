@@ -43,7 +43,7 @@
           </form><!-- class navbar-form navbar-right -->
 
           <ul class="nav navbar-right visible-xs" ng-switch-when="true">
-            <li class="navbar-text lead text-center"> Hello {{currentUser.firstname}} ! </li>
+            <li class="navbar-text lead text-center"> Hello {{currentUser.username}} ! </li>
             <li><a class="btn btn-primary navbar-btn" href="#/profil"  data-toggle="collapse" data-target=".navbar-collapse"> Edit Profil </a></li>
             <li><a ng-show="currentUser.role === 'admin'" class="btn btn-primary navbar-btn" href="#/admin" data-toggle="collapse" data-target=".navbar-collapse"> Add News </a></li>
             <li><a class="btn btn-primary navbar-btn" href="#/client/0" data-toggle="collapse" data-target=".navbar-collapse"> News Feed </a></li>
