@@ -92,6 +92,10 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             templateUrl: '/project/app/partials/reset-password.html',
             controller: 'ResetPasswordCtrl',
         }).
+        when('/reset-password/:token', {
+            templateUrl: '/project/app/partials/change-password.html',
+            controller: 'ResetPasswordCtrl',
+        }).
         otherwise({
             redirectTo: '/',
         });

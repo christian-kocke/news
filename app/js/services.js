@@ -11,7 +11,14 @@ newsServices.factory('ResetService', function ($http) {
 		return $http
 		.post('/project/RESTapi/public/password/email', email)
 		.then(function (res) {
-			console.log(res.data);
+			return res.data;
+		});
+	};
+
+	resetService.reset = function (credentials) {
+		return $http
+		.post('/project/RESTapi/public/password/reset', credentials)
+		.then(function (res) {
 			return res.data;
 		});
 	};
