@@ -52,7 +52,7 @@ class ArticleController extends Controller {
 	{
 		if($request->file('file')->isValid() && Auth::check())
 		{
-			$filePath = '/project/app/imgDrop/Articles/article_'.str_random(20).".".$request->file('file')->guessExtension();
+			$filePath = '/news/app/imgDrop/Articles/article_'.str_random(20).".".$request->file('file')->guessExtension();
 			if($request->file('file')->move('../../app/imgDrop/Articles/', $filePath))
 			{
 				return response($filePath);	

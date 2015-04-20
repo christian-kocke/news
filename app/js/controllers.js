@@ -44,9 +44,11 @@ newsControllers.controller('ResetPasswordCtrl', function ($rootScope, $scope, $l
 newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $scope, $log, $route, $location, USER_EVENTS, $routeParams) {
 
 	$scope.submitted = false;
+	$scope.loading = false;
 	$scope.activated = false;
 
 	$scope.register = function (user) {
+		$scope.loading = true;
 		UserService.create(user).then(function (res) {
 			if(parseInt(res)){
 				$rootScope.$broadcast(USER_EVENTS.registrationSuccess);
@@ -58,6 +60,8 @@ newsControllers.controller('RegistrarCtrl', function (UserService, $rootScope, $
 			}
 		}, function () {
 			$rootScope.$broadcast(USER_EVENTS.registrationFailed);
+		}).finally(function () {
+			$scope.loading = false;
 		});
 	};
 
@@ -87,7 +91,7 @@ newsControllers.controller('ArticleCtrl', function ($scope, $log, $upload, $http
 	$scope.upload = function () {
 		
 		// Get Image Path
-		angular.forEach(FileService.update($scope.files, '/project/RESTapi/public/api/article/setPicture'), function (promise) {
+		angular.forEach(FileService.update($scope.files, '/news/RESTapi/public/api/article/setPicture'), function (promise) {
 			promise.then(function (res) {
 				$scope.imgIsEnable = !!res;
 				$scope.fileName = res.data;
@@ -150,7 +154,7 @@ newsControllers.controller('ProfilCtrl', function ($scope, $http, $injector, Fil
 
 	// When an element is dropped
 	$scope.upload = function () {
-		angular.forEach(FileService.update($scope.files, "/project/RESTapi/public/user/setPicture"), function (promise) {
+		angular.forEach(FileService.update($scope.files, "/news/RESTapi/public/user/setPicture"), function (promise) {
 			promise.then(function (res) {
 				$rootScope.currentUser.img = res.data + '?decache=' + Math.random();
 				$rootScope.$broadcast(FILE_EVENTS.uploadSuccess);

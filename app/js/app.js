@@ -16,7 +16,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
 
         $routeProvider.
         when('/admin', {
-            templateUrl: '/project/app/partials/admin.html',
+            templateUrl: '/news/app/partials/admin.html',
             data: {
                 authorizedRoles: [USER_ROLES.admin]
             },
@@ -27,7 +27,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             }
         }).
         when('/', {
-            templateUrl: '/project/app/partials/registration.html',
+            templateUrl: '/news/app/partials/registration.html',
             url: '/protected',
             controller: 'RegistrarCtrl',
             resolve: {
@@ -57,7 +57,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             }
         }).
         when('/client/:categorie', {
-            templateUrl: '/project/app/partials/client-news-feed.html',
+            templateUrl: '/news/app/partials/client-news-feed.html',
             controller: 'NewsCtrl',
             data: {
                 authorizedRoles: [USER_ROLES.client, USER_ROLES.admin]
@@ -72,7 +72,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             }
         }).
         when('/activation/:token', {
-            templateUrl: '/project/app/partials/client-activation.html',
+            templateUrl: '/news/app/partials/client-activation.html',
             controller: 'RegistrarCtrl',
             resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 
@@ -81,7 +81,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             }
         }).
         when('/reset-password', {
-            templateUrl: '/project/app/partials/reset-password.html',
+            templateUrl: '/news/app/partials/reset-password.html',
             controller: 'ResetPasswordCtrl',
             resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 
@@ -90,7 +90,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             }
         }).
         when('/reset-password/:token', {
-            templateUrl: '/project/app/partials/change-password.html',
+            templateUrl: '/news/app/partials/change-password.html',
             controller: 'ResetPasswordCtrl',
             resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 

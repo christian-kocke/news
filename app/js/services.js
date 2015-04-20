@@ -9,7 +9,7 @@ newsServices.factory('ResetService', function ($http) {
 
 	resetService.request = function (email) {
 		return $http
-		.post('/project/RESTapi/public/password/email', email)
+		.post('/news/RESTapi/public/password/email', email)
 		.then(function (res) {
 			return res.data;
 		});
@@ -17,7 +17,7 @@ newsServices.factory('ResetService', function ($http) {
 
 	resetService.reset = function (credentials) {
 		return $http
-		.post('/project/RESTapi/public/password/reset', credentials)
+		.post('/news/RESTapi/public/password/reset', credentials)
 		.then(function (res) {
 			return res.data;
 		});
@@ -31,7 +31,7 @@ newsServices.factory('ValidationService', function ($http) {
 
 	validationService.checkEmail = function (email) {
 		return $http
-		.post('/project/RESTapi/public/api/user/emailCheck', email)
+		.post('/news/RESTapi/public/api/user/emailCheck', email)
 		.then(function (res) {
 			return res.data;
 		}, function () {
@@ -41,7 +41,7 @@ newsServices.factory('ValidationService', function ($http) {
 
 	validationService.checkPassword = function (password) {
 		return $http
-		.post('/project/RESTapi/public/api/user/passwordCheck', password)
+		.post('/news/RESTapi/public/api/user/passwordCheck', password)
 		.then(function (res) {
 			return !!res.data;
 		}, function () {
@@ -59,7 +59,7 @@ newsServices.factory('UserService', function ($http, $log, $rootScope) {
 
 	userService.create = function (user) {
 		return $http
-		.post('/project/RESTapi/public/api/user', user)
+		.post('/news/RESTapi/public/api/user', user)
 		.then(function (res) {
 			return res.data;
 		});
@@ -67,7 +67,7 @@ newsServices.factory('UserService', function ($http, $log, $rootScope) {
 
 	userService.update = function (data) {
 		return $http
-		.put('/project/RESTapi/public/api/user/'+$rootScope.currentUser.id, data)
+		.put('/news/RESTapi/public/api/user/'+$rootScope.currentUser.id, data)
 		.then(function (res) {
 			return res.data;
 		});
@@ -75,7 +75,7 @@ newsServices.factory('UserService', function ($http, $log, $rootScope) {
 
 	userService.activate = function (token) {
 		return $http
-		.post('/project/RESTapi/public/api/user/activate', token)
+		.post('/news/RESTapi/public/api/user/activate', token)
 		.then(function (res) {
 			return res.data;
 		});
@@ -83,7 +83,7 @@ newsServices.factory('UserService', function ($http, $log, $rootScope) {
 
 	userService.destroy = function (id) {
 		return $http
-		.delete('/project/RESTapi/public/api/user/'+id)
+		.delete('/news/RESTapi/public/api/user/'+id)
 		.then(function (res) {
 			return res.data;
 		});
@@ -150,7 +150,7 @@ newsServices.factory('ArticleService', function ($http, $log, $rootScope) {
 	articleService.get = function (categorie) {
 
 		return $http
-		.post('/project/RESTapi/public/api/article/display', categorie)
+		.post('/news/RESTapi/public/api/article/display', categorie)
 		.then(function (res) {
 			return res.data;
 		});
@@ -161,7 +161,7 @@ newsServices.factory('ArticleService', function ($http, $log, $rootScope) {
 	articleService.post = function (article) {
 
 		return $http
-		.post('/project/RESTapi/public/api/article', article);
+		.post('/news/RESTapi/public/api/article', article);
 
 	};// End post()
 
@@ -169,7 +169,7 @@ newsServices.factory('ArticleService', function ($http, $log, $rootScope) {
 	articleService.delete = function (id) {
 
 		return $http
-		.delete('/project/RESTapi/public/api/article/'+id);
+		.delete('/news/RESTapi/public/api/article/'+id);
 
 	};// End delete()
 
@@ -186,7 +186,7 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 	authService.login = function (credentials) {
 
 		return $http
-		.post('/project/RESTapi/public/user/login', credentials)
+		.post('/news/RESTapi/public/user/login', credentials)
 		.then(function (res) {
 			Session.create(res.data.id, res.data.user.id, res.data.user.role);
 			return res.data.user;
@@ -198,7 +198,7 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 	authService.logout = function () {
 		
 		return $http
-		.get('/project/RESTapi/public/user/logout')
+		.get('/news/RESTapi/public/user/logout')
 		.then(function (res) {
 			$rootScope.currentUser = null;
 			Session.destroy();
@@ -228,7 +228,7 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 	authService.retrieveUser = function () {
 		
 		return $http
-		.get('/project/RESTapi/public/api/user')
+		.get('/news/RESTapi/public/api/user')
 		.then(function (res) {
 			console.log(res.data);
 			if(res.data !== "0"){
