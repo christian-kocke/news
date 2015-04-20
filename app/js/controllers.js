@@ -266,7 +266,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 
 });// End NewsCtrl
 
-newsControllers.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService) {
+newsControllers.controller('AuthCtrl', function ($scope, $log, $rootScope, $route, $location, AUTH_EVENTS, AuthService, AuthInterceptor) {
 
 	$scope.credentials = {
 		email: '',
@@ -280,7 +280,10 @@ newsControllers.controller('AuthCtrl', function ($scope, $log, $rootScope, $rout
 			$rootScope.currentUser = user;
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			$route.reload();
-		}, function () {
+		}, function (res) {
+			console.log(res);
+			res.status = parseInt(res.data)
+			AuthInterceptor.responseError(res);
 			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
 

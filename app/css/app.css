@@ -147,8 +147,12 @@ p.lead.contentMinView {
     opacity: 0.4;
 }
 
+form[name="signUpForm"] .has-feedback .form-control-feedback {
+    top: 25px;
+    z-index: 2;
+}
 .has-feedback .form-control-feedback {
-    /*top: 0px;*/
+    top: 0px;
     z-index: 2;
 }
 

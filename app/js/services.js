@@ -178,7 +178,7 @@ newsServices.factory('ArticleService', function ($http, $log, $rootScope) {
 });// End Service Post/Delete Article (Admin)
 
 
-newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) {
+newsServices.factory('AuthService', function ($http, Session, $log, $rootScope, AuthInterceptor) {
 
 	var authService = {};
 
@@ -188,6 +188,7 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 		return $http
 		.post('/news/RESTapi/public/user/login', credentials)
 		.then(function (res) {
+			console.log(res);
 			Session.create(res.data.id, res.data.user.id, res.data.user.role);
 			return res.data.user;
 		});
@@ -230,7 +231,6 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 		return $http
 		.get('/news/RESTapi/public/api/user')
 		.then(function (res) {
-			console.log(res.data);
 			if(res.data !== "0"){
 				Session.create(res.data.id, res.data.user.id, res.data.user.role);
 				return res.data.user;
@@ -292,7 +292,9 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, F
 				460: USER_EVENTS.passwordFailed,
 				461: USER_EVENTS.updateFailed,
 				462: USER_EVENTS.deleteFailed,
-				463: USER_EVENTS.registrationFailed
+				463: USER_EVENTS.registrationFailed,
+				464: USER_EVENTS.activationFailed,
+				465: USER_EVENTS.accountNotActivated,
 			}[response.status], response);
 
 			return $q.reject(response);

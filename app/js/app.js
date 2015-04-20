@@ -22,7 +22,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             },
             resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve();
+                    return AuthResolver.resolve(false, '/');
                 }
             }
         }).
@@ -33,7 +33,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             resolve: {
                 session: function resolveSession(SessionResolver) {
                     return SessionResolver.resolve();
-                }
+                },
             },
             redirection: ['AuthService', '$log', function (AuthService, $log) {
                 if(AuthService.isAuthenticated()){
@@ -49,7 +49,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             },
             resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve();
+                    return AuthResolver.resolve(false, '/');
                 },
                 session: function resolveSession(SessionResolver) {
                     return SessionResolver.resolve();
@@ -64,7 +64,7 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             },
             resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve();
+                    return AuthResolver.resolve(false, '/');
                 },
                 session: function resolveSession(SessionResolver) {
                     return SessionResolver.resolve();
@@ -311,6 +311,14 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                 content: 'This link has expired !'
             });
         });
+
+        //account activation
+        $rootScope.$on(USER_EVENTS.accountNotActivated, function () {
+            var aToast = ngToast.create({
+                className: 'danger',
+                content: 'Your account is not activated, check your mailbox !'
+            });
+        });
     });
 
 newsApp.config(function ($httpProvider) {
@@ -368,5 +376,7 @@ newsApp.constant('AUTH_EVENTS', {
     emailFailed: "send-email-failed",
     resetSuccess: "password-reset-success",
     resetFailed: "password-reset-failed",
-    resetExpired: "password-reset-expired"
+    resetExpired: "password-reset-expired",
+    accountNotActivated: "account-not-activated",
+    activationFailed: "account-activation-failed",
 });

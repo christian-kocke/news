@@ -78,6 +78,8 @@ class UserController extends Controller {
 			{
 				return response()->json(["id" => csrf_token(), "user" => $this->_user]);
 			}
+			Auth::logout();
+			return response(465, 'error');
 		}
 		return 0;
 	}
