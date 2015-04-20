@@ -19,7 +19,7 @@
 				<!-- Username / Upadate -->
 				<p class="lead" ng-hide="updateLogin || !currentUser.username" ng-click="showInput()"> {{currentUser.username | uppercase}} </p>
 				<div class="input-group col-md-4 col-md-offset-4 usernameUpdate" ng-show="updateLogin || !currentUser.username">
-					<input ng-model="user.username" value="" class="form-control lead" type="text" placeholder="New Login..."/>
+					<input ng-model="user.username" value="" class="form-control lead" type="text" placeholder="New Username..."/>
 					<span class="input-group-btn">
 						<button class="btn btn-info" ng-click="loginUpdate()" type="button"><span class="glyphicon glyphicon-ok"></span></button>
 					</span><!-- class input-group-btn -->
@@ -88,7 +88,7 @@
 
 		<div class="row deleteButton">
 			<div class="col-md-12">
-				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"> Delete Account </button>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal"> Delete Account </button>
 				<h6 class="text-danger"><em> * Account created {{currentUser.created_at}} </em></h6>
 			</div>
 		</div>

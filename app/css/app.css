@@ -148,7 +148,7 @@ p.lead.contentMinView {
 }
 
 .has-feedback .form-control-feedback {
-    top: 0px;
+    /*top: 0px;*/
     z-index: 2;
 }
 

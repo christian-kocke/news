@@ -208,7 +208,7 @@ newsControllers.controller('ApplicationController', function (ngToast, $scope, U
 });// End ApplicationController
 
 newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleService, ARTICLE_EVENTS, $rootScope, $timeout, $routeParams) {
-	
+	$scope.deleteId = null;
 	$scope.showArticle = false;
 	// Display All the Articles
 	$scope.display = function () {
@@ -247,6 +247,7 @@ newsControllers.controller('NewsCtrl', function ($scope, $http, $log, ArticleSer
 
 	// Delete Article when Button is Clicked
 	$scope.delete = function(id) {
+		$log.log(id);
 		
 		$scope.showArticle = false;
 
