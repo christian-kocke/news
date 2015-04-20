@@ -74,12 +74,12 @@ class UserController extends Controller {
 		if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
 		{
 			$this->_user = Auth::user();
-			error_log($this->_user->activation_token);
 			if(!$this->_user->activation_token)
 			{
 				return response()->json(["id" => csrf_token(), "user" => $this->_user]);
 			}
 		}
+		return 0;
 	}
 
 	public function logout()
@@ -97,14 +97,15 @@ class UserController extends Controller {
 		{
 			return response()->json(["id" => csrf_token(), "user" => $this->_user]);
 		}
+		return response(0);
 	}
 
 	public function setPicture(Request $request)
 	{
 		if($request->file('file')->isValid() && Auth::check())
 		{
-			$filePath = '/project/app/imgDrop/Users/user_'.$this->_user->id.".".$request->file('file')->guessExtension();
-			if($request->file('file')->move('../../app/imgDrop/Users/', $filePath))
+			$filePath = '/project/app/imgDrop/user_'.$this->_user->id.".".$request->file('file')->guessExtension();
+			if($request->file('file')->move('../../app/imgDrop/', $filePath))
 			{
 				DB::update('update users set img = ? where id = ?', [$filePath, $this->_user->id]);
 				return response($filePath);	

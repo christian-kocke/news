@@ -5,17 +5,38 @@
 var newsControllers = angular.module('newsControllers', ['angularFileUpload', 'ngToast']);
 
 
-newsControllers.controller('ResetPasswordCtrl', function ($log, $scope, $routeParams, ResetService) {
+newsControllers.controller('ResetPasswordCtrl', function ($rootScope, $scope, $location, $routeParams, ResetService, USER_EVENTS) {
+
 	$scope.sendEmail = function (email) {
+		$scope.loading = true;
 		ResetService.request(email).then(function (res) {
-			$log.log(res);
+			if(parseInt(res)) {
+				$rootScope.$broadcast(USER_EVENTS.emailSuccess);
+				$scope.sent = true;
+			} else {
+				$rootScope.$broadcast(USER_EVENTS.emailFailed);
+			}
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.emailFailed);
+			$scope.error = true;
+		}).finally(function () {
+			$scope.loading = false;
 		});
 	};
 
 	$scope.resetPassword = function (credentials) {
 		credentials.token = $routeParams.token;
 		ResetService.reset(credentials).then(function (res) {
-			$log.log(res);
+			if(parseInt(res) === 1) {
+				$rootScope.$broadcast(USER_EVENTS.resetSuccess);
+				$location.reload();
+			} else if(parseInt(res) === 2) {
+				$rootScope.$broadcast(USER_EVENTS.resetExpired);
+			} else {
+				$rootScope.$broadcast(USER_EVENTS.resetFailed);
+			}
+		}, function () {
+			$rootScope.$broadcast(USER_EVENTS.resetFailed);
 		});
 	};
 });

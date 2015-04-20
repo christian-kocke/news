@@ -76,25 +76,27 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
             controller: 'RegistrarCtrl',
             resolve: {
                 auth: function resolveAuthentication(AuthResolver) { 
-                    return AuthResolver.resolve();
-                },
-                session: function resolveSession(SessionResolver) {
-                    return SessionResolver.resolve();
-                },
-                redirection: ['AuthService', '$log', function (AuthService, $log) {
-                    if(AuthService.isAuthenticated()){
-                        return '/client/0';
-                    }
-                }],
+                    return AuthResolver.resolve('/client/0', false);
+                }
             }
         }).
         when('/reset-password', {
             templateUrl: '/project/app/partials/reset-password.html',
             controller: 'ResetPasswordCtrl',
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) { 
+                    return AuthResolver.resolve('/client/0', false);
+                }
+            }
         }).
         when('/reset-password/:token', {
             templateUrl: '/project/app/partials/change-password.html',
             controller: 'ResetPasswordCtrl',
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) { 
+                    return AuthResolver.resolve('/client/0', false);
+                },
+            }
         }).
         otherwise({
             redirectTo: '/',
@@ -287,6 +289,28 @@ newsApp.config(['$routeProvider', 'USER_ROLES', '$locationProvider',
                 content: 'Sorry, we can\'t remove your account, please try again !'
             });
         });
+
+        //Reset password
+        $rootScope.$on(USER_EVENTS.resetSuccess, function () {
+            var aToast = ngToast.create({
+                className: 'success',
+                content: 'You\'re password has been reset'
+            });
+        });
+
+        $rootScope.$on(USER_EVENTS.resetFailed, function () {
+            var aToast = ngToast.create({
+                className: 'danger',
+                content: 'An error occured while reseting you\'re password'
+            });
+        });
+
+        $rootScope.$on(USER_EVENTS.resetExpired, function () {
+            var aToast = ngToast.create({
+                className: 'danger',
+                content: 'This link has expired !'
+            });
+        });
     });
 
 newsApp.config(function ($httpProvider) {
@@ -339,5 +363,10 @@ newsApp.constant('AUTH_EVENTS', {
     passwordSuccess: "password-user-success",
     passwordFailed: "password-user-failed",
     deleteSuccess: "delete-user-success",
-    deleteFailed: "delete-user-failed"
+    deleteFailed: "delete-user-failed",
+    emailSucces: "send-email-success",
+    emailFailed: "send-email-failed",
+    resetSuccess: "password-reset-success",
+    resetFailed: "password-reset-failed",
+    resetExpired: "password-reset-expired"
 });

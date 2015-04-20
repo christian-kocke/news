@@ -230,8 +230,13 @@ newsServices.factory('AuthService', function ($http, Session, $log, $rootScope) 
 		return $http
 		.get('/project/RESTapi/public/api/user')
 		.then(function (res) {
-			Session.create(res.data.id, res.data.user.id, res.data.user.role);
-			return res.data.user;
+			console.log(res.data);
+			if(res.data !== "0"){
+				Session.create(res.data.id, res.data.user.id, res.data.user.role);
+				return res.data.user;
+			} else {
+				return null;
+			}
 		}, function () {
 			return null;
 		});
@@ -301,7 +306,7 @@ newsServices.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS, F
 newsServices.factory('AuthResolver', function ($q, $rootScope, $location, $log) {
 	return {
 
-		resolve: function () {
+		resolve: function (redirectAuth, redirectNotAuth) {
 
 			var deferred = $q.defer();
 			var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
@@ -309,12 +314,17 @@ newsServices.factory('AuthResolver', function ($q, $rootScope, $location, $log) 
 				if (angular.isDefined(currentUser)) {
 					
 					if (currentUser) {
-						$log.log("currentUser not null");
 						deferred.resolve(currentUser);
+						if(angular.isString(redirectAuth)) $location.path(redirectAuth);
 					} else {
-						$log.log("currentUser null");
-						deferred.reject();
-						$location.path('/');
+						if(angular.isString(redirectNotAuth)) {
+							deferred.reject();
+							$location.path(redirectNotAuth);
+						} else if(redirectNotAuth) {
+							$location.path('/');
+						}else {
+							deferred.resolve();
+						}
 					}
 
 					unwatch();
@@ -328,6 +338,8 @@ newsServices.factory('AuthResolver', function ($q, $rootScope, $location, $log) 
 	};// End return
 
 });// End AuthResolver
+
+
 
 
 newsServices.factory('SessionResolver', function ($q, $rootScope, $location, $log, Session) {

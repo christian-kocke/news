@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function()
 	});
 });
 
-Route::resource('api/user','UserController', ['only' => ['store']]);
+Route::resource('api/user','UserController', ['only' => ['store', 'index']]);
 
 Route::group(['middleware' => ['csrf', 'auth']], function()
 {
@@ -37,11 +37,11 @@ Route::group(['middleware' => ['csrf', 'auth']], function()
 	Route::post('api/article/display', 'ArticleController@index');
 	Route::post('api/article/setPicture', 'ArticleController@setPicture');
 	Route::resource('api/article','ArticleController');
-	Route::resource('api/user','UserController', ['except' => ['store']]);	
+	Route::resource('api/user','UserController', ['except' => ['store', 'index']]);	
 
 });
 
-//Route::get('home', 'HomeController@index');
+Route::get('home', 'HomeController@index');
 
 Route::controllers([
 	'password' => 'Auth\PasswordController',

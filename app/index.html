@@ -30,7 +30,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="AuthCtrl" ng-switch="!!currentUser">
-
+        {{!!currentUser}}
           <form class="navbar-form navbar-right" role="login" name="loginForm" ng-submit="login(credentials)" novalidate ng-switch-when="false">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Login" ng-model="credentials.email" required>
